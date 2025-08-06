@@ -3,35 +3,35 @@ import { Globe, Cloud, TrendingUp, Activity, Rocket } from 'lucide-react';
 
 const clients = [
   {
-    name: 'Aurora Finance',
+  
     icon: Globe,
     initials: 'Monashee',
     color: 'from-primary to-primary-glow',
     position: { x: 20, y: 30 },
   },
   {
-    name: 'Nimbus AI',
+
     icon: Cloud,
     initials: 'BlockChain',
     color: 'from-gold to-gold-light',
     position: { x: 70, y: 20 },
   },
   {
-    name: 'Zenith Capital',
+
     icon: TrendingUp,
     initials: 'Hedgeye',
     color: 'from-coral to-primary',
     position: { x: 80, y: 60 },
   },
   {
-    name: 'Quanta MedTech',
+ 
     icon: Activity,
     initials: 'CMG',
     color: 'from-primary-glow to-coral',
     position: { x: 30, y: 70 },
   },
   {
-    name: 'Novaris Ventures',
+
     icon: Rocket,
     initials: 'wave',
     color: 'from-gold to-primary',
@@ -40,7 +40,6 @@ const clients = [
 ];
 
 const ClientOrb = ({ client, index }: { client: typeof clients[0]; index: number }) => {
-  const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const orbRef = useRef<HTMLDivElement>(null);
 
@@ -61,66 +60,47 @@ const ClientOrb = ({ client, index }: { client: typeof clients[0]; index: number
     return () => observer.disconnect();
   }, [index]);
 
-  const { name, icon: Icon, initials, color, position } = client;
+  const {  icon: Icon, initials, color, position } = client;
 
   return (
     <div
       ref={orbRef}
-      className="absolute group cursor-pointer"
+      className="absolute group cursor-pointer animate-bob"
       style={{
         left: `${position.x}%`,
         top: `${position.y}%`,
         transform: 'translate(-50%, -50%)',
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Orb */}
+      {/* Orb (Balloon) */}
       <div
         className={`relative w-24 h-24 transition-all duration-700 ${
           isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
-        } ${isHovered ? 'scale-125' : ''}`}
+        }`}
       >
-        {/* Main Orb */}
         <div
-          className={`w-full h-full rounded-full bg-gradient-to-br ${color} flex items-center justify-center shadow-glow transition-all duration-500 float-animation`}
+          className={`w-full h-full rounded-full bg-gradient-to-br ${color} flex items-center justify-center shadow-glow transition-all duration-500`}
           style={{ animationDelay: `${index * 1}s` }}
         >
-          <span className="text-white font-bold text-lg">{initials}</span>
+          <span className="text-black font-bold text-lg">{initials}</span>
         </div>
 
         {/* Glow Effect */}
         <div
-          className={`absolute inset-0 rounded-full bg-gradient-to-br ${color} blur-xl opacity-30 transition-opacity duration-500 ${
-            isHovered ? 'opacity-60' : ''
-          }`}
+          className={`absolute inset-0 rounded-full bg-gradient-to-br ${color} blur-xl opacity-30`}
         />
 
         {/* Pulse Ring */}
         <div
-          className={`absolute inset-0 rounded-full border-2 border-white/30 transition-all duration-1000 ${
-            isHovered ? 'scale-150 opacity-0' : 'scale-100 opacity-100'
-          }`}
+          className={`absolute inset-0 rounded-full border-2 border-white/30 transition-all duration-1000`}
         />
       </div>
 
-      {/* Tooltip */}
-      <div
-        className={`absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 transition-all duration-300 ${
-          isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-        }`}
-      >
-        <div className="bg-white/90 backdrop-blur-md rounded-lg px-4 py-2 shadow-elegant">
-          <div className="flex items-center space-x-2">
-            <Icon className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-foreground whitespace-nowrap">
-              {name}
-            </span>
-          </div>
-          {/* Tooltip Arrow */}
-          <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white/90 rotate-45" />
-        </div>
-      </div>
+      {/* Thread (String) */}
+      <div className="absolute top-full left-1/2 w-px h-16 bg-border transform -translate-x-1/2" />
+
+      {/* Balloon Label */}
+  
     </div>
   );
 };
@@ -178,10 +158,10 @@ const ClientsSection = () => {
             ))}
           </div>
 
-          {/* Client Orbs */}
-          {clients.map((client, index) => (
-            <ClientOrb key={client.name} client={client} index={index} />
-          ))}
+       {clients.map((client, index) => (
+  <ClientOrb key={index} client={client} index={index} />
+))}
+
 
           {/* Ambient Glow */}
           <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent opacity-50" />

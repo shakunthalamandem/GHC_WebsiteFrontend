@@ -12,9 +12,9 @@ All colors MUST be HSL for proper theming.
     /* #FAFAFA Pearl White */
     /* --background: 0 0% 98%;  */
     /* Pastel Sky Blue #D0F0FF */
-    --background: 195 60% 92%; 
+    /* --background: 195 60% 92%;  */
     /* #D6F5E3 Pastel Mint */
-       --background: 165 50% 90%; 
+       --background: 215 50% 90%; 
 
 
     --foreground: 0 0% 7%; /* #111111 Charcoal Black */
@@ -295,6 +295,13 @@ All colors MUST be HSL for proper theming.
   }
 }
 
+@keyframes bob {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+  50% { transform: translate(-50%, -50%) translateY(-8px); }
+}
+.animate-bob {
+  animation: bob 4s ease-in-out infinite;
+}
 
 
 }
