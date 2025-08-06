@@ -9,7 +9,14 @@ All colors MUST be HSL for proper theming.
 @layer base {
   :root {
     /* Base Colors - Luminary Intelligence Theme */
-    --background: 0 0% 98%; /* #FAFAFA Pearl White */
+    /* #FAFAFA Pearl White */
+    /* --background: 0 0% 98%;  */
+    /* Pastel Sky Blue #D0F0FF */
+    --background: 195 60% 92%; 
+    /* #D6F5E3 Pastel Mint */
+       --background: 165 50% 90%; 
+
+
     --foreground: 0 0% 7%; /* #111111 Charcoal Black */
 
     /* Surface Colors */

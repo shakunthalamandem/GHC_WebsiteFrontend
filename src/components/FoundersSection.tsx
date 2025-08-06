@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { Linkedin, Twitter, Brain, Database } from 'lucide-react';
+import { Linkedin, Twitter } from 'lucide-react';
+import suresh from '@/assets/suresh.jfif';
+import sangeetha from '@/assets/sangeetha.jfif';
 
 const FoundersSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -28,23 +30,24 @@ const FoundersSection = () => {
     {
       name: 'Suresh Raju',
       title: 'Founder & Director',
-      description: 'AI Futurist with 15+ years in financial tech',
-      icon: Brain,
+      description: 'Suresh Raju, Founder of Golden Hills, has 15+ years of experience in investment management, capital markets, and corporate finance. He has worked with TVS Capital, Deutsche Bank (US), and ABAQUS, and is a member of IAN and TiE. Suresh holds an MBA from Chicago Booth, an M.S. from Ohio State, and a B.Tech from IIT Madras.',
+      image: suresh,
       gradient: 'from-primary to-primary-glow',
-      streamPosition: 'left',
     },
     {
-      name: 'Sangeetha',
-      title: 'Co-Founder ',
-      description: 'Managing Director',
-      icon: Database,
+      name: 'Sangeeta Raju',
+      title: 'Managing Director',
+      description: 'Sangeeta Raju is the co-founder of 72PI, providing custom solutions in business intelligence, reporting, and data analytics. Her experience spans roles at Amazon, Oracle, and Siebel Systems, and she specializes in cloud technologies and DevOps approaches.',
+      image: sangeetha,
       gradient: 'from-gold to-coral',
-      streamPosition: 'right',
     },
   ];
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 relative overflow-hidden bg-gradient-to-br from-background via-card/30 to-background">
+    <section
+      ref={sectionRef}
+      className="py-24 px-6 relative overflow-hidden bg-gradient-to-br from-background via-card/30 to-background"
+    >
       {/* Light Streams Background */}
       <div className="absolute inset-0">
         {/* Left Stream */}
@@ -54,7 +57,7 @@ const FoundersSection = () => {
           }`}
           style={{ transformOrigin: 'top' }}
         />
-        
+
         {/* Right Stream */}
         <div
           className={`absolute right-1/4 top-0 w-2 h-full bg-gradient-to-b from-primary via-primary/50 to-transparent transition-all duration-2000 delay-500 ${
@@ -107,21 +110,25 @@ const FoundersSection = () => {
             >
               {/* Founder Card */}
               <div className="relative group">
-                {/* Main Card */}
                 <div className="glass-morphism rounded-3xl p-8 hover:shadow-glow transition-all duration-500 group-hover:scale-105">
-                  {/* Icon */}
+                  {/* Founder Image */}
                   <div className="mb-6">
                     <div
-                      className={`w-20 h-20 bg-gradient-to-br ${founder.gradient} rounded-2xl flex items-center justify-center shadow-glow float-animation`}
+                      className={`w-32 h-32 bg-gradient-to-br ${founder.gradient} rounded-2xl flex items-center justify-center shadow-glow float-animation relative overflow-hidden`}
                       style={{ animationDelay: `${index * 0.5}s` }}
                     >
-                      <founder.icon className="w-10 h-10 text-white" />
+                      <img
+                        src={founder.image}
+                        alt={founder.name}
+                        className="w-full h-full object-cover rounded-2xl"
+                      />
+                      <div className="absolute inset-0 rounded-2xl animate-pulse bg-primary/10 group-hover:bg-primary/20 transition duration-500" />
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="space-y-4">
-                    <h3 className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                    <h3 className="text-3xl font-bold text-foreground">
                       {founder.name}
                     </h3>
                     <p className="text-lg font-semibold text-primary">
