@@ -222,4 +222,79 @@ All colors MUST be HSL for proper theming.
       radial-gradient(circle at 80% 20%, hsl(var(--gold) / 0.1) 0%, transparent 50%),
       radial-gradient(circle at 40% 80%, hsl(var(--coral) / 0.1) 0%, transparent 50%);
   }
+  @keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.float-animation {
+  animation: float 50s ease-in-out forwards backwards; /* Remove infinite, add forwards to keep final state */
+  animation-iteration-count: 5; /* Run only once */
+}
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0) rotate(45deg); }
+  50% { transform: translateY(5px) rotate(45deg); }
+}
+
+@keyframes bounce-slower {
+  0%, 100% { transform: translateY(0) rotate(45deg); }
+  50% { transform: translateY(10px) rotate(45deg); }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite ease-in-out;
+}
+
+.animate-bounce-slower {
+  animation: bounce-slower 2.5s infinite ease-in-out;
+}@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.float-animation {
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+.animate-glowPulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@layer utilities {
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+
+  @keyframes blink {
+    0%, 100% { border-color: transparent }
+    50% { border-color: currentColor }
+  }
+
+  .animate-typing {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid currentColor;
+    animation: typing 3s steps(40, end), blink 0.7s step-end;
+    animation-fill-mode: forwards;
+  }
+}
+
+
+
 }

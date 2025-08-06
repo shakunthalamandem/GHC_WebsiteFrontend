@@ -1,74 +1,74 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Code, BarChart3, Eye, TrendingUp } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const expertiseData = [
   {
     icon: Code,
-    title: 'Custom Software',
-    description: 'Tailored platforms that evolve with your business goals.',
+    title: 'Software Development',
+    description:
+      'Expertise in Python, Java, .Net, Django, Angular, and cloud-native solutions tailored to your business goals.',
     gradient: 'from-primary to-primary-glow',
   },
   {
     icon: BarChart3,
-    title: 'Advanced Analytics',
-    description: 'Harness structured insights for smarter decisions, in real-time.',
+    title: 'Data Science & AI-ML',
+    description:
+      'Advanced machine learning models, NLP solutions, and scalable deployment for data-driven transformation.',
     gradient: 'from-gold to-gold-light',
   },
   {
     icon: Eye,
     title: 'Data Visualization',
-    description: 'Reveal hidden patterns through beautiful, intuitive visuals.',
+    description:
+      'Crafting interactive dashboards with Tableau, Looker, D3.js, and custom visualizations for actionable insights.',
     gradient: 'from-coral to-primary',
   },
   {
     icon: TrendingUp,
-    title: 'Financial Research',
-    description: 'Precise, data-backed intelligence for capital and strategic growth.',
+    title: 'Research & Consulting',
+    description:
+      'Market research, financial modeling, risk management, and opportunity analysis for strategic growth.',
     gradient: 'from-primary-glow to-gold',
   },
 ];
 
-const ExpertiseCard = ({ expertise, index }: { expertise: typeof expertiseData[0]; index: number }) => {
+// Animation Variants
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.3, // Cards will appear one by one
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50, rotate: -2 },
+  visible: { opacity: 1, y: 0, rotate: 0, transition: { duration: 0.8, ease: 'easeOut' as const } },
+};
+
+const ExpertiseCard = ({ expertise }: { expertise: typeof expertiseData[0] }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), index * 200);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [index]);
-
   const { icon: Icon, title, description, gradient } = expertise;
 
   return (
-    <div
-      ref={cardRef}
-      className={`relative group transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}
+    <motion.div
+      variants={cardVariants}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      className="relative group"
     >
       <div
-        className={`relative h-80 glass-morphism rounded-3xl p-8 transition-all duration-500 hover:shadow-glow ${
-          isHovered ? 'scale-105 shadow-elegant' : ''
+        className={`relative h-90 glass-morphism rounded-3xl p-8 transition-all duration-500 hover:shadow-glow ${
+          isHovered ? 'scale-105 shadow-elegant float-animation' : ''
         }`}
       >
-        {/* Gradient Background */}
+        {/* Gradient Background Pulse */}
         <div
-          className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl`}
+          className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl ${
+            isHovered ? 'animate-glowPulse' : ''
+          }`}
         />
 
         {/* Icon */}
@@ -91,9 +91,7 @@ const ExpertiseCard = ({ expertise, index }: { expertise: typeof expertiseData[0
           >
             {title}
           </h3>
-          <p className="text-muted-foreground leading-relaxed text-lg">
-            {description}
-          </p>
+          <p className="text-muted-foreground leading-relaxed text-lg">{description}</p>
         </div>
 
         {/* Hover Effect Border */}
@@ -103,7 +101,7 @@ const ExpertiseCard = ({ expertise, index }: { expertise: typeof expertiseData[0
           }`}
         />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -119,19 +117,21 @@ const ExpertiseSection = () => {
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Four pillars of intelligence that drive transformational outcomes for forward-thinking organizations
+            Empowering Organizations with Intelligent Solutions
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {expertiseData.map((expertise, index) => (
-            <ExpertiseCard
-              key={expertise.title}
-              expertise={expertise}
-              index={index}
-            />
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          {expertiseData.map((expertise) => (
+            <ExpertiseCard key={expertise.title} expertise={expertise} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

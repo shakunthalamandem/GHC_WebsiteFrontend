@@ -179,9 +179,7 @@ const FoundersSection = () => {
         {/* Quote Section */}
         <div className="text-center mt-20">
           <blockquote className="text-2xl italic text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            "We believe that the future belongs to organizations that can harness
-            the power of intelligent data. Our mission is to make that future
-            accessible, scalable, and transformative for every business we touch."
+            "Golden Hills India harnesses the power of data to deliver strategic insights that drive innovation and impact. We are committed to partnering with clients to unlock new opportunities for growth and success."
           </blockquote>
           <div className="mt-6 text-lg font-semibold text-primary">
             — Golden Hills India Leadership Team

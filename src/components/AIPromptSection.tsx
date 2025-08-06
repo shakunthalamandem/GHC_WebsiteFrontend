@@ -12,7 +12,7 @@ const AIPromptSection = () => {
     if (!prompt.trim()) return;
 
     setIsLoading(true);
-    
+
     // Simulate AI response
     setTimeout(() => {
       setResponse(
@@ -43,17 +43,28 @@ const AIPromptSection = () => {
               isFocused ? 'scale-105 shadow-glow' : 'shadow-elegant'
             }`}
           >
-            <input
-              type="text"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              placeholder="Ask us how AI can transform your business..."
-              className={`w-full px-8 py-6 rounded-full bg-card border-2 transition-all duration-500 text-lg focus:outline-none focus:border-primary ${
-                isFocused ? 'border-primary pulse-glow' : 'border-border'
-              }`}
-            />
+            <div className="relative">
+              {/* Typing Placeholder Animation */}
+              {!prompt && !isFocused && (
+                <span className="absolute left-8 top-1/2 transform -translate-y-1/2 text-muted-foreground text-lg whitespace-nowrap overflow-hidden border-r-2 border-muted-foreground animate-typing">
+                  Search company policies, culture, benefits, careers...
+                </span>
+              )}
+
+              {/* Input Field */}
+              <input
+                type="text"
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                className={`w-full px-8 py-6 rounded-full bg-card border-2 transition-all duration-500 text-lg focus:outline-none focus:border-primary ${
+                  isFocused ? 'border-primary pulse-glow' : 'border-border'
+                }`}
+              />
+            </div>
+
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={!prompt.trim() || isLoading}

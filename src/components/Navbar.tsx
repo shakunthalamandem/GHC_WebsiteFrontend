@@ -25,7 +25,7 @@ const Navbar = () => {
           <img
             src={logo}
             alt="Golden Hills India Logo"
-            className="w-30 h-12 object-contain"
+            className="w-50 h-20 object-contain"
           />
         
         </div>
@@ -36,7 +36,7 @@ const Navbar = () => {
             href="#history"
             className="text-foreground font-medium glow-underline transition-all duration-300 hover:text-primary"
           >
-            History
+            About
           </a>
         </div>
       </div>

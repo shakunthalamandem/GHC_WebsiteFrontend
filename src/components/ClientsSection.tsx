@@ -5,35 +5,35 @@ const clients = [
   {
     name: 'Aurora Finance',
     icon: Globe,
-    initials: 'AF',
+    initials: 'Monashee',
     color: 'from-primary to-primary-glow',
     position: { x: 20, y: 30 },
   },
   {
     name: 'Nimbus AI',
     icon: Cloud,
-    initials: 'NA',
+    initials: 'BlockChain',
     color: 'from-gold to-gold-light',
     position: { x: 70, y: 20 },
   },
   {
     name: 'Zenith Capital',
     icon: TrendingUp,
-    initials: 'ZC',
+    initials: 'Hedgeye',
     color: 'from-coral to-primary',
     position: { x: 80, y: 60 },
   },
   {
     name: 'Quanta MedTech',
     icon: Activity,
-    initials: 'QM',
+    initials: 'CMG',
     color: 'from-primary-glow to-coral',
     position: { x: 30, y: 70 },
   },
   {
     name: 'Novaris Ventures',
     icon: Rocket,
-    initials: 'NV',
+    initials: 'wave',
     color: 'from-gold to-primary',
     position: { x: 60, y: 80 },
   },
@@ -84,7 +84,7 @@ const ClientOrb = ({ client, index }: { client: typeof clients[0]; index: number
         {/* Main Orb */}
         <div
           className={`w-full h-full rounded-full bg-gradient-to-br ${color} flex items-center justify-center shadow-glow transition-all duration-500 float-animation`}
-          style={{ animationDelay: `${index * 0.5}s` }}
+          style={{ animationDelay: `${index * 1}s` }}
         >
           <span className="text-white font-bold text-lg">{initials}</span>
         </div>
