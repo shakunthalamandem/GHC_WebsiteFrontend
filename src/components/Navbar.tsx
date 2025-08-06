@@ -22,7 +22,7 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-gradient-sky-gold rounded-full flex items-center justify-center shadow-glow">
-            <span className="text-white font-bold text-lg">GH</span>
+            <span className="text-white font-bold text-lg">GHC</span>
           </div>
           <h1 className="text-xl font-bold text-foreground font-inter">
             Golden Hills India

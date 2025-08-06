@@ -56,16 +56,15 @@ const ExpertiseCard = ({ expertise, index }: { expertise: typeof expertiseData[0
     <div
       ref={cardRef}
       className={`relative group transition-all duration-700 ${
-        isVisible ? 'animate-fade-in opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className={`relative h-80 glass-morphism rounded-3xl p-8 transition-all duration-500 float-animation hover:shadow-glow ${
+        className={`relative h-80 glass-morphism rounded-3xl p-8 transition-all duration-500 hover:shadow-glow ${
           isHovered ? 'scale-105 shadow-elegant' : ''
         }`}
-        style={{ animationDelay: `${index * 0.5}s` }}
       >
         {/* Gradient Background */}
         <div
@@ -100,7 +99,7 @@ const ExpertiseCard = ({ expertise, index }: { expertise: typeof expertiseData[0
         {/* Hover Effect Border */}
         <div
           className={`absolute inset-0 rounded-3xl border-2 border-transparent transition-all duration-500 ${
-            isHovered ? `border-primary shadow-glow` : ''
+            isHovered ? 'border-primary shadow-glow' : ''
           }`}
         />
       </div>

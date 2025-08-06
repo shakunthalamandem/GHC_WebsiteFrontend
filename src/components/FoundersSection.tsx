@@ -26,17 +26,17 @@ const FoundersSection = () => {
 
   const founders = [
     {
-      name: 'Anirudh K. Rao',
-      title: 'Co-Founder & CEO',
+      name: 'Suresh Raju',
+      title: 'Founder & Director',
       description: 'AI Futurist with 15+ years in financial tech',
       icon: Brain,
       gradient: 'from-primary to-primary-glow',
       streamPosition: 'left',
     },
     {
-      name: 'Ritika Sharma',
-      title: 'Co-Founder & CTO',
-      description: 'Architect of scalable data platforms for fintech',
+      name: 'Sangeetha',
+      title: 'Co-Founder ',
+      description: 'Managing Director',
       icon: Database,
       gradient: 'from-gold to-coral',
       streamPosition: 'right',

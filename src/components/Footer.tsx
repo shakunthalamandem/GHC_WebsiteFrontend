@@ -71,17 +71,16 @@ Founded by visionary leaders with decades of experience in financial technology 
       content: {
         title: 'Our Location',
         body: `Golden Hills India
-Innovation District, Tech Tower
-Bangalore, Karnataka 560001
+Financial District,
+Suvarna Durga Tech park
 India
 
-Phone: +91 80 4567 8900
-Email: contact@goldenhillsindia.com
+Phone: +91 7207011234
+Email: ghcadmin@goldenhillsindia.com
 
 Business Hours:
-Monday - Friday: 9:00 AM - 6:00 PM IST
-Saturday: 10:00 AM - 2:00 PM IST
-Sunday: Closed
+Monday - Friday: 9:30 AM - 6:30 PM IST
+Saturday & Sunday: Closed
 
 For urgent inquiries outside business hours, please email us and we'll respond within 24 hours.`,
         isAddress: true,
@@ -155,7 +154,7 @@ For urgent inquiries outside business hours, please email us and we'll respond w
           <div className="text-center">
             <div className="flex items-center justify-center space-x-3 mb-4">
               <div className="w-12 h-12 bg-gradient-sky-gold rounded-full flex items-center justify-center shadow-glow">
-                <span className="text-white font-bold text-lg">GH</span>
+                <span className="text-white font-bold text-lg">GHC</span>
               </div>
               <h3 className="text-2xl font-bold text-foreground">
                 Golden Hills India
@@ -175,7 +174,7 @@ For urgent inquiries outside business hours, please email us and we'll respond w
       {activeModal && activeContent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
           {/* Backdrop */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-fade-in"
             onClick={closeModal}
           />
@@ -196,31 +195,24 @@ For urgent inquiries outside business hours, please email us and we'll respond w
             </div>
 
             {/* Body */}
-            <div className="p-8 overflow-y-auto max-h-[60vh]">
-              {activeContent.isAddress ? (
-                <div className="space-y-6">
-                  <div className="prose prose-lg max-w-none">
-                    <div className="whitespace-pre-line text-muted-foreground leading-relaxed">
-                      {activeContent.body}
-                    </div>
-                  </div>
-                  
-                  {/* Embedded Map Placeholder */}
-                  <div className="w-full h-64 bg-card rounded-2xl flex items-center justify-center border-2 border-dashed border-border">
-                    <div className="text-center">
-                      <MapPin className="w-12 h-12 text-primary mx-auto mb-4" />
-                      <p className="text-muted-foreground">Interactive Map</p>
-                      <p className="text-sm text-muted-foreground">
-                        Click to view location on Google Maps
-                      </p>
-                    </div>
-                  </div>
+            <div className="p-8 overflow-y-auto max-h-[60vh] space-y-6">
+              <div className="prose prose-lg max-w-none">
+                <div className="whitespace-pre-line text-muted-foreground leading-relaxed">
+                  {activeContent.body}
                 </div>
-              ) : (
-                <div className="prose prose-lg max-w-none">
-                  <div className="whitespace-pre-line text-muted-foreground leading-relaxed">
-                    {activeContent.body}
-                  </div>
+              </div>
+
+              {activeContent.isAddress && (
+                <div className="w-full h-64 rounded-2xl overflow-hidden">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.1327984030914!2d78.39875!3d17.443676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb916718d39ae7%3A0x67d87622ad1cb355!2sGolden%20Hills%20Capital%20India%20Private%20Limited.!5e0!3m2!1sen!2sin!4v1691497295681!5m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                 
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
                 </div>
               )}
             </div>
@@ -232,3 +224,4 @@ For urgent inquiries outside business hours, please email us and we'll respond w
 };
 
 export default Footer;
+ 

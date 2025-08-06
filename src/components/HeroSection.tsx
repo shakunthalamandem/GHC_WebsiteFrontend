@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import heroImage from '@/assets/ai-hero.jpg';
+// import heroImage from '@/assets/ai-hero.jpg';
+import heroImage from '@/assets/background.jfif';
 
 const HeroSection = () => {
   const parallaxRef = useRef<HTMLDivElement>(null);
