@@ -30,16 +30,20 @@ const FoundersSection = () => {
     {
       name: 'Suresh Raju',
       title: 'Founder & Director',
-      description: 'Suresh Raju, Founder of Golden Hills, has 15+ years of experience in investment management, capital markets, and corporate finance. He has worked with TVS Capital, Deutsche Bank (US), and ABAQUS, and is a member of IAN and TiE. Suresh holds an MBA from Chicago Booth, an M.S. from Ohio State, and a B.Tech from IIT Madras.',
+      description:
+        'Suresh Raju, Founder of Golden Hills, has 15+ years of experience in investment management, capital markets, and corporate finance. He has worked with TVS Capital, Deutsche Bank (US), and ABAQUS, and is a member of IAN and TiE. Suresh holds an MBA from Chicago Booth, an M.S. from Ohio State, and a B.Tech from IIT Madras.',
       image: suresh,
       gradient: 'from-primary to-primary-glow',
+      linkedin: 'https://www.linkedin.com/in/tsureshraju/',
     },
     {
       name: 'Sangeeta Raju',
       title: 'Managing Director',
-      description: 'Sangeeta Raju is the co-founder of 72PI, providing custom solutions in business intelligence, reporting, and data analytics. Her experience spans roles at Amazon, Oracle, and Siebel Systems, and she specializes in cloud technologies and DevOps approaches.',
+      description:
+        'Sangeeta Raju is the co-founder of 72PI, providing custom solutions in business intelligence, reporting, and data analytics. Her experience spans roles at Amazon, Oracle, and Siebel Systems, and she specializes in cloud technologies and DevOps approaches.',
       image: sangeetha,
       gradient: 'from-gold to-coral',
+      linkedin: 'https://www.linkedin.com/in/sangeeta-raju/',
     },
   ];
 
@@ -49,7 +53,7 @@ const FoundersSection = () => {
       className="py-24 px-6 relative overflow-hidden bg-gradient-to-br from-background via-card/30 to-background"
     >
       {/* Light Streams Background */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 pointer-events-none">
         {/* Left Stream */}
         <div
           className={`absolute left-1/4 top-0 w-2 h-full bg-gradient-to-b from-gold via-gold/50 to-transparent transition-all duration-2000 ${
@@ -96,7 +100,8 @@ const FoundersSection = () => {
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            The pioneering minds behind Golden Hills India's revolutionary approach to intelligent business solutions
+            The pioneering minds behind Golden Hills India's revolutionary
+            approach to intelligent business solutions
           </p>
         </div>
 
@@ -104,9 +109,9 @@ const FoundersSection = () => {
           {founders.map((founder, index) => (
             <div
               key={founder.name}
-              className={`relative transition-all duration-1000 delay-${index * 500} ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
+              className={`relative transition-all duration-1000 delay-${
+                index * 500
+              } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             >
               {/* Founder Card */}
               <div className="relative group">
@@ -140,9 +145,14 @@ const FoundersSection = () => {
 
                     {/* Social Links */}
                     <div className="flex space-x-4 pt-4">
-                      <button className="w-12 h-12 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 btn-glow">
+                      <a
+                        href={founder.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 z-10 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 btn-glow"
+                      >
                         <Linkedin className="w-5 h-5" />
-                      </button>
+                      </a>
                       <button className="w-12 h-12 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 btn-glow">
                         <Twitter className="w-5 h-5" />
                       </button>
@@ -151,13 +161,16 @@ const FoundersSection = () => {
 
                   {/* Background Glow */}
                   <div
-                    className={`absolute inset-0 bg-gradient-to-br ${founder.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-3xl`}
+                    className={`absolute inset-0 bg-gradient-to-br ${founder.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-3xl pointer-events-none`}
                   />
                 </div>
 
                 {/* Floating Particles */}
-                <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-gold-coral rounded-full opacity-60 float-animation" />
-                <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-sky-gold rounded-full opacity-40 float-animation" style={{ animationDelay: '1s' }} />
+                <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-gold-coral rounded-full opacity-60 float-animation pointer-events-none" />
+                <div
+                  className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-sky-gold rounded-full opacity-40 float-animation pointer-events-none"
+                  style={{ animationDelay: '1s' }}
+                />
               </div>
             </div>
           ))}
@@ -166,8 +179,9 @@ const FoundersSection = () => {
         {/* Quote Section */}
         <div className="text-center mt-20">
           <blockquote className="text-2xl italic text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            "We believe that the future belongs to organizations that can harness the power of intelligent data. 
-            Our mission is to make that future accessible, scalable, and transformative for every business we touch."
+            "We believe that the future belongs to organizations that can harness
+            the power of intelligent data. Our mission is to make that future
+            accessible, scalable, and transformative for every business we touch."
           </blockquote>
           <div className="mt-6 text-lg font-semibold text-primary">
             — Golden Hills India Leadership Team
