@@ -76,7 +76,7 @@ Experience the Power of Our Next-Gen AI Assistant in Action          </p>
                 playsInline
                 onEnded={() => setIsPlaying(false)}
               >
-                <source src="/public/video.mp4" type="video/mp4" />
+                <source src="/video.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
 
