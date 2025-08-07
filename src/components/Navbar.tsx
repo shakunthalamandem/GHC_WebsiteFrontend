@@ -36,7 +36,7 @@ const Navbar = () => {
             href="#history"
             className="text-foreground font-medium glow-underline transition-all duration-300 hover:text-primary"
           >
-            About
+ 
           </a>
         </div>
       </div>
