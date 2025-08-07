@@ -1,25 +1,42 @@
 import { useState } from 'react';
-import { Send, Sparkles } from 'lucide-react';
+import { Send, Sparkles, X } from 'lucide-react';
+import DynamicRenderer from './Promptsection/DynamicRenderer';
+import { DynamicBlock } from './Promptsection/types';
 
 const AIPromptSection = () => {
   const [prompt, setPrompt] = useState('');
-  const [response, setResponse] = useState('');
+  const [responseBlocks, setResponseBlocks] = useState<DynamicBlock[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!prompt.trim()) return;
 
     setIsLoading(true);
+    setResponseBlocks(null);
 
-    // Simulate AI response
-    setTimeout(() => {
-      setResponse(
-        `At Golden Hills India, we harness the power of advanced analytics and AI to transform your "${prompt}" challenges into strategic opportunities. Our custom solutions integrate seamlessly with your existing infrastructure, providing real-time insights and predictive capabilities that drive measurable growth.`
-      );
+    try {
+      const res = await fetch('http://192.168.1.40:8000/api/dummy_assistant/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ question: prompt }),
+      });
+
+      if (!res.ok) throw new Error('API error');
+
+      const data = await res.json();
+      setResponseBlocks(data.response);
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error('Fetch error:', error);
+      setResponseBlocks([]);
+    } finally {
       setIsLoading(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -28,30 +45,23 @@ const AIPromptSection = () => {
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-6">
             <Sparkles className="w-8 h-8 text-primary mr-3" />
-            <h2 className="text-4xl font-bold text-foreground">
-              Ask Our AI Assistant
-            </h2>
+            <h2 className="text-4xl font-bold text-foreground">Ask Our AI Assistant</h2>
           </div>
           <p className="text-xl text-muted-foreground">
             Discover how our intelligent solutions can transform your business
           </p>
         </div>
 
+        {/* Search Bar */}
         <form onSubmit={handleSubmit} className="relative">
-          <div
-            className={`relative transition-all duration-500 ${
-              isFocused ? 'scale-105 shadow-glow' : 'shadow-elegant'
-            }`}
-          >
+          <div className={`relative transition-all duration-500 ${isFocused ? 'scale-105 shadow-glow' : 'shadow-elegant'}`}>
             <div className="relative">
-              {/* Typing Placeholder Animation */}
               {!prompt && !isFocused && (
-                <span className="absolute left-8 top-1/2 transform -translate-y-1/2 text-muted-foreground text-lg whitespace-nowrap overflow-hidden border-r-2 border-muted-foreground animate-typing">
+                <span className="absolute left-8 top-1/2 transform -translate-y-1/2 text-muted-foreground text-lg whitespace-nowrap border-r-2 border-muted-foreground animate-typing">
                   Search company policies, culture, benefits, careers...
                 </span>
               )}
 
-              {/* Input Field */}
               <input
                 type="text"
                 value={prompt}
@@ -64,7 +74,6 @@ const AIPromptSection = () => {
               />
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={!prompt.trim() || isLoading}
@@ -79,17 +88,24 @@ const AIPromptSection = () => {
           </div>
         </form>
 
-        {/* AI Response */}
-        {response && (
-          <div className="mt-8 p-8 glass-morphism rounded-2xl animate-fade-in">
-            <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 bg-gradient-sky-gold rounded-full flex items-center justify-center flex-shrink-0">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-foreground mb-2">AI Assistant</h3>
-                <p className="text-muted-foreground leading-relaxed">{response}</p>
-              </div>
+        {/* Loading indicator */}
+        {isLoading && (
+          <div className="mt-8 text-center text-muted-foreground animate-pulse">
+            Processing your request...
+          </div>
+        )}
+
+        {/* Modal */}
+        {isModalOpen && responseBlocks && !isLoading && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+            <div className="bg-white dark:bg-background rounded-lg shadow-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <DynamicRenderer response={responseBlocks} />
             </div>
           </div>
         )}
