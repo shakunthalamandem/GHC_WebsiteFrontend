@@ -1,44 +1,40 @@
-import { useState } from 'react';
-import { Code, BarChart3, Eye, TrendingUp } from 'lucide-react';
+import {
+  Code,
+  BarChart3,
+  Eye,
+  TrendingUp,
+  Cloud,
+  Database,
+  LineChart,
+  Settings,
+  Brain,
+  Bot,
+  CreditCard,
+  Wallet,
+  Network,
+  Globe,
+  LayoutDashboard,
+} from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const expertiseData = [
-  {
-    icon: Code,
-    title: 'Software Development',
-    description:
-      'Expertise in Python, Java, .Net, Django, Angular, and cloud-native solutions tailored to your business goals.',
-    gradient: 'from-primary to-primary-glow',
-  },
-  {
-    icon: BarChart3,
-    title: 'Data Science & AI-ML',
-    description:
-      'Advanced machine learning models, NLP solutions, and scalable deployment for data-driven transformation.',
-    gradient: 'from-gold to-gold-light',
-  },
-  {
-    icon: Eye,
-    title: 'Data Visualization',
-    description:
-      'Crafting interactive dashboards with Tableau, Looker, D3.js, and custom visualizations for actionable insights.',
-    gradient: 'from-coral to-primary',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Research & Consulting',
-    description:
-      'Market research, financial modeling, risk management, and opportunity analysis for strategic growth.',
-    gradient: 'from-primary-glow to-gold',
-  },
+  { icon: Bot, title: 'AI-Driven Decision Intelligence', path: '/expertise/ai-decision-intelligence', gradient: 'from-primary to-primary-glow' },
+  { icon: BarChart3, title: 'Data Analytics and Engineering', path: '/expertise/data-analytics', gradient: 'from-gold to-gold-light' },
+  { icon: Globe, title: 'Financial Technology & Digital Transformation', path: '/expertise/fintech-digital', gradient: 'from-coral to-primary' },
+  { icon: Code, title: 'Custom Software & Web App Development', path: '/expertise/software-web', gradient: 'from-primary-glow to-gold' },
+  { icon: Cloud, title: 'Cloud Computing and Deployment', path: '/expertise/cloud-deployment', gradient: 'from-green-400 to-blue-500' },
+  { icon: LineChart, title: 'Risk Analytics & Portfolio Optimization', path: '/expertise/risk-analytics', gradient: 'from-indigo-400 to-pink-400' },
+  { icon: LayoutDashboard, title: 'Business Intelligence & Visualization', path: '/expertise/business-intel', gradient: 'from-green-500 to-red-300' },
+  { icon: Brain, title: 'Quantitative Research & Financial Modeling', path: '/expertise/quant-research', gradient: 'from-blue-600 to-cyan-400' },
 ];
 
-// Animation Variants
 const containerVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.3, // Cards will appear one by one
+      staggerChildren: 0.3,
     },
   },
 };
@@ -49,18 +45,20 @@ const cardVariants = {
 };
 
 const ExpertiseCard = ({ expertise }: { expertise: typeof expertiseData[0] }) => {
+  const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
-  const { icon: Icon, title, description, gradient } = expertise;
+  const { icon: Icon, title, gradient, path } = expertise;
 
   return (
     <motion.div
       variants={cardVariants}
+      className="relative group cursor-pointer"
+      onClick={() => navigate(path)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative group"
     >
       <div
-        className={`relative h-90 glass-morphism rounded-3xl p-8 transition-all duration-500 hover:shadow-glow ${
+        className={`relative w-full h-[380px] glass-morphism rounded-3xl p-8 transition-all duration-500 hover:shadow-glow flex flex-col justify-between ${
           isHovered ? 'scale-105 shadow-elegant float-animation' : ''
         }`}
       >
@@ -72,7 +70,7 @@ const ExpertiseCard = ({ expertise }: { expertise: typeof expertiseData[0] }) =>
         />
 
         {/* Icon */}
-        <div className="relative z-10 mb-6">
+        <div className="relative z-10 mb-4">
           <div
             className={`w-16 h-16 bg-gradient-to-br ${gradient} rounded-2xl flex items-center justify-center shadow-glow transition-transform duration-500 ${
               isHovered ? 'scale-110 rotate-6' : ''
@@ -91,7 +89,7 @@ const ExpertiseCard = ({ expertise }: { expertise: typeof expertiseData[0] }) =>
           >
             {title}
           </h3>
-          <p className="text-muted-foreground leading-relaxed text-lg">{description}</p>
+
         </div>
 
         {/* Hover Effect Border */}
@@ -111,10 +109,7 @@ const ExpertiseSection = () => {
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-20">
           <h2 className="text-5xl font-bold text-foreground mb-6">
-            Our{' '}
-            <span className="bg-gradient-sky-gold bg-clip-text text-transparent">
-              Expertise
-            </span>
+            Our <span className="bg-gradient-sky-gold bg-clip-text text-transparent">Expertise</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Empowering Organizations with Intelligent Solutions

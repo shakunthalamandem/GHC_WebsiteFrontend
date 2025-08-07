@@ -34,7 +34,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-background/20" />
 
       {/* Content */}
-<div className="flex items-center justify-between h-screen px-12">
+<div className="flex items-center justify-center h-screen px-12">
   {/* Left Content */}
   <div className="relative z-10 text-center max-w-2xl">
     <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-8 leading-tight">
