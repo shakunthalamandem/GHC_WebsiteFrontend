@@ -1,12 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
-import { Linkedin } from 'lucide-react';
+import { Linkedin, ChevronLeft, ChevronRight } from 'lucide-react'; // added chevrons
 import suresh from '@/assets/suresh.jfif';
-import teamPhoto from '@/assets/generated-image.png'; // <-- Add your team photo here
+import teamPhoto1 from '@/assets/IMG-20250808-WA0035.jpg';
+// import teamPhoto2 from '@/assets/IMG-20250808-WA0155.jpg'; // example additional photo
+import teamPhoto3 from '@/assets/IMG-20250808-WA0035.jpg'; // example additional photo
+import teamPhoto2 from '@/assets/IMG-20250213-WA0155.jpg'
 
 const FoundersSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [streamAnimation, setStreamAnimation] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  // New: team photos array
+  const teamPhotos = [teamPhoto1, teamPhoto2, teamPhoto3];
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,6 +44,15 @@ const FoundersSection = () => {
       linkedin: 'https://www.linkedin.com/in/tsureshraju/',
     },
   ];
+
+  // Functions to slide photos
+  const prevPhoto = () => {
+    setCurrentPhotoIndex((prev) => (prev === 0 ? teamPhotos.length - 1 : prev - 1));
+  };
+
+  const nextPhoto = () => {
+    setCurrentPhotoIndex((prev) => (prev === teamPhotos.length - 1 ? 0 : prev + 1));
+  };
 
   return (
     <section
@@ -77,9 +93,10 @@ const FoundersSection = () => {
               className={`relative transition-all duration-1000 delay-${index * 500} ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
+              style={{ minHeight: '480px' }} // fixed height to match team card
             >
-              <div className="relative group text-center md:text-left">
-                <div className="glass-morphism rounded-3xl p-8 hover:shadow-glow transition-all duration-500 group-hover:scale-105">
+              <div className="relative group text-center md:text-left h-full flex flex-col">
+                <div className="glass-morphism rounded-3xl p-8 hover:shadow-glow transition-all duration-500 group-hover:scale-105 flex-1 flex flex-col">
                   <div className="mb-6 flex justify-center md:justify-start">
                     <div
                       className={`w-32 h-32 bg-gradient-to-br ${founder.gradient} rounded-2xl flex items-center justify-center shadow-glow float-animation relative overflow-hidden`}
@@ -92,10 +109,10 @@ const FoundersSection = () => {
                       <div className="absolute inset-0 rounded-2xl animate-pulse bg-primary/10 group-hover:bg-primary/20 transition duration-500" />
                     </div>
                   </div>
-                  <div className="space-y-4">
+                  <div className="space-y-4 flex-grow flex flex-col">
                     <h3 className="text-3xl font-bold text-foreground">{founder.name}</h3>
                     <p className="text-lg font-semibold text-primary">{founder.title}</p>
-                    <p className="text-muted-foreground leading-relaxed text-lg">{founder.description}</p>
+                    <p className="text-muted-foreground leading-relaxed text-lg flex-grow">{founder.description}</p>
                     <div className="flex space-x-4 pt-4 justify-center md:justify-start">
                       <a
                         href={founder.linkedin}
@@ -112,14 +129,43 @@ const FoundersSection = () => {
             </div>
           ))}
 
-          {/* Team Photo */}
+          {/* Team Photo Card */}
           <div
             className={`relative transition-all duration-1000 delay-500 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
+            style={{ minHeight: '480px' }} // same height as founder card
           >
-            <div className="rounded-3xl overflow-hidden shadow-lg hover:shadow-glow transition-all duration-500">
-              <img src={teamPhoto} alt="Our Team" className="w-full h-full object-cover" />
+            <div className="glass-morphism rounded-3xl p-6 shadow-glow flex flex-col items-center">
+              <h3 className="text-3xl font-semibold text-foreground mb-6">Team Members</h3>
+
+              {/* Carousel Container */}
+              <div className="relative w-full max-w-md overflow-hidden rounded-2xl">
+                {/* Slide image */}
+                <img
+                  src={teamPhotos[currentPhotoIndex]}
+                  alt={`Team member ${currentPhotoIndex + 1}`}
+                  className="w-full h-72 object-cover rounded-2xl transition duration-500"
+                />
+
+                {/* Left arrow */}
+                <button
+                  onClick={prevPhoto}
+                  aria-label="Previous photo"
+                  className="absolute top-1/2 left-4 -translate-y-1/2 bg-primary/30 hover:bg-primary/60 text-white rounded-full p-2 transition"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+
+                {/* Right arrow */}
+                <button
+                  onClick={nextPhoto}
+                  aria-label="Next photo"
+                  className="absolute top-1/2 right-4 -translate-y-1/2 bg-primary/30 hover:bg-primary/60 text-white rounded-full p-2 transition"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -127,7 +173,8 @@ const FoundersSection = () => {
         {/* Quote Section */}
         <div className="text-center mt-20">
           <blockquote className="text-2xl italic text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            "Golden Hills India harnesses the power of data to deliver strategic insights that drive innovation and impact. We are committed to partnering with clients to unlock new opportunities for growth and success."
+            "Golden Hills India harnesses the power of data to deliver strategic insights that drive innovation and
+            impact. We are committed to partnering with clients to unlock new opportunities for growth and success."
           </blockquote>
           <div className="mt-6 text-lg font-semibold text-primary">— Golden Hills India Leadership Team</div>
         </div>

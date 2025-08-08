@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MapPin, Shield, FileText, Users, X } from 'lucide-react';
+import { MapPin, Shield, FileText, Users, X, Linkedin, Instagram, Youtube } from 'lucide-react';
 
 const Footer = () => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
@@ -42,8 +42,7 @@ Contact us at privacy@goldenhillsindia.com for any privacy-related questions.`,
 
 <p>For questions regarding these terms, contact <strong>admin@goldenhillsindia.com</strong>.</p>`
       },
-    }
-    ,
+    },
     {
       id: 'about',
       icon: Users,
@@ -71,7 +70,7 @@ Founded by visionary leaders with decades of experience in financial technology 
       label: 'Address',
       content: {
         title: 'Our Location',
-body: `Golden Hills Capital India Pvt Ltd.<br/>
+        body: `Golden Hills Capital India Pvt Ltd.<br/>
 Unit A, 26th Floor, Eastern Block,<br/>
 Vamsiram Suvarna Durga Tech Park,<br/>
 Survey No 142, Nanakramguda, Financial District,<br/>
@@ -81,7 +80,6 @@ Phone: +91 7207011234<br/>
 Email: ghcadmin@goldenhillsindia.com<br/><br/>
 
 For urgent inquiries outside business hours, please email us and we'll respond within 24 hours.`,
-
         isAddress: true,
       },
     },
@@ -101,39 +99,36 @@ For urgent inquiries outside business hours, please email us and we'll respond w
 
   return (
     <>
-      <footer className="relative py-3 px-3 overflow-hidden"> {/* reduced from py-24 */}
+      <footer className="relative py-3 px-3 overflow-hidden">
         {/* Liquid Gold Background */}
         <div className="absolute inset-0 bg-gold opacity-15" />
         {/* <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" /> */}
 
         <div className="container mx-auto max-w-6xl relative z-10">
-          <div className="text-center mb-12"> {/* reduced from mb-16 */}
-            <h2 className="text-3xl font-bold text-blue-900 mb-4"> {/* smaller text */}
-Empowering Smarter Business Decisions Through Innovation
-   
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-blue-900 mb-4">
+              Empowering Smarter Business Decisions Through Innovation
             </h2>
             <p className="text-s text-muted-foreground max-w-2xl mx-auto">
-Golden Hills Capital provides advanced tech solutions that turn data into insights, empowering businesses to make smart decisions and grow sustainably.</p>          </div>
+              Golden Hills Capital provides advanced tech solutions that turn data into insights, empowering businesses to make smart decisions and grow sustainably.
+            </p>
+          </div>
 
           {/* Floating Orbs Navigation */}
-          <div className="flex justify-center items-center space-x-8 mb-10"> {/* reduced spacing */}
+          <div className="flex justify-center items-center space-x-8 mb-10">
             {footerLinks.map((link, index) => (
               <button
                 key={link.id}
                 onClick={() => openModal(link.id)}
                 className="group relative"
               >
-                {/* Main Orb */}
-               <div
-  className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-blue hover:shadow-glow transition-all duration-500 hover:scale-110 float-animation"
-  style={{ animationDelay: `${index * 0.3}s` }}
->
-  {/* White icon inside blue orb */}
-  <link.icon className="w-6 h-6 text-white" />
-</div>
+                <div
+                  className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-blue hover:shadow-glow transition-all duration-500 hover:scale-110 float-animation"
+                  style={{ animationDelay: `${index * 0.3}s` }}
+                >
+                  <link.icon className="w-6 h-6 text-white" />
+                </div>
 
-
-                {/* Tooltip */}
                 <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
                   <div className="bg-white/90 backdrop-blur-md rounded-lg px-2 py-1 shadow-elegant whitespace-nowrap">
                     <span className="text-xs font-medium text-foreground">
@@ -153,6 +148,41 @@ Golden Hills Capital provides advanced tech solutions that turn data into insigh
             </div>
           </div>
         </div>
+
+        {/* Social Icons Fixed Bottom Right */}
+  {/* Social Icons Fixed Bottom Right */}
+{/* Social Icons Inline inside Footer */}
+<div className="flex justify-center space-x-6 ">
+  <a
+    href="https://www.linkedin.com/company/golden-hills-india"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="p-3 rounded-full bg-blue-700 hover:bg-blue-800 text-white shadow-lg transition-colors"
+    aria-label="LinkedIn"
+  >
+    <Linkedin className="w-6 h-6" />
+  </a>
+  <a
+    href="https://www.instagram.com/goldenhillsindia"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="p-3 rounded-full bg-pink-600 hover:bg-pink-700 text-white shadow-lg transition-colors"
+    aria-label="Instagram"
+  >
+    <Instagram className="w-6 h-6" />
+  </a>
+  <a
+    href="https://www.youtube.com/@goldenhillsindia"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="p-3 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-lg transition-colors"
+    aria-label="YouTube"
+  >
+    <Youtube className="w-6 h-6" />
+  </a>
+</div>
+
+
       </footer>
 
       {/* Modal */}
@@ -167,7 +197,7 @@ Golden Hills Capital provides advanced tech solutions that turn data into insigh
           {/* Modal Content */}
           <div className="relative w-full max-w-4xl max-h-[80vh] bg-white rounded-3xl shadow-elegant animate-scale-in overflow-hidden">
             {/* Header */}
-<div className="bg-blue-900 p-6 text-white">
+            <div className="bg-blue-900 p-6 text-white">
               <div className="flex items-center justify-between">
                 <h2 className="text-3xl font-bold">{activeContent.title}</h2>
                 <button
@@ -186,7 +216,6 @@ Golden Hills Capital provides advanced tech solutions that turn data into insigh
                   className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: activeContent.body }}
                 />
-
               </div>
 
               {activeContent.isAddress && (
@@ -196,7 +225,6 @@ Golden Hills Capital provides advanced tech solutions that turn data into insigh
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
-
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
