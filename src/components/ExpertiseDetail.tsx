@@ -107,35 +107,37 @@ const ExpertiseDetail = () => {
             </section>
 
             {/* WHAT WE DO SECTION */}
-            <section className="h-screen snap-start px-10 py-10 flex flex-col items-center justify-center text-center bg-[#0d3257] text-white shadow-lg">
+            <section className="h-screen snap-start px-10 py-10 flex flex-col items-center justify-center text-center bg-[#a0c1bd] text-white shadow-lg">
                 <div className="max-w-4xl space-y-8 overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-white/10 pr-4">
-                    <h2 className="text-4xl font-bold text-primary-foreground">
+                    <h2 className="text-4xl font-bold text-[#030943]">
                         What We Do / How We Help
                     </h2>
-                    <ul className="list-disc list-inside text-lg space-y-2 text-blue-100 text-left mx-auto">
+                    <ul className="list-disc list-inside text-lg space-y-2 text-black text-left mx-auto">
                         {expertise.whatWeDo.map((point, index) => (
                             <li key={index}>{point}</li>
                         ))}
                     </ul>
-                    <h3 className="text-3xl font-semibold text-primary-foreground mt-8">
+                    <h3 className="text-3xl font-semibold text-[#030943] mt-8">
                         Key Benefits
                     </h3>
-                    <ul className="list-disc list-inside text-lg space-y-2 text-blue-100 text-left mx-auto">
+                    <ul className="list-disc list-inside text-lg space-y-2 text-black text-left mx-auto">
                         {expertise.benefits.map((benefit, index) => (
                             <li key={index}>{benefit}</li>
                         ))}
                     </ul>
-                    <h3 className="text-3xl font-semibold text-primary-foreground mt-8">
+                    <h3 className="text-3xl font-semibold text-[#030943] mt-8">
                         Illustrative Use Case
                     </h3>
-                    <p className="text-lg text-blue-100 leading-relaxed">
+                    <p className="text-lg text-black leading-relaxed">
                         {expertise.useCase}
                     </p>
                 </div>
             </section>
 
             {/* DETAILED SECTION */}
-       <section className="h-screen snap-start bg-gradient-to-b from-[#081a2f] to-[#0f2c4d] px-8 py-16 text-white">
+       <section className="h-screen snap-start bg-gradient-to-b from-[#c8cce1] via-[#a0c1bd] to-[#c8cce1]
+
+px-8 py-16 text-black">
   <div className="flex flex-col md:flex-row max-w-7xl mx-auto gap-10 items-start">
     {/* Sidebar */}
     <div className="md:w-1/4 space-y-4">
@@ -143,11 +145,11 @@ const ExpertiseDetail = () => {
         <button
           key={index}
           onClick={() => setActiveIndex(index)}
-          className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:bg-blue-800/60 ${
+          className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:bg-purple-400/40 ${
             activeIndex === index
-              ? 'bg-blue-700 font-semibold text-white'
-              : 'bg-white/10 text-blue-100'
-          }`}
+              ? 'bg-purple-500/50 font-semibold text-black'
+              : 'bg-white/10 text-black'
+          }`}   
         >
           {section.title}
         </button>
@@ -160,7 +162,7 @@ const ExpertiseDetail = () => {
         <h3 className="text-xl font-bold mb-4 border-b border-white/20 pb-2">
           {expertise.sections[activeIndex].title}
         </h3>
-        <p className="text-base text-blue-100 leading-relaxed">
+        <p className="text-base text-black leading-relaxed">
           {expertise.sections[activeIndex].content}
         </p>
       </div>
