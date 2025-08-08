@@ -6,6 +6,7 @@ import ExpertiseSection from '@/components/ExpertiseSection';
 import ClientsSection from '@/components/ClientsSection';
 import FoundersSection from '@/components/FoundersSection';
 import Footer from '@/components/Footer';
+import ISO27001Section from '@/components/ISO27001Section';
 
 const Index = () => {
   return (
@@ -16,7 +17,9 @@ const Index = () => {
       <VideoShowcase />
       <ExpertiseSection />
       <ClientsSection />
+          <ISO27001Section/>
       <FoundersSection />
+  
       <Footer />
     </div>
   );

@@ -155,8 +155,8 @@ For urgent inquiries outside business hours, please email us and we'll respond w
             <p className="text-muted-foreground text-sm mb-3">
               Empowering industries with fluid intelligence and precision
             </p>
-            <div className="text-xs text-muted-foreground">
-              © 2024 Golden Hills India. All rights reserved.
+            <div className="text-s text-muted-foreground">
+              © 2025 Golden Hills India. All rights reserved.
             </div>
           </div>
         </div>
@@ -174,7 +174,7 @@ For urgent inquiries outside business hours, please email us and we'll respond w
           {/* Modal Content */}
           <div className="relative w-full max-w-4xl max-h-[80vh] bg-white rounded-3xl shadow-elegant animate-scale-in overflow-hidden">
             {/* Header */}
-            <div className="bg-gradient-sky-gold p-6 text-white">
+<div className="bg-blue-900 p-6 text-white">
               <div className="flex items-center justify-between">
                 <h2 className="text-3xl font-bold">{activeContent.title}</h2>
                 <button
