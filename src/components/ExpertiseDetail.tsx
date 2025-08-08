@@ -38,7 +38,7 @@ const expertiseDetails: Record<
             'Personalize communications and offerings to clients based on data insights.',
         ],
         useCase:
-            'Investment teams often struggle to detect subtle movements in economic indicators or sentiment shifts. GHC’s AI models scan multiple data streams—news, trading activity, macroeconomic stats—to signal emerging opportunities or risks. This gives your team the edge to rebalance portfolios proactively, leading to higher returns and reduced exposure.',
+            'Investment teams often struggle to detect subtle movements in economic indicators or sentiment shifts. GHC AI models scan multiple data streams—news, trading activity, macroeconomic stats—to signal emerging opportunities or risks. This gives your team the edge to rebalance portfolios proactively, leading to higher returns and reduced exposure.',
         sections: [
             {
                 title: 'End-to-end portfolio building and performance analysis',
