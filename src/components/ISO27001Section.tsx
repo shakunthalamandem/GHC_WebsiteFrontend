@@ -151,7 +151,7 @@ const ISO27001Section = () => {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-3 text-2xl">
               <img src={isoBadge} alt="ISO 27001 Badge" className="w-8 h-8" />
-              ISO 27001:2013 Certification
+              ISO/IEC 27001:2022
             </DialogTitle>
             <DialogDescription>
               Information Security Management System Certification
@@ -200,7 +200,7 @@ const ISO27001Section = () => {
             
             <div className="border-t border-border pt-4">
               <p className="text-xs text-muted-foreground">
-                Certificate Number: ISO27001-2024-CERT-001 | Valid until: December 2025 | 
+                Certificate Number:  ISO/IEC 27001:2022 | Valid until: December 2026 | 
                 Audited by: Independent Security Auditors Ltd.
               </p>
             </div>

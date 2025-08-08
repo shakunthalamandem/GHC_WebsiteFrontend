@@ -108,19 +108,15 @@ For urgent inquiries outside business hours, please email us and we'll respond w
 
         <div className="container mx-auto max-w-6xl relative z-10">
           <div className="text-center mb-12"> {/* reduced from mb-16 */}
-            <h2 className="text-3xl font-bold text-foreground mb-4"> {/* smaller text */}
-              Ready to Transform Your{" "}
-              
-                Business?
+            <h2 className="text-3xl font-bold text-blue-900 mb-4"> {/* smaller text */}
+Empowering Smarter Business Decisions Through Innovation
    
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Let's discuss how our intelligent solutions can accelerate your growth
-            </p>
-          </div>
+            <p className="text-s text-muted-foreground max-w-2xl mx-auto">
+Golden Hills Capital provides advanced tech solutions that turn data into insights, empowering businesses to make smart decisions and grow sustainably.</p>          </div>
 
           {/* Floating Orbs Navigation */}
-          <div className="flex justify-center items-center space-x-8 mb-12"> {/* reduced spacing */}
+          <div className="flex justify-center items-center space-x-8 mb-10"> {/* reduced spacing */}
             {footerLinks.map((link, index) => (
               <button
                 key={link.id}
@@ -152,9 +148,6 @@ For urgent inquiries outside business hours, please email us and we'll respond w
 
           {/* Company Info */}
           <div className="text-center">
-            <p className="text-muted-foreground text-sm mb-3">
-              Empowering industries with fluid intelligence and precision
-            </p>
             <div className="text-s text-muted-foreground">
               © 2025 Golden Hills India. All rights reserved.
             </div>
