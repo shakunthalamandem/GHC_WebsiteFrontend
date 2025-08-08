@@ -101,7 +101,7 @@ For urgent inquiries outside business hours, please email us and we'll respond w
     <>
       <footer className="relative py-3 px-3 overflow-hidden">
         {/* Liquid Gold Background */}
-        <div className="absolute inset-0 bg-gold opacity-15" />
+        <div className="absolute inset-0 bg-[#ffd900db] opacity-15" />
         {/* <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" /> */}
 
         <div className="container mx-auto max-w-6xl relative z-10">

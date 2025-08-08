@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams ,useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import LAT3 from '../assets/10 Ways Technology is Shaping The Renewable Energy Industry In Australia.jfif';
 import pic1 from '../assets/pic1.jfif';
@@ -89,6 +89,8 @@ const expertiseDetails: Record<
 const ExpertiseDetail = () => {
     const { id } = useParams();
     const expertise = expertiseDetails[id ?? ''];
+    const navigate = useNavigate();  // <--- Add this
+
     const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
@@ -103,6 +105,17 @@ const ExpertiseDetail = () => {
 
     return (
         <div className="w-full h-screen snap-y snap-mandatory overflow-y-scroll scroll-smooth">
+                        {/* BACK BUTTON */}
+            <div className="fixed top-4 left-4 z-50 cursor-pointer text-white bg-black/50 rounded-full p-2 hover:bg-black transition">
+                <button
+                    onClick={() => navigate(-1)}
+                    aria-label="Go back"
+                    className="flex items-center space-x-2 text-lg font-semibold"
+                >
+                    <span className="text-2xl">{'←'}</span>
+                    <span className="hidden sm:inline">Back</span>
+                </button>
+            </div>
             {/* HERO SECTION */}
             <section className="h-screen snap-start relative">
                 <img
