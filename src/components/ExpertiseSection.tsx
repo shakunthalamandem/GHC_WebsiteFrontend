@@ -11,7 +11,7 @@ import {
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
+import { Variants } from "framer-motion";
 const expertiseData = [
   { icon: Bot, title: 'AI-Driven Decision Intelligence', path: '/expertise/ai-decision-intelligence', gradient: 'from-primary to-primary-glow' },
   { icon: BarChart3, title: 'Data Analytics and Engineering', path: '/expertise/data-analytics', gradient: 'from-gold to-gold-light' },
@@ -28,11 +28,17 @@ const containerVariants = {
   visible: { transition: { staggerChildren: 0.2 } },
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut" as const // <-- force literal type
+    }
+  }
 };
-
 const ExpertiseCard = ({ expertise }: { expertise: typeof expertiseData[0] }) => {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
