@@ -15,32 +15,32 @@ const icons: Record<string, LucideIcon> = {
   chart: BarChart
 };
 
+// Lighter, brighter background colors
 const bgColors = [
-  'bg-sky-900/30',
-  'bg-indigo-900/30',
-  'bg-purple-900/30',
-  'bg-emerald-900/30',
-  'bg-pink-900/30',
-  'bg-yellow-900/30'
+  'bg-yellow-100',
+  'bg-green-100',
+  'bg-blue-100',
+  'bg-pink-100',
+  'bg-purple-100',
+  'bg-orange-100'
 ];
 
 const CardBlock: React.FC<CardBlockProps> = ({ title, subtitle, description, icon }) => {
   const Icon = icon && icons[icon] ? icons[icon] : Briefcase;
 
-  // Memoize the color so it doesn’t change on every re-render
   const bgColor = useMemo(() => {
     const randomIndex = Math.floor(Math.random() * bgColors.length);
     return bgColors[randomIndex];
   }, []);
 
   return (
-    <div className={`p-5 ${bgColor} rounded-xl shadow border border-white/10`}>
+    <div className={`p-5 ${bgColor} rounded-xl shadow-md border border-black/10`}>
       <div className="flex items-center gap-3 mb-3">
-        <Icon className="w-6 h-6 text-sky-400" />
-        <h3 className="text-xl font-semibold text-white">{title}</h3>
+        <Icon className="w-6 h-6 text-black" />
+        <h3 className="text-xl font-semibold text-black">{title}</h3>
       </div>
-      {subtitle && <p className="text-sm text-sky-200 mb-2">{subtitle}</p>}
-      <p className="text-gray-300">{description}</p>
+      {subtitle && <p className="text-sm text-gray-800 mb-2">{subtitle}</p>}
+      <p className="text-gray-900">{description}</p>
     </div>
   );
 };

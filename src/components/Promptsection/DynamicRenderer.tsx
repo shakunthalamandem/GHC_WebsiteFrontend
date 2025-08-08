@@ -3,7 +3,7 @@ import ChartBlock from './ChartBlock';
 import CardBlock from './CardBlock';
 import TableBlock from './TableBlock';  
 import TextBlock from './TextBlock';
-// import LinkBlock from './LinkBlock';
+import LinkBlock from './LinkBlock';
 import { DynamicBlock } from './types';
 import SuggestedQuestionsBlock from './SuggestedQuestionsBlock';
 import SlidesBlock from './SlidesBlock';
@@ -25,8 +25,8 @@ const renderBlock = (item: DynamicBlock) => {
       return <TableBlock {...item} />;
     case 'chart':
       return <ChartBlock {...item} />;
-    // case 'link':
-    //   return <LinkBlock {...item} />;
+    case 'link':
+      return <LinkBlock {...item} />;
     case 'suggested_questions':
       return <SuggestedQuestionsBlock {...item} />;
     case 'slides':

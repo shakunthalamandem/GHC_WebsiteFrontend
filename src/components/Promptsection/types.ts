@@ -1,4 +1,6 @@
-export type BlockType = 'text' | 'card' | 'table' | 'tree' | 'chart' | 'slides' | 'suggested_questions'| 'calendar';
+import LinkBlock from "./LinkBlock";
+
+export type BlockType = 'text' | 'card' | 'table' | 'tree' | 'chart' | 'slides' | 'suggested_questions'| 'calendar'|'link';
 
 export type ChartType =
   | 'bar'
@@ -23,7 +25,11 @@ export interface TextBlock extends BaseBlock {
   type: 'text';
   content: string;
 }
-
+export interface LinkBlock extends BaseBlock{
+  type:'link'
+  text:string 
+  url:string
+}
 export interface CardBlock extends BaseBlock {
   type: 'card';
   title: string;
@@ -181,4 +187,5 @@ export type DynamicBlock =
   | SlidesBlock
   | SuggestedQuestionsBlock
   | ChartBlock
+  |LinkBlock
   | CalendarChartBlock;

@@ -32,22 +32,33 @@ ChartJS.register(
 );
 
 const bgColors = [
-  'bg-sky-900/30',
-  'bg-indigo-900/30',
-  'bg-purple-900/30',
-  'bg-emerald-900/30',
-  'bg-pink-900/30',
-  'bg-yellow-900/30'
+  'bg-sky-100',
+  'bg-indigo-100',
+  'bg-purple-100',
+  'bg-emerald-100',
+  'bg-pink-100',
+  'bg-yellow-100'
 ];
 
 const ChartBlock: React.FC<ChartBlock> = ({ chartType, title, data }) => {
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         labels: {
-          color: '#fff'
+          color: '#000'
         }
+      }
+    },
+    scales: {
+      x: {
+        ticks: { color: '#000' },
+        grid: { color: '#ccc' }
+      },
+      y: {
+        ticks: { color: '#000' },
+        grid: { color: '#ccc' }
       }
     }
   };
@@ -68,18 +79,14 @@ const ChartBlock: React.FC<ChartBlock> = ({ chartType, title, data }) => {
       case 'scatter':
         return (
           <Scatter
-            data={{
-              datasets: [{ label: 'Scatter', data, backgroundColor: '#38bdf8' }]
-            }}
+            data={{ datasets: [{ label: 'Scatter', data, backgroundColor: '#38bdf8' }] }}
             options={options}
           />
         );
       case 'bubble':
         return (
           <Bubble
-            data={{
-              datasets: [{ label: 'Bubbles', data, backgroundColor: '#a78bfa' }]
-            }}
+            data={{ datasets: [{ label: 'Bubbles', data, backgroundColor: '#a78bfa' }] }}
             options={options}
           />
         );
@@ -90,8 +97,8 @@ const ChartBlock: React.FC<ChartBlock> = ({ chartType, title, data }) => {
             options={{
               ...options,
               scales: {
-                x: { stacked: true },
-                y: { stacked: true }
+                x: { stacked: true, ticks: { color: '#000' }, grid: { color: '#ccc' } },
+                y: { stacked: true, ticks: { color: '#000' }, grid: { color: '#ccc' } }
               }
             }}
           />
@@ -121,9 +128,9 @@ const ChartBlock: React.FC<ChartBlock> = ({ chartType, title, data }) => {
   };
 
   return (
-    <div className={`p-4 ${bgColor} rounded-xl border border-white/10 shadow`}>
-      <h3 className="text-white mb-4 text-lg font-semibold">{title}</h3>
-      <div>{renderChart()}</div>
+    <div className={`p-4 ${bgColor} rounded-xl border border-gray-200 shadow-sm text-black`}>
+      <h3 className="mb-4 text-lg font-semibold">{title}</h3>
+      <div className="h-64 w-full">{renderChart()}</div>
     </div>
   );
 };

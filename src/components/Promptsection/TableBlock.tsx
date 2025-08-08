@@ -7,12 +7,15 @@ interface TableBlockProps {
 
 const TableBlock: React.FC<TableBlockProps> = ({ headers, rows }) => {
   return (
-    <div className="overflow-x-auto rounded-xl border border-white/10">
-      <table className="min-w-full table-auto bg-black/10 text-white">
+    <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+      <table className="min-w-full table-auto bg-gray-50 text-black">
         <thead>
           <tr>
             {headers.map((header, idx) => (
-              <th key={idx} className="px-4 py-2 text-left bg-white/10">
+              <th
+                key={idx}
+                className="px-4 py-3 text-left text-sm font-medium text-gray-800 bg-gray-100 border-b border-gray-200"
+              >
                 {header}
               </th>
             ))}
@@ -20,9 +23,9 @@ const TableBlock: React.FC<TableBlockProps> = ({ headers, rows }) => {
         </thead>
         <tbody>
           {rows.map((row, idx) => (
-            <tr key={idx} className="border-t border-white/5">
+            <tr key={idx} className="border-t border-gray-200 hover:bg-gray-100 transition-colors">
               {row.map((cell, cid) => (
-                <td key={cid} className="px-4 py-2 text-sm text-white/80">
+                <td key={cid} className="px-4 py-2 text-sm text-gray-700">
                   {cell}
                 </td>
               ))}
