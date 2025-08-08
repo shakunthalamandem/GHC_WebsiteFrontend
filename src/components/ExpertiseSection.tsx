@@ -12,16 +12,23 @@ import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Variants } from "framer-motion";
-const expertiseData = [
-  { icon: Bot, title: 'AI-Driven Decision Intelligence', path: '/expertise/ai-decision-intelligence', gradient: 'from-primary to-primary-glow' },
-  { icon: BarChart3, title: 'Data Analytics and Engineering', path: '/expertise/data-analytics', gradient: 'from-gold to-gold-light' },
-  { icon: Globe, title: 'Financial Technology & Digital Transformation', path: '/expertise/fintech-digital', gradient: 'from-coral to-primary' },
-  { icon: Code, title: 'Custom Software & Web App Development', path: '/expertise/software-web', gradient: 'from-primary-glow to-gold' },
-  { icon: Cloud, title: 'Cloud Computing and Deployment', path: '/expertise/cloud-deployment', gradient: 'from-green-400 to-blue-500' },
-  { icon: LineChart, title: 'Risk Analytics & Portfolio Optimization', path: '/expertise/risk-analytics', gradient: 'from-indigo-400 to-pink-400' },
-  { icon: LayoutDashboard, title: 'Business Intelligence & Visualization', path: '/expertise/business-intel', gradient: 'from-green-500 to-red-300' },
-  { icon: Brain, title: 'Quantitative Research & Financial Modeling', path: '/expertise/quant-research', gradient: 'from-blue-600 to-cyan-400' },
+const gradients = [
+  'from-primary to-primary-glow',   // main brand gradient
+  'from-gold to-gold-light',        // gold tone
+  'from-blue-600 to-cyan-400',      // cool tone
 ];
+
+const expertiseData = [
+  { icon: Bot, title: 'AI-Driven Decision Intelligence', path: '/expertise/ai-decision-intelligence', gradient: gradients[0] },
+  { icon: BarChart3, title: 'Data Analytics and Engineering', path: '/expertise/data-analytics', gradient: gradients[1] },
+  { icon: Globe, title: 'Financial Technology & Digital Transformation', path: '/expertise/fintech-digital', gradient: gradients[2] },
+  { icon: Code, title: 'Custom Software & Web App Development', path: '/expertise/software-web', gradient: gradients[0] },
+  { icon: Cloud, title: 'Cloud Computing and Deployment', path: '/expertise/cloud-deployment', gradient: gradients[1] },
+  { icon: LineChart, title: 'Risk Analytics & Portfolio Optimization', path: '/expertise/risk-analytics', gradient: gradients[2] },
+  { icon: LayoutDashboard, title: 'Business Intelligence & Visualization', path: '/expertise/business-intel', gradient: gradients[0] },
+  { icon: Brain, title: 'Quantitative Research & Financial Modeling', path: '/expertise/quant-research', gradient: gradients[1] },
+];
+
 
 const containerVariants = {
   hidden: {},
@@ -135,7 +142,7 @@ const ExpertiseSection = () => {
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-foreground mb-4">
-            Our <span className="bg-gradient-sky-gold bg-clip-text text-transparent">Expertise</span>
+            Our<span className="text-blue-900">    Expertise</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Empowering Organizations with Intelligent Solutions

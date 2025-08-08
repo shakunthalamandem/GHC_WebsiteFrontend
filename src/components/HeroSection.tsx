@@ -39,7 +39,7 @@ const HeroSection = () => {
   <div className="relative z-10 text-center max-w-2xl">
     <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-8 leading-tight">
       UNLEASH YOUR BUSINESS POTENTIAL{' '}
-      <span className="bg-gradient-to-r from-[#6a0cbc] via-[#bd9e1d] to-[#118e21] bg-clip-text text-transparent">
+<span className="text-black">
         <br /> DATA | TECHNOLOGY | EXPERTISE
       </span>
     </h1>
@@ -52,9 +52,9 @@ const HeroSection = () => {
     </p>
 
     {/* Floating CTA */}
-    <button className="btn-glow bg-primary text-black-foreground px-12 py-4 rounded-full text-lg font-semibold hover:bg-primary-glow transition-all duration-500 float-animation mt-10">
+    {/* <button className="btn-glow bg-primary text-black-foreground px-12 py-4 rounded-full text-lg font-semibold hover:bg-primary-glow transition-all duration-500 float-animation mt-10">
       Discover Our Intelligence
-    </button>
+    </button> */}
   </div>
 
   {/* Right Content (Optional Image/Illustration) */}

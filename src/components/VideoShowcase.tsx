@@ -50,10 +50,9 @@ const VideoShowcase = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-foreground mb-6">
-            See Our{' '}
-            <span className="bg-gradient-sky-gold bg-clip-text text-transparent">
-              Intelligence
-            </span>{' '}
+            See Our
+             <span className="text-blue-900">    Intelligence</span>
+         {' '}
             in Action
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

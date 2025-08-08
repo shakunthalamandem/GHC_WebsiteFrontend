@@ -131,9 +131,8 @@ const ClientsSection = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-foreground mb-6">
-            Trusted by{' '}
-            <span className="bg-gradient-sky-gold bg-clip-text text-transparent">
-              Visionaries
+            Our {' '}
+<span className="text-blue-900">              Clients 
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -174,11 +173,11 @@ const ClientsSection = () => {
             <div className="text-muted-foreground">Successful Projects</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold text-gold mb-2">15+</div>
+            <div className="text-4xl font-bold text-primary mb-2">12+</div>
             <div className="text-muted-foreground">Years Experience</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold text-coral mb-2">100%</div>
+            <div className="text-4xl font-bold text-primary mb-2">95%</div>
             <div className="text-muted-foreground">Client Satisfaction</div>
           </div>
         </div>

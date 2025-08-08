@@ -95,8 +95,7 @@ const FoundersSection = () => {
         <div className="text-center mb-20">
           <h2 className="text-5xl font-bold text-foreground mb-6">
             Meet Our{' '}
-            <span className="bg-gradient-sky-gold bg-clip-text text-transparent">
-              Visionaries
+<span className="text-blue-900">                 Team
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
