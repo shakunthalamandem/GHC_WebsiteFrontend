@@ -46,7 +46,7 @@ const VideoShowcase = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 bg-card/30">
+    <section ref={sectionRef} className="py-24 px-6 bg-card/30 bg-[#c1d3ffdb]">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-foreground mb-6">

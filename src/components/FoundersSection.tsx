@@ -13,7 +13,7 @@ const founders = [
       'Suresh Raju, Founder of Golden Hills, has 15+ years of experience in investment management, capital markets, and corporate finance. He has worked with TVS Capital, Deutsche Bank (US), and ABAQUS, and is a member of IAN and TiE. Suresh holds an MBA from Chicago Booth, an M.S. from Ohio State, and a B.Tech from IIT Madras.',
     image: suresh,
     linkedin: 'https://www.linkedin.com/in/tsureshraju/',
-    gradient: 'from-primary to-primary-glow',
+    gradient: 'from-primary to-black',
   },
 ];
 
