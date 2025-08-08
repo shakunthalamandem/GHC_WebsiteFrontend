@@ -1,21 +1,14 @@
 import {
   Code,
   BarChart3,
-  Eye,
-  TrendingUp,
   Cloud,
-  Database,
   LineChart,
-  Settings,
   Brain,
   Bot,
-  CreditCard,
-  Wallet,
-  Network,
   Globe,
   LayoutDashboard,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -32,16 +25,12 @@ const expertiseData = [
 
 const containerVariants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.3,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.2 } },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 50, rotate: -2 },
-  visible: { opacity: 1, y: 0, rotate: 0, transition: { duration: 0.8, ease: 'easeOut' as const } },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
 };
 
 const ExpertiseCard = ({ expertise }: { expertise: typeof expertiseData[0] }) => {
@@ -49,52 +38,83 @@ const ExpertiseCard = ({ expertise }: { expertise: typeof expertiseData[0] }) =>
   const [isHovered, setIsHovered] = useState(false);
   const { icon: Icon, title, gradient, path } = expertise;
 
+  // Motion values for tilt effect
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useTransform(y, [-50, 50], [4, -4]);
+  const rotateY = useTransform(x, [-50, 50], [-4, 4]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    x.set(e.clientX - rect.left - rect.width / 2);
+    y.set(e.clientY - rect.top - rect.height / 2);
+  };
+
   return (
     <motion.div
       variants={cardVariants}
+      style={{ rotateX, rotateY }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => {
+        x.set(0);
+        y.set(0);
+        setIsHovered(false);
+      }}
+      onMouseEnter={() => setIsHovered(true)}
       className="relative group cursor-pointer"
       onClick={() => navigate(path)}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className={`relative w-full h-[380px] glass-morphism rounded-3xl p-8 transition-all duration-500 hover:shadow-glow flex flex-col justify-between ${
-          isHovered ? 'scale-105 shadow-elegant float-animation' : ''
+        className={`relative w-full h-40 flex flex-row items-center glass-morphism rounded-xl p-4 transition-all duration-500 ${
+          isHovered ? 'scale-[1.05] shadow-elegant ring-2 ring-primary/40' : ''
         }`}
       >
-        {/* Gradient Background Pulse */}
+        {/* Background Glow */}
         <div
-          className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl ${
-            isHovered ? 'animate-glowPulse' : ''
-          }`}
+          className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-xl`}
         />
+        
+        {/* Shine Effect */}
+        <div className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
+          <div
+            className={`absolute top-0 left-[-75%] w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 ${
+              isHovered ? 'animate-shine-fast' : ''
+            }`}
+          />
+        </div>
 
         {/* Icon */}
-        <div className="relative z-10 mb-4">
+        <div className="relative z-10 mr-3">
           <div
-            className={`w-16 h-16 bg-gradient-to-br ${gradient} rounded-2xl flex items-center justify-center shadow-glow transition-transform duration-500 ${
-              isHovered ? 'scale-110 rotate-6' : ''
+            className={`w-14 h-14 bg-gradient-to-br ${gradient} rounded-lg flex items-center justify-center shadow-glow transition-transform duration-500 ${
+              isHovered ? 'scale-125 rotate-6 animate-iconPulse' : ''
             }`}
           >
-            <Icon className="w-8 h-8 text-white" />
+            <Icon className="w-7 h-7 text-white" />
           </div>
         </div>
 
-        {/* Content */}
-        <div className="relative z-10">
+        {/* Title + Call to Action */}
+        <div className="relative z-10 flex flex-col">
           <h3
-            className={`text-2xl font-bold text-foreground mb-4 transition-all duration-500 ${
+            className={`text-lg font-bold text-foreground transition-all duration-500 ${
               isHovered ? 'text-primary' : ''
             }`}
           >
             {title}
           </h3>
-
+          <span
+            className={`text-sm text-muted-foreground flex items-center gap-1 transition-all duration-300 ${
+              isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
+            }`}
+          >
+            Explore <motion.span initial={{ x: -5 }} animate={{ x: isHovered ? 0 : -5 }} transition={{ duration: 0.3 }}>→</motion.span>
+          </span>
         </div>
 
-        {/* Hover Effect Border */}
+        {/* Hover Border */}
         <div
-          className={`absolute inset-0 rounded-3xl border-2 border-transparent transition-all duration-500 ${
+          className={`absolute inset-0 rounded-xl border-2 border-transparent transition-all duration-500 ${
             isHovered ? 'border-primary shadow-glow' : ''
           }`}
         />
@@ -107,17 +127,17 @@ const ExpertiseSection = () => {
   return (
     <section className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl font-bold text-foreground mb-6">
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-bold text-foreground mb-4">
             Our <span className="bg-gradient-sky-gold bg-clip-text text-transparent">Expertise</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Empowering Organizations with Intelligent Solutions
           </p>
         </div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

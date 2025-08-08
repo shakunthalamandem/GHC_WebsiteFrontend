@@ -321,5 +321,28 @@ All colors MUST be HSL for proper theming.
     transform: translateX(100%) skewX(-20deg);
   }
 }
+/* @keyframes shine {
+  0% { left: -75%; }
+  100% { left: 125%; }
+}
+.animate-shine {
+  animation: shine 1s ease forwards;
+} */
+/* @keyframes shine-fast {
+  0% { left: -75%; }
+  100% { left: 125%; }
+}
+.animate-shine-fast {
+  animation: shine-fast 0.8s ease forwards;
+} */
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1) rotate(6deg); }
+  50% { transform: scale(1.1) rotate(6deg); }
+}
+.animate-iconPulse {
+  animation: iconPulse 1s infinite;
+}
+
 
 }
