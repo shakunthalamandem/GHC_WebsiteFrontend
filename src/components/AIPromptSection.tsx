@@ -68,11 +68,15 @@ const AIPromptSection = () => {
                 onChange={(e) => setPrompt(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                className={`w-full px-8 py-6 rounded-full bg-card border-2 transition-all duration-500 text-lg focus:outline-none focus:border-primary ${
-                  isFocused ? 'border-primary pulse-glow' : 'border-border'
-                }`}
+                placeholder=""
+                className={`w-full px-8 py-6 rounded-full border-2 text-lg focus:outline-none transition-all duration-300 
+      ${isFocused
+                    ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
+                    : 'border-border bg-card'
+                  }`}
               />
             </div>
+
 
             <button
               type="submit"

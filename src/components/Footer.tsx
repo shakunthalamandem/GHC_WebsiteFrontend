@@ -30,19 +30,20 @@ Contact us at privacy@goldenhillsindia.com for any privacy-related questions.`,
       label: 'Terms of Use',
       content: {
         title: 'Terms of Use',
-        body: `Welcome to Golden Hills India. By accessing our website and services, you agree to comply with these terms and conditions.
+        body: `<p>Welcome to Golden Hills India. By accessing our website and services, you agree to comply with these terms and conditions.</p>
 
-Service Usage: Our services are provided for business purposes only. You agree to use them in accordance with applicable laws and regulations.
+<p><strong>Service Usage:</strong> Our services are provided for business purposes only. You agree to use them in accordance with applicable laws and regulations.</p>
 
-Intellectual Property: All content, software, and materials on our platform are protected by intellectual property rights.
+<p><strong>Intellectual Property:</strong> All content, software, and materials on our platform are protected by intellectual property rights.</p>
 
-Limitation of Liability: Golden Hills India shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services.
+<p><strong>Limitation of Liability:</strong> Golden Hills India shall not be liable for any indirect, incidental, or consequential damages arising from the use of our services.</p>
 
-Modifications: We reserve the right to modify these terms at any time. Continued use of our services constitutes acceptance of any changes.
+<p><strong>Modifications:</strong> We reserve the right to modify these terms at any time. Continued use of our services constitutes acceptance of any changes.</p>
 
-For questions regarding these terms, contact legal@goldenhillsindia.com.`,
+<p>For questions regarding these terms, contact <strong>admin@goldenhillsindia.com</strong>.</p>`
       },
-    },
+    }
+    ,
     {
       id: 'about',
       icon: Users,
@@ -70,19 +71,17 @@ Founded by visionary leaders with decades of experience in financial technology 
       label: 'Address',
       content: {
         title: 'Our Location',
-        body: `Golden Hills India
-Financial District,
-Suvarna Durga Tech park
-India
+body: `Golden Hills Capital India Pvt Ltd.<br/>
+Unit A, 26th Floor, Eastern Block,<br/>
+Vamsiram Suvarna Durga Tech Park,<br/>
+Survey No 142, Nanakramguda, Financial District,<br/>
+Hyderabad, Telangana 500032<br/><br/>
 
-Phone: +91 7207011234
-Email: ghcadmin@goldenhillsindia.com
-
-Business Hours:
-Monday - Friday: 9:30 AM - 6:30 PM IST
-Saturday & Sunday: Closed
+Phone: +91 7207011234<br/>
+Email: ghcadmin@goldenhillsindia.com<br/><br/>
 
 For urgent inquiries outside business hours, please email us and we'll respond within 24 hours.`,
+
         isAddress: true,
       },
     },
@@ -102,26 +101,26 @@ For urgent inquiries outside business hours, please email us and we'll respond w
 
   return (
     <>
-      <footer className="relative py-24 px-6 overflow-hidden">
+      <footer className="relative py-3 px-3 overflow-hidden"> {/* reduced from py-24 */}
         {/* Liquid Gold Background */}
-        <div className="absolute inset-0 liquid-gold opacity-20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
+        <div className="absolute inset-0 bg-gold opacity-15" />
+        {/* <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" /> */}
 
         <div className="container mx-auto max-w-6xl relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-6">
-              Ready to Transform Your{' '}
-              <span className="bg-gradient-sky-gold bg-clip-text text-transparent">
+          <div className="text-center mb-12"> {/* reduced from mb-16 */}
+            <h2 className="text-3xl font-bold text-foreground mb-4"> {/* smaller text */}
+              Ready to Transform Your{" "}
+              
                 Business?
-              </span>
+   
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Let's discuss how our intelligent solutions can accelerate your growth
             </p>
           </div>
 
           {/* Floating Orbs Navigation */}
-          <div className="flex justify-center items-center space-x-12 mb-16">
+          <div className="flex justify-center items-center space-x-8 mb-12"> {/* reduced spacing */}
             {footerLinks.map((link, index) => (
               <button
                 key={link.id}
@@ -129,41 +128,34 @@ For urgent inquiries outside business hours, please email us and we'll respond w
                 className="group relative"
               >
                 {/* Main Orb */}
-                <div className="w-20 h-20 bg-gradient-gold-coral rounded-full flex items-center justify-center shadow-gold hover:shadow-glow transition-all duration-500 hover:scale-110 float-animation"
-                     style={{ animationDelay: `${index * 0.3}s` }}>
-                  <link.icon className="w-8 h-8 text-white" />
-                </div>
+               <div
+  className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-blue hover:shadow-glow transition-all duration-500 hover:scale-110 float-animation"
+  style={{ animationDelay: `${index * 0.3}s` }}
+>
+  {/* White icon inside blue orb */}
+  <link.icon className="w-6 h-6 text-white" />
+</div>
+
 
                 {/* Tooltip */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
-                  <div className="bg-white/90 backdrop-blur-md rounded-lg px-3 py-2 shadow-elegant whitespace-nowrap">
-                    <span className="text-sm font-medium text-foreground">
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
+                  <div className="bg-white/90 backdrop-blur-md rounded-lg px-2 py-1 shadow-elegant whitespace-nowrap">
+                    <span className="text-xs font-medium text-foreground">
                       {link.label}
                     </span>
                     <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white/90 rotate-45" />
                   </div>
                 </div>
-
-                {/* Pulse Ring */}
-                <div className="absolute inset-0 rounded-full border-2 border-gold/30 group-hover:scale-150 group-hover:opacity-0 transition-all duration-1000" />
               </button>
             ))}
           </div>
 
           {/* Company Info */}
           <div className="text-center">
-            <div className="flex items-center justify-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-sky-gold rounded-full flex items-center justify-center shadow-glow">
-                <span className="text-white font-bold text-lg">GHC</span>
-              </div>
-              <h3 className="text-2xl font-bold text-foreground">
-                Golden Hills India
-              </h3>
-            </div>
-            <p className="text-muted-foreground text-lg mb-6">
+            <p className="text-muted-foreground text-sm mb-3">
               Empowering industries with fluid intelligence and precision
             </p>
-            <div className="text-sm text-muted-foreground">
+            <div className="text-xs text-muted-foreground">
               © 2024 Golden Hills India. All rights reserved.
             </div>
           </div>
@@ -197,9 +189,11 @@ For urgent inquiries outside business hours, please email us and we'll respond w
             {/* Body */}
             <div className="p-8 overflow-y-auto max-h-[60vh] space-y-6">
               <div className="prose prose-lg max-w-none">
-                <div className="whitespace-pre-line text-muted-foreground leading-relaxed">
-                  {activeContent.body}
-                </div>
+                <div
+                  className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: activeContent.body }}
+                />
+
               </div>
 
               {activeContent.isAddress && (
@@ -209,7 +203,7 @@ For urgent inquiries outside business hours, please email us and we'll respond w
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
-                 
+
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
@@ -224,4 +218,3 @@ For urgent inquiries outside business hours, please email us and we'll respond w
 };
 
 export default Footer;
- 

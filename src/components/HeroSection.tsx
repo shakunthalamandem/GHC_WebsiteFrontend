@@ -40,7 +40,7 @@ const HeroSection = () => {
     <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-8 leading-tight">
       UNLEASH YOUR BUSINESS POTENTIAL{' '}
 <span className="text-black">
-        <br /> DATA | TECHNOLOGY | EXPERTISE
+        <br /><span className="text-blue-900"> DATA | TECHNOLOGY | EXPERTISE</span>
       </span>
     </h1>
 
