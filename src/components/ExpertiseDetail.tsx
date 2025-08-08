@@ -135,40 +135,43 @@ const ExpertiseDetail = () => {
             </section>
 
             {/* DETAILED SECTION */}
-       <section className="h-screen snap-start bg-gradient-to-b from-[#c8cce1] via-[#a0c1bd] to-[#c8cce1]
-
-px-8 py-16 text-black">
-  <div className="flex flex-col md:flex-row max-w-7xl mx-auto gap-10 items-start">
+     {/* DETAILED SECTION */}
+<section className="h-screen snap-start bg-gradient-to-b from-[#c8cce1] via-[#a0c1bd] to-[#c8cce1] px-8 py-16 text-black">
+  <div className="max-w-7xl mx-auto bg-white/20 rounded-2xl shadow-2xl border border-white/30 p-8 flex flex-col md:flex-row gap-10 items-start">
+    
     {/* Sidebar */}
     <div className="md:w-1/4 space-y-4">
       {expertise.sections.map((section, index) => (
         <button
-          key={index}
-          onClick={() => setActiveIndex(index)}
-          className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:bg-purple-400/40 ${
-            activeIndex === index
-              ? 'bg-purple-500/50 font-semibold text-black'
-              : 'bg-white/10 text-black'
-          }`}   
-        >
-          {section.title}
-        </button>
+  key={index}
+  onClick={() => setActiveIndex(index)}
+  className={`w-full text-left px-4 py-3 rounded-lg font-medium text-sm md:text-base shadow-md transition-all duration-300 transform
+    ${activeIndex === index
+      ? ' border-l-4 border-b-4 border-purple-400 scale-105 shadow-lg font-semibold'
+      : 'bg-white/40 border-l-4 border-b-4 border-transparent hover:border-purple-400 hover:shadow-lg hover:scale-105'
+    }`}
+>
+  {section.title}
+</button>
+
       ))}
     </div>
 
     {/* Right pane */}
     <div className="md:w-3/4 flex justify-center items-start">
-      <div className="max-w-2xl h-[550px] w-full p-6 bg-white/5 rounded-xl shadow-xl border border-white/10 overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-white/10">
-        <h3 className="text-xl font-bold mb-4 border-b border-white/20 pb-2">
+      <div className="max-w-2xl h-[550px] w-full p-6 bg-white/70 rounded-xl shadow-lg border border-white/40 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-400/40 scrollbar-track-transparent">
+        <h3 className="text-xl font-bold mb-4 border-b border-gray-300 pb-2">
           {expertise.sections[activeIndex].title}
         </h3>
-        <p className="text-base text-black leading-relaxed">
+        <p className="text-base leading-relaxed text-gray-800">
           {expertise.sections[activeIndex].content}
         </p>
       </div>
     </div>
+    
   </div>
 </section>
+
 
         </div>
     );
