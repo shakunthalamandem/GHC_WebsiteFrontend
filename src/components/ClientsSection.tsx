@@ -1,189 +1,196 @@
-import { useEffect, useRef, useState } from 'react';
-import { Globe, Cloud, TrendingUp, Activity, Rocket } from 'lucide-react';
+import React, { useState, useEffect, useRef } from "react";
 
 const clients = [
-  {
-  
-    icon: Globe,
-    initials: 'Monashee',
-    color: 'from-primary to-primary-glow',
-    position: { x: 20, y: 30 },
-  },
-  {
-
-    icon: Cloud,
-    initials: 'BlockChain',
-    color: 'from-gold to-gold-light',
-    position: { x: 70, y: 20 },
-  },
-  {
-
-    icon: TrendingUp,
-    initials: 'Hedgeye',
-    color: 'from-coral to-primary',
-    position: { x: 80, y: 60 },
-  },
-  {
- 
-    icon: Activity,
-    initials: 'CMG',
-    color: 'from-primary-glow to-coral',
-    position: { x: 30, y: 70 },
-  },
-  {
-
-    icon: Rocket,
-    initials: 'wave',
-    color: 'from-gold to-primary',
-    position: { x: 60, y: 80 },
-  },
+  "$2+ Billion Hedge Fund (Boston)",
+  "Top 5 Crypto Exchange (New York City / London / Singapore)",
+  "$300 Million VC Fund (Boston)",
+  "Fintech Business (Chicago)",
+  "Macro Research & Risk Management Firm (Connecticut)",
+  "Management Consulting Firm (London)",
+  "Biotech Investor Relations Firm (New York City)",
+  "Multi-strategy Investment Firm (Hongkong)",
 ];
 
-const ClientOrb = ({ client, index }: { client: typeof clients[0]; index: number }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const orbRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), index * 300);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (orbRef.current) {
-      observer.observe(orbRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [index]);
-
-  const {  icon: Icon, initials, color, position } = client;
-
-  return (
-    <div
-      ref={orbRef}
-      className="absolute group cursor-pointer animate-bob"
-      style={{
-        left: `${position.x}%`,
-        top: `${position.y}%`,
-        transform: 'translate(-50%, -50%)',
-      }}
-    >
-      {/* Orb (Balloon) */}
-      <div
-        className={`relative w-24 h-24 transition-all duration-700 ${
-          isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
-        }`}
-      >
-        <div
-          className={`w-full h-full rounded-full bg-gradient-to-br ${color} flex items-center justify-center shadow-glow transition-all duration-500`}
-          style={{ animationDelay: `${index * 1}s` }}
-        >
-          <span className="text-black font-bold text-lg">{initials}</span>
-        </div>
-
-        {/* Glow Effect */}
-        <div
-          className={`absolute inset-0 rounded-full bg-gradient-to-br ${color} blur-xl opacity-30`}
-        />
-
-        {/* Pulse Ring */}
-        <div
-          className={`absolute inset-0 rounded-full border-2 border-white/30 transition-all duration-1000`}
-        />
-      </div>
-
-      {/* Thread (String) */}
-      <div className="absolute top-full left-1/2 w-px h-16 bg-border transform -translate-x-1/2" />
-
-      {/* Balloon Label */}
-  
-    </div>
-  );
+const outerCardStyle: React.CSSProperties = {
+  background: "linear-gradient(135deg, #e6f0ff 0%, #f9fbff 100%)", // soft light blue gradient background
+  padding: "3rem 2rem",
+  maxWidth: "1100px",
+  height: "300px",
+  margin: "2rem auto",
+  boxShadow: "0 15px 40px rgba(0, 60, 140, 0.15)", // stronger blue tinted shadow
+  borderRadius: "20px",
+  color: "#1e293b",
+  userSelect: "none",
+  position: "relative",
+  overflow: "hidden",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 };
 
-const ClientsSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+const sliderContainerStyle: React.CSSProperties = {
+  display: "flex",
+  gap: "1.25rem",
+  transition: "transform 0.5s ease",
+  willChange: "transform",
+};
+
+const clientCardStyle: React.CSSProperties = {
+  backgroundColor: "#cce0ff", // clean light blue background
+  padding: "1rem 1.5rem",
+  borderRadius: "14px",
+  minWidth: "280px",
+  height: "180px",
+  flexShrink: 0,
+  fontWeight: "600",
+  fontSize: "1.1rem",
+  cursor: "default",
+  userSelect: "none",
+  textAlign: "center",
+  color: "#1a3a8a", // darker blue text for contrast
+  boxShadow: "0 8px 20px rgba(58, 85, 156, 0.15)",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+};
+
+const navButtonStyle: React.CSSProperties = {
+  position: "absolute",
+  top: "50%",
+  transform: "translateY(-50%)",
+  background: "rgba(26, 58, 138, 0.15)",
+  border: "none",
+  borderRadius: "50%",
+  width: "48px",
+  height: "48px",
+  cursor: "pointer",
+  color: "#1a3a8a",
+  fontWeight: "700",
+  fontSize: "1.8rem",
+  userSelect: "none",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  transition: "background 0.3s",
+  zIndex: 10,
+  boxShadow: "0 4px 10px rgba(26, 58, 138, 0.3)",
+};
+
+export default function ClientsAutoSliderCard() {
+  const [index, setIndex] = useState(0);
+  const visibleCards = 3;
+  const maxIndex = clients.length - visibleCards;
+
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.3 }
-    );
+    intervalRef.current = setInterval(() => {
+      setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    }, 3500);
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [maxIndex]);
+
+  const slideLeft = () => {
+    setIndex((prev) => Math.max(prev - 1, 0));
+    resetInterval();
+  };
+
+  const slideRight = () => {
+    setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    resetInterval();
+  };
+
+  const resetInterval = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
     }
-
-    return () => observer.disconnect();
-  }, []);
+    intervalRef.current = setInterval(() => {
+      setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    }, 3500);
+  };
 
   return (
-    <section ref={sectionRef} className="py-24 px-6 bg-gradient-to-br from-background to-card/50">
-      <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-foreground mb-6">
-            Our {' '}
-<span className="text-blue-900">              Clients 
-            </span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Leading organizations choose Golden Hills India to accelerate their digital transformation
-          </p>
-        </div>
+    <section style={{ padding: "2rem 1rem" }}>
+      <h2
+        style={{
+          textAlign: "center",
+          fontSize: "2.25rem",
+          marginBottom: "2.5rem",
+          fontWeight: "700",
+          color: "#3b4a6b",
+          userSelect: "none",
+        }}
+      >
+        Our Clients
+      </h2>
 
-        {/* Celestial Sky */}
-        <div className="relative h-96 rounded-3xl overflow-hidden bg-gradient-to-br from-primary/5 via-background to-gold/5 border border-border/20">
-          {/* Background Stars */}
-          <div className="absolute inset-0">
-            {[...Array(20)].map((_, i) => (
+      <div style={outerCardStyle}>
+        <button
+          style={{ ...navButtonStyle, left: "16px" }}
+          onClick={slideLeft}
+          aria-label="Previous"
+          disabled={index === 0}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.background = "rgba(26,58,138,0.3)")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.background = "rgba(26,58,138,0.15)")
+          }
+        >
+          &#8249;
+        </button>
+
+        <div
+          style={{
+            overflow: "hidden",
+            flex: 1,
+          }}
+        >
+          <div
+            style={{
+              ...sliderContainerStyle,
+              width: `${clients.length * (280 + 20)}px`,
+              transform: `translateX(-${index * (280 + 20)}px)`,
+            }}
+          >
+            {clients.map((client, i) => (
               <div
                 key={i}
-                className="absolute w-1 h-1 bg-primary/30 rounded-full animate-pulse"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
+                style={clientCardStyle}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "scale(1.08)";
+                  e.currentTarget.style.boxShadow = "0 12px 28px rgba(26, 58, 138, 0.3)";
                 }}
-              />
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                  e.currentTarget.style.boxShadow = "0 8px 20px rgba(58, 85, 156, 0.15)";
+                }}
+              >
+                {client}
+              </div>
             ))}
           </div>
-
-       {clients.map((client, index) => (
-  <ClientOrb key={index} client={client} index={index} />
-))}
-
-
-          {/* Ambient Glow */}
-          <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent opacity-50" />
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-          <div className="text-center">
-            <div className="text-4xl font-bold text-primary mb-2">50+</div>
-            <div className="text-muted-foreground">Successful Projects</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-primary mb-2">12+</div>
-            <div className="text-muted-foreground">Years Experience</div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-primary mb-2">95%</div>
-            <div className="text-muted-foreground">Client Satisfaction</div>
-          </div>
-        </div>
+        <button
+          style={{ ...navButtonStyle, right: "16px" }}
+          onClick={slideRight}
+          aria-label="Next"
+          disabled={index === maxIndex}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.background = "rgba(26,58,138,0.3)")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.background = "rgba(26,58,138,0.15)")
+          }
+        >
+          &#8250;
+        </button>
       </div>
     </section>
   );
-};
-
-export default ClientsSection;
+}

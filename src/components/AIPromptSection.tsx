@@ -56,11 +56,11 @@ const AIPromptSection = () => {
         <form onSubmit={handleSubmit} className="relative">
           <div className={`relative transition-all duration-500 ${isFocused ? 'scale-105 shadow-glow' : 'shadow-elegant'}`}>
             <div className="relative">
-              {!prompt && !isFocused && (
+              {/* {!prompt && !isFocused && (
                 <span className="absolute left-8 top-1/2 transform -translate-y-1/2 text-muted-foreground text-lg whitespace-nowrap border-r-2 border-muted-foreground animate-typing">
                   Search company policies, culture, benefits, careers...
                 </span>
-              )}
+              )} */}
 
               <input
                 type="text"
@@ -68,13 +68,19 @@ const AIPromptSection = () => {
                 onChange={(e) => setPrompt(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                placeholder=""
+                // placeholder="Search company policies, culture, benefits, careers..."
                 className={`w-full px-8 py-6 rounded-full border-2 text-lg focus:outline-none transition-all duration-300 
-      ${isFocused
-                    ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
+                ${isFocused
+                    ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)] '
                     : 'border-border bg-card'
                   }`}
               />
+                {!prompt && !isFocused && (
+    <span className="absolute left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground text-lg whitespace-nowrap border-r-2 border-muted-foreground animate-typing max-w-[calc(100%-48px)] truncate">
+      Search company policies, culture, benefits, careers...
+    </span>
+  )}
+
             </div>
 
 
