@@ -343,6 +343,16 @@ All colors MUST be HSL for proper theming.
 .animate-iconPulse {
   animation: iconPulse 1s infinite;
 }
+.text-lg ul {
+  list-style-type: disc;
+  padding-left: 1.25rem; /* or 20px */
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.text-lg li {
+  margin-bottom: 0.25rem;
+}
 
 
 }
