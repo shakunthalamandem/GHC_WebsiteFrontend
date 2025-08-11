@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { MessageCircle, Briefcase, Mail, Users } from 'lucide-react';
 import heroVideo from '@/assets/Aicm.mp4';
-import Careers from '@/components/Careers'; // import your Careers component
+import Careers from '@/components/Careers';
+import ContactUs from "@/components/ContactUs";
 
 const HeroSection = () => {
   const parallaxRef = useRef<HTMLVideoElement>(null);
   const [showCareers, setShowCareers] = useState(false);
+  const [showContact, setShowContact] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,7 +22,6 @@ const HeroSection = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Smooth scroll to sections
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -44,13 +45,13 @@ const HeroSection = () => {
       {/* Overlay */}
       <div className="absolute inset-0 bg-background/20" />
 
-      {/* Left Sidebar Navigation */}
+      {/* Sidebar Navigation */}
       <nav className="absolute top-1/3 left-6 flex flex-col gap-6 z-20">
         <button
           onClick={() => scrollToSection('ask-ai')}
           className="flex flex-col items-center text-gray-800 hover:text-blue-900 transition-colors"
         >
-          <MessageCircle   className="w-10 h-10 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
+          <MessageCircle className="w-10 h-10 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
                hover:bg-blue-500 hover:text-white hover:shadow-[0_0_12px_rgba(59,130,246,0.8)]
                transition-all duration-300" />
           <span className="text-xs font-medium">Ask our AI</span>
@@ -60,17 +61,17 @@ const HeroSection = () => {
           onClick={() => scrollToSection('expertise')}
           className="flex flex-col items-center text-gray-800 hover:text-blue-900 transition-colors"
         >
-          <Briefcase   className="w-10 h-10 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
+          <Briefcase className="w-10 h-10 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
                hover:bg-blue-500 hover:text-white hover:shadow-[0_0_12px_rgba(59,130,246,0.8)]
                transition-all duration-300" />
           <span className="text-xs font-medium">Expertise</span>
         </button>
 
         <button
-          onClick={() => scrollToSection('contact')}
+          onClick={() => setShowContact(true)}
           className="flex flex-col items-center text-gray-800 hover:text-blue-900 transition-colors"
         >
-          <Mail   className="w-10 h-10 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
+          <Mail className="w-10 h-10 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
                hover:bg-blue-500 hover:text-white hover:shadow-[0_0_12px_rgba(59,130,246,0.8)]
                transition-all duration-300" />
           <span className="text-xs font-medium">Contact Us</span>
@@ -80,9 +81,9 @@ const HeroSection = () => {
           onClick={() => setShowCareers(true)}
           className="flex flex-col items-center text-gray-800 hover:text-blue-900 transition-colors"
         >
-          <Users   className="w-10 h-10 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
+          <Users className="w-10 h-10 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
                hover:bg-blue-500 hover:text-white hover:shadow-[0_0_12px_rgba(59,130,246,0.8)]
-               transition-all duration-300"/>
+               transition-all duration-300" />
           <span className="text-xs font-medium">Careers</span>
         </button>
       </nav>
@@ -99,7 +100,6 @@ const HeroSection = () => {
               </span>
             </span>
           </h1>
-
           <p
             className="text-xl md:text-2xl mb-12 leading-relaxed"
             style={{ color: 'hsl(215, 47%, 24%)' }}
@@ -108,37 +108,41 @@ const HeroSection = () => {
             Visualization
           </p>
         </div>
-
-        {/* Right Content */}
-        <div className="hidden md:block">
-          <img
-            src="/your-image-path.jpg"
-            alt="Illustration"
-            className="w-[500px] h-auto"
-          />
-        </div>
       </div>
 
-      {/* Scroll down arrows */}
+      {/* Scroll Down Arrows */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center space-y-2">
         <div className="w-6 h-6 border-b-2 border-r-2 border-black rotate-45 animate-bounce-slow shadow-md shadow-black/20" />
         <div className="w-6 h-6 border-b-2 border-r-2 border-black rotate-45 animate-bounce-slower shadow-md shadow-black/20" />
       </div>
 
-      {/* Careers Popup */}
-      {showCareers && (
+      {/* Contact Popup */}
+      {showContact && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg w-full max-w-3xl relative">
+          <div className="rounded-lg w-full max-w-3xl relative overflow-hidden bg-[#0a1e38] text-white">
             <button
-              onClick={() => setShowCareers(false)}
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+              onClick={() => setShowContact(false)}
+              className="absolute top-3 right-3 text-white hover:text-gray-300 z-10"
             >
               ✕
             </button>
-            <Careers />
+
+
+{showContact && <ContactUs onClose={() => setShowContact(false)} />}
           </div>
         </div>
       )}
+
+      {/* Careers Popup */}
+      {/* Careers Popup */}
+{showCareers && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div className="relative w-full max-w-4xl">
+      <Careers onClose={() => setShowCareers(false)} />
+    </div>
+  </div>
+)}
+
     </section>
   );
 };

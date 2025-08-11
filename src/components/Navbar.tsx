@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import logo from '@/assets/Color logo - no background.png';
 import { motion, AnimatePresence } from 'framer-motion';
-import Careers from './Careers';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,7 +16,7 @@ const Navbar = () => {
     <>
       <nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-          isScrolled ? 'glass-morphism py-3' : 'bg-transparent py-6'
+          isScrolled ? 'glass-morphism ' : 'bg-transparent '
         }`}
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
@@ -62,8 +61,7 @@ const Navbar = () => {
                 ✕
               </button>
 
-              {/* Careers Component */}
-              <Careers />
+      
             </motion.div>
           </motion.div>
         )}

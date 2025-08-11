@@ -1,14 +1,13 @@
 import { motion } from "framer-motion";
-import { Users, Heart, Lightbulb } from "lucide-react";
 import { useState } from "react";
 
-export default function Careers() {
+export default function Careers({ onClose }) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-    additionalInfo: "",  // New field added here
+    additionalInfo: "",
     resume: null,
     agree: false,
   });
@@ -32,110 +31,117 @@ export default function Careers() {
   };
 
   return (
-    <div className="bg-gradient-to-b bg-[#081a2f]  text-white">
-      {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-24 text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl font-bold text-white bg-clip-text text-transparent"
-        >
-          Join Our Team
-        </motion.h1>
-        {/* <p className="mt-6 text-lg text-gray-300 max-w-2xl mx-auto">
-          We’re building solutions that transform industries. Come be a part of our journey — where innovation meets impact.
-        </p> */}
-      </section>
+    <div className="bg-[#bfcedd] rounded-2xl shadow-lg p-6 w-full max-w-2xl relative">
+      {/* Cancel Button */}
+      <button
+        type="button"
+        onClick={onClose}
+        className="absolute top-4 right-4 text-black hover:text-gray-600 text-xl font-bold"
+      >
+        ✕
+      </button>
 
-      {/* Application Form */}
-      <section className="max-w-3xl mx-auto px-6 ">
-        <h2 className="text-2xl font-bold mb-8">Apply Now</h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
-            <input
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-              className="p-3 rounded-lg w-full bg-white/10 border border-white/20 focus:border-blue-400 focus:outline-none"
-            />
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-              className="p-3 rounded-lg w-full bg-white/10 border border-white/20 focus:border-blue-400 focus:outline-none"
-            />
-          </div>
+      {/* Title */}
+      <motion.h1
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-2xl font-bold text-center mb-4"
+      >
+        Join Our Team
+      </motion.h1>
 
+      <form onSubmit={handleSubmit} className="space-y-3">
+        {/* Name Fields */}
+        <div className="grid md:grid-cols-2 gap-3">
           <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            value={formData.firstName}
             onChange={handleChange}
             required
-            className="p-3 rounded-lg w-full bg-white/10 border border-white/20 focus:border-blue-400 focus:outline-none"
+            className="p-3 rounded-lg w-full bg-[#dee2ea] border border-gray-300 focus:border-blue-400 focus:outline-none"
           />
-
           <input
-            type="tel"
-            name="phone"
-            placeholder="Phone Number"
-            value={formData.phone}
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            value={formData.lastName}
             onChange={handleChange}
             required
-            className="p-3 rounded-lg w-full bg-white/10 border border-white/20 focus:border-blue-400 focus:outline-none"
+            className="p-3 rounded-lg w-full bg-[#dee2ea] border border-gray-300 focus:border-blue-400 focus:outline-none"
           />
+        </div>
 
-          {/* Additional Information Field */}
-<textarea
-  name="additionalInfo"
-  placeholder="Additional Information"
-  value={formData.additionalInfo}
-  onChange={handleChange}
-  rows={5}  // you can adjust number of visible lines
-  className="px-3 py-3 rounded-lg w-full bg-white/10 border border-white/20 focus:border-blue-400 focus:outline-none resize-y"
-/>
+        {/* Email */}
+        <input
+          type="email"
+          name="email"
+          placeholder="Email Address"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="p-3 rounded-lg w-full bg-[#dee2ea] border border-gray-300 focus:border-blue-400 focus:outline-none"
+        />
 
+        {/* Phone */}
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Phone Number"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+          className="p-3 rounded-lg w-full bg-[#dee2ea] border border-gray-300 focus:border-blue-400 focus:outline-none"
+        />
 
+        {/* Additional Info */}
+        <textarea
+          name="additionalInfo"
+          placeholder="Additional Information"
+          value={formData.additionalInfo}
+          onChange={handleChange}
+          rows={3}
+          className="p-3 rounded-lg w-full bg-[#dee2ea] border border-gray-300 focus:border-blue-400 focus:outline-none resize-y"
+        />
+
+        {/* File Upload */}
+        <input
+          type="file"
+          name="resume"
+          accept=".pdf,.doc,.docx"
+          onChange={handleChange}
+          required
+          className="w-full text-gray-600"
+        />
+
+        {/* Checkbox */}
+        <label className="flex items-start space-x-2 text-gray-700 text-sm">
           <input
-            type="file"
-            name="resume"
-            accept=".pdf,.doc,.docx"
+            type="checkbox"
+            name="agree"
+            checked={formData.agree}
             onChange={handleChange}
-            required
-            className="w-full text-gray-300"
+            className="w-4 h-4 mt-1"
           />
+          <span>
+            By submitting this form, you agree to{" "}
+            <a href="#" className="text-blue-500 underline">
+              GHC Terms of Use
+            </a>.
+          </span>
+        </label>
 
-          <label className="flex items-center space-x-3 text-gray-300">
-            <input
-              type="checkbox"
-              name="agree"
-              checked={formData.agree}
-              onChange={handleChange}
-              className="w-4 h-4"
-            />
-            <span>
-              By submitting this form, you have read and agreed to{" "}
-              <a href="#" className="text-blue-400 underline">
-                GHC Terms of Use
-              </a>.
-            </span>
-          </label>
-
+        {/* Submit Button */}
+        <div className="flex justify-center">
           <button
             type="submit"
-            className="px-3 py-3 bg-blue-500 hover:bg-blue-600 rounded-lg font-medium w-1/3 mx-auto block text-center"
+            className="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg font-medium text-white"
           >
             Submit
           </button>
-        </form>
-      </section>
+        </div>
+      </form>
     </div>
   );
 }
