@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ExpertiseSection from "./components/ExpertiseSection";
-import ExpertiseDetail from "./components/ExpertiseDetail";
+import ExpertiseDetail from "./components/sections/Section1";
 
 const queryClient = new QueryClient();
 
@@ -24,7 +24,6 @@ const App = () => (
           {/* Expertise Section Routes */}
           <Route path="/expertise" element={<ExpertiseSection />} />
           <Route path="/expertise/:id" element={<ExpertiseDetail />} />
-
           {/* Catch-all route for 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>

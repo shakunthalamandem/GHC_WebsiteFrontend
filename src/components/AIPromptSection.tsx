@@ -50,7 +50,7 @@ const AIPromptSection = () => {
             <h2 className="text-4xl font-bold text-foreground">Ask Our AI Assistant</h2>
           </div>
           <p className="text-xl text-muted-foreground">
-            Discover how our intelligent solutions can transform your business
+      Learn About Golden Hills in Seconds with AI
           </p>
         </div>
 
