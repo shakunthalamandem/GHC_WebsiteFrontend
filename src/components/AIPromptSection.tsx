@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Send, Sparkles, X } from 'lucide-react';
 import DynamicRenderer from './Promptsection/DynamicRenderer';
 import { DynamicBlock } from './Promptsection/types';
@@ -9,6 +9,8 @@ const AIPromptSection = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const inputRef = useRef<HTMLInputElement>(null); // for focusing
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,35 +56,36 @@ const AIPromptSection = () => {
 
         {/* Search Bar */}
         <form onSubmit={handleSubmit} className="relative">
-          <div className={`relative transition-all duration-500 ${isFocused ? 'scale-105 shadow-glow' : 'shadow-elegant'}`}>
+          <div
+            className={`relative transition-all duration-500 ${
+              isFocused ? 'scale-105 shadow-glow' : 'shadow-elegant'
+            }`}
+            onClick={() => inputRef.current?.focus()} // click anywhere focuses input
+          >
             <div className="relative">
-              {/* {!prompt && !isFocused && (
-                <span className="absolute left-8 top-1/2 transform -translate-y-1/2 text-muted-foreground text-lg whitespace-nowrap border-r-2 border-muted-foreground animate-typing">
-                  Search company policies, culture, benefits, careers...
-                </span>
-              )} */}
-
               <input
+                ref={inputRef}
                 type="text"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                // placeholder="Search company policies, culture, benefits, careers..."
                 className={`w-full px-8 py-6 rounded-full border-2 text-lg focus:outline-none transition-all duration-300 
-                ${isFocused
-                    ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)] '
-                    : 'border-border bg-card'
+                  ${
+                    isFocused
+                      ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)] '
+                      : 'border-border bg-card'
                   }`}
               />
-                {!prompt && !isFocused && (
-    <span className="absolute left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground text-lg whitespace-nowrap border-r-2 border-muted-foreground animate-typing max-w-[calc(100%-48px)] truncate">
-      Search company policies, culture, benefits, careers...
-    </span>
-  )}
-
+              {!prompt && !isFocused && (
+                <span
+                  className="absolute left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground text-lg whitespace-nowrap border-r-2 border-muted-foreground animate-typing max-w-[calc(100%-48px)] truncate cursor-text"
+                  onClick={() => inputRef.current?.focus()} // placeholder also clickable
+                >
+                  Search company policies, culture, benefits, careers...
+                </span>
+              )}
             </div>
-
 
             <button
               type="submit"
