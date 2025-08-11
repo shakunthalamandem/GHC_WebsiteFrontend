@@ -109,28 +109,42 @@ const ExpertiseCard = ({ expertise }: { expertise: typeof expertiseData[0] }) =>
 
         {/* Title + Call to Action */}
         <div className="relative z-10 flex flex-col">
-          <h3
-            className={`text-lg font-bold text-foreground transition-all duration-500 ${
-              isHovered ? 'text-primary' : ''
-            }`}
-          >
+       <h3
+  className={`text-lg font-bold transition-all duration-500 ${
+    isHovered ? 'text-[#1e3a8a]' : 'text-foreground'
+  }`}
+>
+
             {title}
           </h3>
-          <span
-            className={`text-sm text-muted-foreground flex items-center gap-1 transition-all duration-300 ${
-              isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
-            }`}
-          >
-            Explore <motion.span initial={{ x: -5 }} animate={{ x: isHovered ? 0 : -5 }} transition={{ duration: 0.3 }}>→</motion.span>
-          </span>
+<span
+  className={`text-sm flex items-center gap-1 transition-all duration-300 ${
+    isHovered
+      ? 'opacity-100 translate-x-0 text-black'
+      : 'opacity-0 -translate-x-2 text-muted-foreground'
+  }`}
+>
+  Explore{' '}
+  <motion.span
+    initial={{ x: -5 }}
+    animate={{ x: isHovered ? 0 : -5 }}
+    transition={{ duration: 0.3 }}
+  >
+    →
+  </motion.span>
+</span>
+
         </div>
 
         {/* Hover Border */}
-        <div
-          className={`absolute inset-0 rounded-xl border-2 border-transparent transition-all duration-500 ${
-            isHovered ? 'border-primary shadow-glow' : ''
-          }`}
-        />
+<div
+  className={`absolute inset-0 rounded-xl border-2 transition-all duration-500 ${
+    isHovered
+      ? 'border-[#1e3a8a] shadow-[0_0_20px_rgba(30,58,138,0.6)]'
+      : 'border-transparent shadow-none'
+  }`}
+/>
+
       </div>
     </motion.div>
   );
