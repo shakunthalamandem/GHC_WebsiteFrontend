@@ -1,6 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const clients = [
+/**
+ * ClientsSlider.tsx
+ *
+ * Single-file React component (TypeScript) — no external libs.
+ * - Responsive visible cards
+ * - Autoplay with pause on hover/focus
+ * - Keyboard & touch navigation
+ * - Small location badges and numeric "index" badges
+ * - Decorative gradient blobs (pure CSS / SVG)
+ */
+
+const CLIENTS = [
   "$2+ Billion Hedge Fund (Boston)",
   "Top 5 Crypto Exchange (New York City / London / Singapore)",
   "$300 Million VC Fund (Boston)",
@@ -11,185 +22,474 @@ const clients = [
   "Multi-strategy Investment Firm (Hongkong)",
 ];
 
-const outerCardStyle: React.CSSProperties = {
-  background: "linear-gradient(135deg, #e6f0ff 0%, #f9fbff 100%)", // soft light blue gradient background
-  padding: "3rem 2rem",
-  maxWidth: "1100px",
-  height: "300px",
-  margin: "2rem auto",
-  boxShadow: "0 15px 40px rgba(0, 60, 140, 0.15)", // stronger blue tinted shadow
-  borderRadius: "20px",
-  color: "#1e293b",
-  userSelect: "none",
-  position: "relative",
-  overflow: "hidden",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-};
+type StepRef = ReturnType<typeof setInterval> | null;
 
-const sliderContainerStyle: React.CSSProperties = {
-  display: "flex",
-  gap: "1.25rem",
-  transition: "transform 0.5s ease",
-  willChange: "transform",
-};
+export default function ClientsSlider() {
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+  const autoplayRef = useRef<StepRef>(null);
 
-const clientCardStyle: React.CSSProperties = {
-  backgroundColor: "#cce0ff", // clean light blue background
-  padding: "1rem 1.5rem",
-  borderRadius: "14px",
-  minWidth: "280px",
-  height: "180px",
-  flexShrink: 0,
-  fontWeight: "600",
-  fontSize: "1.1rem",
-  cursor: "default",
-  userSelect: "none",
-  textAlign: "center",
-  color: "#1a3a8a", // darker blue text for contrast
-  boxShadow: "0 8px 20px rgba(58, 85, 156, 0.15)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  transition: "transform 0.3s ease, box-shadow 0.3s ease",
-};
-
-const navButtonStyle: React.CSSProperties = {
-  position: "absolute",
-  top: "50%",
-  transform: "translateY(-50%)",
-  background: "rgba(26, 58, 138, 0.15)",
-  border: "none",
-  borderRadius: "50%",
-  width: "48px",
-  height: "48px",
-  cursor: "pointer",
-  color: "#1a3a8a",
-  fontWeight: "700",
-  fontSize: "1.8rem",
-  userSelect: "none",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  transition: "background 0.3s",
-  zIndex: 10,
-  boxShadow: "0 4px 10px rgba(26, 58, 138, 0.3)",
-};
-
-export default function ClientsAutoSliderCard() {
   const [index, setIndex] = useState(0);
-  const visibleCards = 3;
-  const maxIndex = clients.length - visibleCards;
+  const [visibleCards, setVisibleCards] = useState(3);
+  const [stepPx, setStepPx] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  // gap between cards in px (kept in sync with CSS below)
+  const GAP = 18;
+  const AUTOPLAY_MS = 3500;
 
+  // 1) parse client string into {title, location}
+  const parseClient = (raw: string) => {
+    const match = raw.match(/^(.*?)(?:\s*\((.+)\))?$/);
+    const title = match?.[1].trim() ?? raw;
+    const location = match?.[2]?.trim() ?? "";
+    return { title, location };
+  };
+
+  // 2) compute responsive visibleCards based on viewport width
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
-    }, 3500);
+    const compute = () => {
+      const w = viewportRef.current?.offsetWidth ?? window.innerWidth;
+      // breakpoints (tweak as desired)
+      const newVisible =
+        w >= 1400 ? 4 : w >= 1024 ? 3 : w >= 700 ? 2 : 1;
+      setVisibleCards(newVisible);
+    };
+    compute();
+    const o = () => compute();
+    window.addEventListener("resize", o);
+    return () => window.removeEventListener("resize", o);
+  }, []);
+
+  // 3) compute pixel step (width of one card + gap) after render
+  useEffect(() => {
+    const calcStep = () => {
+      if (!sliderRef.current) return;
+      const first = sliderRef.current.querySelector<HTMLElement>(".cs-card");
+      if (first) {
+        const w = first.offsetWidth;
+        setStepPx(w + GAP);
+      } else {
+        setStepPx(320 + GAP); // fallback
+      }
+    };
+    // compute on next paint to allow layout to settle
+    const id = requestAnimationFrame(calcStep);
+    // also recalc on resize
+    window.addEventListener("resize", calcStep);
+    return () => {
+      cancelAnimationFrame(id);
+      window.removeEventListener("resize", calcStep);
+    };
+  }, [visibleCards, CLIENTS.length]);
+
+  // 4) clamp index when visibleCards changes
+  useEffect(() => {
+    const maxIndex = Math.max(0, CLIENTS.length - visibleCards);
+    setIndex((prev) => Math.min(prev, maxIndex));
+  }, [visibleCards]);
+
+  // AUTOPLAY control (start/stop and reset)
+  useEffect(() => {
+    const maxIndex = Math.max(0, CLIENTS.length - visibleCards);
+
+    const play = () => {
+      if (autoplayRef.current) clearInterval(autoplayRef.current);
+      autoplayRef.current = setInterval(() => {
+        setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+      }, AUTOPLAY_MS);
+    };
+
+    if (isPlaying) {
+      play();
+    } else {
+      if (autoplayRef.current) {
+        clearInterval(autoplayRef.current);
+        autoplayRef.current = null;
+      }
+    }
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (autoplayRef.current) {
+        clearInterval(autoplayRef.current);
+        autoplayRef.current = null;
+      }
     };
-  }, [maxIndex]);
+  }, [isPlaying, visibleCards]);
 
-  const slideLeft = () => {
-    setIndex((prev) => Math.max(prev - 1, 0));
-    resetInterval();
+  // keyboard navigation
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        prev();
+        setIsPlaying(false);
+      } else if (e.key === "ArrowRight") {
+        next();
+        setIsPlaying(false);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [visibleCards, index]);
+
+  // helpers
+  const maxIndex = Math.max(0, CLIENTS.length - visibleCards);
+  const prev = () => setIndex((p) => Math.max(0, p - 1));
+  const next = () => setIndex((p) => (p >= maxIndex ? 0 : p + 1));
+
+  // touch interactions (simple swipe)
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+    setIsPlaying(false);
+  };
+  const onTouchMove = (e: React.TouchEvent) => {
+    // prevent vertical scroll only when horizontal movement significant
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX == null) return;
+    const endX = e.changedTouches[0].clientX;
+    const dx = endX - touchStartX;
+    const threshold = 40;
+    if (dx > threshold) prev();
+    else if (dx < -threshold) next();
+    setTouchStartX(null);
   };
 
-  const slideRight = () => {
-    setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
-    resetInterval();
-  };
+  // accessibility: announce current visible window (aria-live)
+  const visibleRangeStart = index + 1;
+  const visibleRangeEnd = Math.min(CLIENTS.length, index + visibleCards);
 
-  const resetInterval = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    intervalRef.current = setInterval(() => {
-      setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
-    }, 3500);
-  };
+  // reduced motion: if user requested reduced motion, shorten animations
+  const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia
+    ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    : false;
 
   return (
-    <section style={{ padding: "2rem 1rem" }}>
-      <h2
-        style={{
-          textAlign: "center",
-          fontSize: "2.25rem",
-          marginBottom: "2.5rem",
-          fontWeight: "700",
-          color: "#3b4a6b",
-          userSelect: "none",
-        }}
-      >
-        Our Clients
-      </h2>
+    <section className="cs-root" aria-label="Trusted clients">
+      <style>{`
+        /* Scoped classes prefixed with cs- */
+        .cs-root {
+          padding: 40px 18px;
+          font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+          color: #0f172a;
+        }
 
-      <div style={outerCardStyle}>
-        <button
-          style={{ ...navButtonStyle, left: "16px" }}
-          onClick={slideLeft}
-          aria-label="Previous"
-          disabled={index === 0}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = "rgba(26,58,138,0.3)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.background = "rgba(26,58,138,0.15)")
-          }
-        >
-          &#8249;
-        </button>
+        .cs-heading {
+          text-align: center;
+          font-weight: 800;
+          font-size: 28px;
+          margin-bottom: 20px;
+          letter-spacing: -0.02em;
+          color: #0b2447;
+          user-select: none;
+        }
+
+        .cs-outer {
+          max-width: 1100px;
+          margin: 0 auto;
+          position: relative;
+          border-radius: 18px;
+          padding: 28px;
+          background: linear-gradient(180deg, rgba(245,250,255,0.9), rgba(235,243,255,0.6));
+          box-shadow: 0 18px 40px rgba(12,40,80,0.08);
+          overflow: visible;
+        }
+
+        /* decorative blobs */
+        .cs-blob {
+          position: absolute;
+          filter: blur(36px);
+          opacity: 0.35;
+          pointer-events: none;
+        }
+        .cs-blob--left {
+          width: 220px;
+          height: 220px;
+          left: -50px;
+          top: -50px;
+          background: radial-gradient(circle at 30% 30%, #bfe0ff, #8fbfff 60%, transparent 80%);
+        }
+        .cs-blob--right {
+          width: 260px;
+          height: 260px;
+          right: -60px;
+          bottom: -40px;
+          background: radial-gradient(circle at 70% 70%, #ffd6e0, #ffc9d6 35%, transparent 70%);
+        }
+
+        .cs-viewport {
+          overflow: hidden;
+          width: 100%;
+        }
+
+        .cs-slider {
+          display: flex;
+          gap: ${GAP}px;
+          align-items: stretch;
+          transition: transform ${prefersReducedMotion ? 0 : 420}ms cubic-bezier(.2,.9,.3,1);
+          will-change: transform;
+        }
+
+        .cs-card {
+          flex: 0 0 calc((100% - ${GAP * (visibleCards - 1)}px) / ${visibleCards});
+          min-height: 140px;
+          border-radius: 12px;
+          background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(247,251,255,0.85));
+          box-shadow: 0 8px 18px rgba(20,48,100,0.06);
+          padding: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          font-weight: 700;
+          font-size: 1rem;
+          color: #0b2a66;
+          position: relative;
+          transition: transform 260ms ease, box-shadow 260ms ease;
+          border: 1px solid rgba(11,37,89,0.035);
+          backdrop-filter: blur(3px);
+        }
+
+        .cs-card:hover {
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 0 14px 36px rgba(12,40,80,0.12);
+        }
+
+        .cs-badge-index {
+          position: absolute;
+          left: 14px;
+          top: 14px;
+          width: 34px;
+          height: 34px;
+          display: inline-grid;
+          place-items: center;
+          border-radius: 10px;
+          background: linear-gradient(180deg,#1f3a8a,#17407a);
+          color: white;
+          font-weight: 700;
+          font-size: 13px;
+          box-shadow: 0 6px 18px rgba(12,40,80,0.15);
+        }
+
+        .cs-location {
+          position: absolute;
+          right: 12px;
+          bottom: 12px;
+          background: rgba(11,37,89,0.06);
+          padding: 6px 9px;
+          border-radius: 999px;
+          font-weight: 600;
+          font-size: 12px;
+          color: #08263b;
+          border: 1px solid rgba(11,37,89,0.04);
+        }
+
+        .cs-card-title {
+          padding: 6px 26px;
+          line-height: 1.18;
+        }
+
+        /* nav buttons */
+        .cs-nav {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          background: rgba(15,38,96,0.06);
+          border: none;
+          cursor: pointer;
+          transition: transform 160ms ease, background 160ms;
+          box-shadow: 0 6px 14px rgba(12,40,80,0.08);
+          color: #08263b;
+        }
+        .cs-nav:hover { transform: translateY(-50%) scale(1.05); background: rgba(15,38,96,0.12); }
+        .cs-nav:disabled { opacity: 0.45; cursor: not-allowed; transform: translateY(-50%); }
+
+        .cs-prev { left: 12px; }
+        .cs-next { right: 12px; }
+
+        /* indicators */
+        .cs-dots {
+          display:flex;
+          gap:10px;
+          justify-content:center;
+          margin-top: 18px;
+        }
+        .cs-dot {
+          width:10px;height:10px;border-radius:50%;background:rgba(11,37,89,0.12);cursor:pointer;
+        }
+        .cs-dot.active { background: linear-gradient(90deg,#1f3a8a,#17407a); box-shadow: 0 6px 12px rgba(12,40,80,0.12); }
+
+        .cs-footer {
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          margin-top: 14px;
+          gap:12px;
+          color: #274060;
+          font-weight:600;
+          font-size:13px;
+        }
+
+        @media (max-width:700px) {
+          .cs-heading { font-size: 20px; }
+        }
+      `}</style>
+
+      <h3 className="cs-heading">Trusted by leading institutions</h3>
+
+      <div
+        className="cs-outer"
+        onMouseEnter={() => setIsPlaying(false)}
+        onMouseLeave={() => setIsPlaying(true)}
+      >
+        <div className="cs-blob cs-blob--left" aria-hidden />
+        <div className="cs-blob cs-blob--right" aria-hidden />
 
         <div
-          style={{
-            overflow: "hidden",
-            flex: 1,
-          }}
+          ref={viewportRef}
+          className="cs-viewport"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
         >
+          {/* slider */}
           <div
+            ref={sliderRef}
+            className="cs-slider"
             style={{
-              ...sliderContainerStyle,
-              width: `${clients.length * (280 + 20)}px`,
-              transform: `translateX(-${index * (280 + 20)}px)`,
+              transform: `translateX(-${index * stepPx}px)`,
             }}
+            role="list"
+            aria-live="polite"
+            aria-label={`Showing clients ${visibleRangeStart} to ${visibleRangeEnd} of ${CLIENTS.length}`}
           >
-            {clients.map((client, i) => (
-              <div
-                key={i}
-                style={clientCardStyle}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "scale(1.08)";
-                  e.currentTarget.style.boxShadow = "0 12px 28px rgba(26, 58, 138, 0.3)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow = "0 8px 20px rgba(58, 85, 156, 0.15)";
-                }}
-              >
-                {client}
-              </div>
-            ))}
+            {CLIENTS.map((raw, i) => {
+              const { title, location } = parseClient(raw);
+              return (
+                <article
+                  key={i}
+                  className="cs-card"
+                  role="listitem"
+                  tabIndex={0}
+                  aria-label={title + (location ? ", " + location : "")}
+                >
+                  <div className="cs-badge-index" aria-hidden>
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+
+                  <div className="cs-card-title">{title}</div>
+
+                  {location ? (
+                    <div className="cs-location">{location}</div>
+                  ) : null}
+                </article>
+              );
+            })}
           </div>
         </div>
 
+        {/* navigation buttons */}
         <button
-          style={{ ...navButtonStyle, right: "16px" }}
-          onClick={slideRight}
+          className="cs-nav cs-prev"
+          onClick={() => {
+            prev();
+            setIsPlaying(false);
+          }}
+          aria-label="Previous"
+          disabled={index === 0}
+        >
+          ‹
+        </button>
+
+        <button
+          className="cs-nav cs-next"
+          onClick={() => {
+            next();
+            setIsPlaying(false);
+          }}
           aria-label="Next"
           disabled={index === maxIndex}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.background = "rgba(26,58,138,0.3)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.background = "rgba(26,58,138,0.15)")
-          }
         >
-          &#8250;
+          ›
         </button>
+
+        <div className="cs-footer">
+          <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+            <strong style={{ color: "#08263b" }}>
+              {visibleRangeStart}-{visibleRangeEnd}
+            </strong>
+            <span style={{ opacity: 0.8 }}>of {CLIENTS.length} clients</span>
+          </div>
+
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <button
+              onClick={() => {
+                setIndex(0);
+                setIsPlaying(false);
+              }}
+              aria-label="Show first"
+              style={{
+                padding: "8px 10px",
+                borderRadius: 10,
+                border: "1px solid rgba(11,37,89,0.04)",
+                background: "white",
+                cursor: "pointer",
+                fontWeight: 700,
+              }}
+            >
+              First
+            </button>
+
+            <button
+              onClick={() => {
+                setIsPlaying((p) => !p);
+              }}
+              aria-pressed={!isPlaying}
+              aria-label={isPlaying ? "Pause autoplay" : "Resume autoplay"}
+              style={{
+                padding: "8px 12px",
+                borderRadius: 10,
+                border: "none",
+                background: isPlaying ? "linear-gradient(90deg,#1f3a8a,#17407a)" : "#eef3fb",
+                color: isPlaying ? "white" : "#0b2a66",
+                cursor: "pointer",
+                fontWeight: 700,
+              }}
+            >
+              {isPlaying ? "Pause" : "Play"}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* dots (one per index position) */}
+      <div className="cs-dots" role="tablist" aria-label="Jump to client">
+        {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+          <div
+            key={i}
+            role="tab"
+            aria-selected={i === index}
+            tabIndex={0}
+            className={`cs-dot ${i === index ? "active" : ""}`}
+            onClick={() => {
+              setIndex(i);
+              setIsPlaying(false);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                setIndex(i);
+                setIsPlaying(false);
+              }
+            }}
+            title={`Slide ${i + 1}`}
+          />
+        ))}
       </div>
     </section>
   );
