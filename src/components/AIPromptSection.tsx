@@ -40,7 +40,7 @@ const AIPromptSection = () => {
   };
 
   return (
-    <section className="py-24 px-6">
+    <section id="ask-ai" className="py-24 px-6">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-6">

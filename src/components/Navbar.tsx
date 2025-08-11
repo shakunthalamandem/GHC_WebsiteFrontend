@@ -32,12 +32,7 @@ const Navbar = () => {
 
           {/* Navigation */}
           <div className="flex items-center space-x-8">
-            <button
-              onClick={() => setIsCareersOpen(true)}
-              className="text-foreground font-medium glow-underline transition-all duration-300 hover:text-primary"
-            >
-              Careers
-            </button>
+         
           </div>
         </div>
       </nav>

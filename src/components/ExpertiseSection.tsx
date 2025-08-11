@@ -138,7 +138,7 @@ const ExpertiseCard = ({ expertise }: { expertise: typeof expertiseData[0] }) =>
 
 const ExpertiseSection = () => {
   return (
-    <section className="py-24 px-6">
+    <section id='expertise' className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-foreground mb-4">
