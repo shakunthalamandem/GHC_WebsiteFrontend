@@ -37,7 +37,7 @@ export default function ClientsSlider() {
 
   // gap between cards in px (kept in sync with CSS below)
   const GAP = 18;
-  const AUTOPLAY_MS = 3500;
+  const AUTOPLAY_MS = 2000; // faster autoplay interval (2 seconds)
 
   // 1) parse client string into {title, location}
   const parseClient = (raw: string) => {
@@ -94,20 +94,16 @@ export default function ClientsSlider() {
   useEffect(() => {
     const maxIndex = Math.max(0, CLIENTS.length - visibleCards);
 
-    const play = () => {
-      if (autoplayRef.current) clearInterval(autoplayRef.current);
+    // Clear any existing interval before starting a new one
+    if (autoplayRef.current) {
+      clearInterval(autoplayRef.current);
+      autoplayRef.current = null;
+    }
+
+    if (isPlaying) {
       autoplayRef.current = setInterval(() => {
         setIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
       }, AUTOPLAY_MS);
-    };
-
-    if (isPlaying) {
-      play();
-    } else {
-      if (autoplayRef.current) {
-        clearInterval(autoplayRef.current);
-        autoplayRef.current = null;
-      }
     }
 
     return () => {
@@ -227,7 +223,7 @@ export default function ClientsSlider() {
           display: flex;
           gap: ${GAP}px;
           align-items: stretch;
-          transition: transform ${prefersReducedMotion ? 0 : 420}ms cubic-bezier(.2,.9,.3,1);
+          transition: transform ${prefersReducedMotion ? 0 : 250}ms cubic-bezier(.2,.9,.3,1);
           will-change: transform;
         }
 
@@ -445,12 +441,12 @@ export default function ClientsSlider() {
             >
               First
             </button>
-
+{/* 
             <button
               onClick={() => {
                 setIsPlaying((p) => !p);
               }}
-              aria-pressed={!isPlaying}
+              aria-pressed={isPlaying}
               aria-label={isPlaying ? "Pause autoplay" : "Resume autoplay"}
               style={{
                 padding: "8px 12px",
@@ -463,7 +459,8 @@ export default function ClientsSlider() {
               }}
             >
               {isPlaying ? "Pause" : "Play"}
-            </button>
+            </button> */}
+
           </div>
         </div>
       </div>

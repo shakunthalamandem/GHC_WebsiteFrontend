@@ -31,12 +31,13 @@ export default function Careers({ onClose }) {
   };
 
   return (
-    <div className="bg-[#bfcedd] rounded-2xl shadow-lg p-6 w-full max-w-2xl relative">
+    <div className="bg-[#bfcedd] rounded-2xl shadow-lg p-8 max-w-2xl w-full relative text-gray-900">
       {/* Cancel Button */}
       <button
         type="button"
         onClick={onClose}
-        className="absolute top-4 right-4 text-black hover:text-gray-600 text-xl font-bold"
+        className="absolute top-5 right-5 text-gray-700 hover:text-gray-900 text-2xl font-bold"
+        aria-label="Close form"
       >
         ✕
       </button>
@@ -45,14 +46,14 @@ export default function Careers({ onClose }) {
       <motion.h1
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-2xl font-bold text-center mb-4"
+        className="text-3xl font-semibold text-center mb-6 tracking-wide"
       >
         Join Our Team
       </motion.h1>
 
-      <form onSubmit={handleSubmit} className="space-y-3">
+      <form onSubmit={handleSubmit} className="space-y-5">
         {/* Name Fields */}
-        <div className="grid md:grid-cols-2 gap-3">
+        <div className="grid md:grid-cols-2 gap-5">
           <input
             type="text"
             name="firstName"
@@ -60,7 +61,7 @@ export default function Careers({ onClose }) {
             value={formData.firstName}
             onChange={handleChange}
             required
-            className="p-3 rounded-lg w-full bg-[#dee2ea] border border-gray-300 focus:border-blue-400 focus:outline-none"
+            className="p-4 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-black focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 text-gray-900 transition"
           />
           <input
             type="text"
@@ -69,7 +70,7 @@ export default function Careers({ onClose }) {
             value={formData.lastName}
             onChange={handleChange}
             required
-            className="p-3 rounded-lg w-full bg-[#dee2ea] border border-gray-300 focus:border-blue-400 focus:outline-none"
+            className="p-4 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-black focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 text-gray-900 transition"
           />
         </div>
 
@@ -81,7 +82,7 @@ export default function Careers({ onClose }) {
           value={formData.email}
           onChange={handleChange}
           required
-          className="p-3 rounded-lg w-full bg-[#dee2ea] border border-gray-300 focus:border-blue-400 focus:outline-none"
+          className="p-4 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-black focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 text-gray-900 transition"
         />
 
         {/* Phone */}
@@ -92,7 +93,7 @@ export default function Careers({ onClose }) {
           value={formData.phone}
           onChange={handleChange}
           required
-          className="p-3 rounded-lg w-full bg-[#dee2ea] border border-gray-300 focus:border-blue-400 focus:outline-none"
+          className="p-4 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-black focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 text-gray-900 transition"
         />
 
         {/* Additional Info */}
@@ -101,8 +102,8 @@ export default function Careers({ onClose }) {
           placeholder="Additional Information"
           value={formData.additionalInfo}
           onChange={handleChange}
-          rows={3}
-          className="p-3 rounded-lg w-full bg-[#dee2ea] border border-gray-300 focus:border-blue-400 focus:outline-none resize-y"
+          rows={4}
+          className="p-4 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-black focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 text-gray-900 resize-y transition"
         />
 
         {/* File Upload */}
@@ -112,23 +113,24 @@ export default function Careers({ onClose }) {
           accept=".pdf,.doc,.docx"
           onChange={handleChange}
           required
-          className="w-full text-gray-600"
+          className="text-gray-700 file:bg-gray-300 file:text-gray-900 file:px-4 file:py-2 file:rounded-md file:border-none file:cursor-pointer file:hover:bg-gray-400 transition"
         />
 
         {/* Checkbox */}
-        <label className="flex items-start space-x-2 text-gray-700 text-sm">
+        <label className="flex items-start space-x-3 text-gray-700 text-sm cursor-pointer select-none">
           <input
             type="checkbox"
             name="agree"
             checked={formData.agree}
             onChange={handleChange}
-            className="w-4 h-4 mt-1"
+            className="w-5 h-5 mt-1 rounded border-gray-300 focus:ring-2 focus:ring-gray-400 cursor-pointer"
           />
           <span>
             By submitting this form, you agree to{" "}
-            <a href="#" className="text-blue-500 underline">
+            <a href="#" className="text-blue-600 underline hover:text-blue-800">
               GHC Terms of Use
-            </a>.
+            </a>
+            .
           </span>
         </label>
 
@@ -136,7 +138,7 @@ export default function Careers({ onClose }) {
         <div className="flex justify-center">
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg font-medium text-white"
+            className="px-8 py-3 bg-gray-600 hover:bg-gray-700 rounded-lg font-semibold text-white shadow-sm transition"
           >
             Submit
           </button>
