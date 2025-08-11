@@ -15,7 +15,11 @@ import pic22 from '@/assets/pic22.png'
 import pic23 from '@/assets/pic23.jpg'
 import pic24 from '@/assets/pic24.jpg'
 import pic25 from '@/assets/pic25.jpg'
-
+import main4 from '@/assets/main4.jpg'
+import pic41 from '@/assets/pic41.jpg'
+import pic42 from '@/assets/pic42.jpg' 
+import pic43 from '@/assets/pic43.jpg'
+import main5 from '@/assets/main41.jpg'
 
 
 import Footer from '../Footer';
@@ -224,7 +228,7 @@ Illustrative use case: A digital asset platform expanding across jurisdictions r
     title: 'Custom Software and Web Application Development',
     tagline:
       'We design, build, and maintain tailored software and web-based solutions that fit your business needs perfectly—far beyond what off-the-shelf tools can deliver.',
-    image: main,
+    image: main4,
     whatWeDo: [
       'Web Based Tools',
       'Hosted Web Based Applications',
@@ -240,7 +244,7 @@ Illustrative use case: A digital asset platform expanding across jurisdictions r
     sections: [
       {
         title: 'Web Based Tools',
-        image: pic1,
+        image: pic41,
         content: `Online applications accessible via browser, tailored for investment operations and client interactions.
 
 Use Cases:
@@ -254,7 +258,7 @@ Benefits:
       },
       {
         title: 'Hosted Web Based Applications',
-        image: main,
+        image: pic42,
         content: `Comprehensive, cloud-based investment management solutions that users access securely online.
 
 Use Cases:
@@ -268,7 +272,7 @@ Benefits:
       },
       {
         title: 'Custom Technology Platforms',
-        image: main,
+        image: pic43,
         content: `End-to-end digital ecosystems built for complex, multi-faceted investment business needs.
 
 Use Cases:
@@ -327,7 +331,7 @@ Benefits:
     title: 'Risk Analytics and Portfolio Optimization',
     tagline:
       'Anticipate threats and optimize returns with quantitative rigor. GoldenHills crafts risk and portfolio solutions giving you clarity even in unpredictable markets.',
-    image: main,
+    image: main5,
     whatWeDo: [
       'Real-time dashboards to monitor risk and stress-test allocations.',
       'Sophisticated portfolio optimization engines to balance risk and reward.',
