@@ -19,12 +19,43 @@ import main4 from '@/assets/main4.jpg'
 import pic41 from '@/assets/pic41.jpg'
 import pic42 from '@/assets/pic42.jpg' 
 import pic43 from '@/assets/pic43.jpg'
-import main5 from '@/assets/main41.jpg'
+// import main5 from '@/assets/main41.jpg'
+import main1 from '@/assets/main1.jfif'
+import main3 from '@/assets/main3.jfif'
+import main5 from '@/assets/main5.jfif'
+import main7 from '@/assets/main7.png' 
+import main8 from '@/assets/main8.jfif'
+import pic12 from '@/assets/pic12.png'
+import pic14 from '@/assets/pic14-backup.png'
+import pic15 from '@/assets/pic15.png'
+import pic32 from '@/assets/pic32.jfif'
+import pic33 from '@/assets/pic33.jfif'
+import pic51 from '@/assets/pic51.webp'
+import pic52 from '@/assets/pic52.jfif'
+import pic53 from '@/assets/pic53.jfif'
+import pic54 from '@/assets/pic54.jfif'
+import pic71 from '@/assets/pic71.jpg'
+import pic72 from '@/assets/pic72.jpg'
+import pic81 from '@/assets/pic81.jpg'
+import pic82 from '@/assets/pic82.jfif'
+import pic83 from '@/assets/pic83.jfif'
+import pic84 from '@/assets/pic84.jfif'
+import pic85 from '@/assets/pic85.png'
+import pic86 from '@/assets/pic86.jfif'
+import main6 from '@/assets/main6.jpg'
+import pic61 from '@/assets/pic61.jpg'
+import pic63 from '@/assets/pic63.jpg'
+import pic62 from '@/assets/pic62.jpg'
+
+import pic64 from '@/assets/pic64.jpg'
+import pic66 from '@/assets/pic66.jpg'
+
+import pic65 from '@/assets/pic65.jpg'
+
+
 
 
 import Footer from '../Footer';
-import LAT4 from '@/assets/generated-image.png'
-
 const expertiseDetails1: Record<
   string,
   {
@@ -46,7 +77,7 @@ const expertiseDetails1: Record<
   title: 'AI-Driven Decision Intelligence',
   tagline:
     'Unlock the power of artificial intelligence to move ahead of market changes and make truly informed decisions. GoldenHills specializes in deploying advanced AI tools that continuously analyze complex datasets, revealing hidden patterns and empowering your teams to act faster with confidence.',
-  image: main,
+  image: main1,
   whatWeDo: [
     'Design and implement tailored machine learning and generative AI solutions.',
     'Deploy predictive analytics that identify trends and anomalies in real time.',
@@ -70,7 +101,7 @@ const expertiseDetails1: Record<
     },
     {
       title: 'Custom dashboard design for data visualization and insights',
-      image: pic2,
+      image: pic12,
       content: `
         <p>Designs tailored dashboards that visualize complex data clearly and interactively. Enables faster, data-driven decisions through intuitive, insight-rich visual interfaces. Targeted for business analysts, financial professionals, product teams, and decision-makers.</p>
       `,
@@ -84,14 +115,14 @@ const expertiseDetails1: Record<
     },
     {
       title: 'Visualize and analyze the crypto market through custom dashboards',
-      image: pic4,
+      image: pic14,
       content: `
         <p>Offers custom dashboards to track, visualize, and analyze real-time crypto market data. Enables better trading decisions through clear insights into price movements, trends, and portfolio performance. Perfect for crypto traders, analysts, DeFi investors, and fintech platforms.</p>
       `,
     },
     {
       title: 'Forecasting market trends with predictive models for better investing',
-      image: pic5,
+      image: pic15,
       content: `
         <p>Uses predictive models to forecast market trends and asset movements. Enables data-driven investment decisions, reduces uncertainty, and improves timing and strategy for traders, analysts, and fintech platforms.</p>
       `,
@@ -167,7 +198,7 @@ const expertiseDetails1: Record<
   title: 'FinTech & Digital Transformation',
   tagline:
     'Modern finance moves at digital speed. GOLDENHILLS helps you leave manual, error-prone processes in the past with powerful, compliant digital solutions built for today’s regulatory and operational demands.',
-  image: main,
+  image: main3,
   whatWeDo: [
     'Automation of planning, forecasting, and reconciliation workflows.',
     'Seamless digital client onboarding with KYC and secure document management.',
@@ -205,7 +236,7 @@ const expertiseDetails1: Record<
     },
     {
       title: 'Data Management & Accounting',
-      image: main,
+      image: pic32,
       content: `
         <p>At Golden Hills, we help businesses strengthen their financial foundation through intelligent data management and modern accounting practices. Our solutions reduce manual effort, increase accuracy, and ensure that every financial process—from payments to reporting—is efficient, compliant, and built for scale.</p>
 
@@ -224,7 +255,7 @@ const expertiseDetails1: Record<
     },
     {
       title: 'Virtual CFO Services',
-      image: main,
+      image: pic33,
       content: `
         <p>At Golden Hills, we provide virtual CFO support tailored for businesses that need strategic financial leadership without a full in-house team. Our experts help you scale sustainably, manage complexity, and meet compliance and investor expectations.</p>
 
@@ -322,7 +353,7 @@ const expertiseDetails1: Record<
   title: 'Cloud Computing and Deployment',
   tagline:
     'Financial organizations need rock-solid, flexible infrastructure to stay secure and competitive. Goldenhills guides every step of your cloud transformation, enhancing agility while maintaining compliance. It enables businesses to deploy websites efficiently, scale resources dynamically based on demand, and access advanced computing power and tools without heavy upfront investments in hardware.',
-  image: main,
+  image: main5,
   whatWeDo: [
     'Provide scalable cloud infrastructure tailored for financial services.',
     'Support rapid deployment and updates of websites and applications.',
@@ -344,24 +375,43 @@ const expertiseDetails1: Record<
 'Cloud platforms provide flexible, scalable infrastructure that handles traffic spikes smoothly, reduces costs by paying for only used resources, improves global user experience, ensures security against cyber threats, and accelerates design and deployment through integrated collaboration tools.  ',
 sections: [
     {
-      title: 'Scalability & Cost Efficiency',
-      image: pic1,
+      title: 'Performance & Scalability',
+      image: pic51,
       content: `
-        <p>Automatically adjust computing resources to match website traffic demands with a pay-as-you-go pricing model. This approach reduces upfront IT costs and ensures your infrastructure scales seamlessly to support business growth.</p>
+       <Strong> Scalability</strong>:<p> Your hosting automatically adjusts computing power, storage, and network capacity based on real-time traffic. Whether you have a sudden surge during a product launch or seasonal promotions, the system ensures your website stays responsive without manual intervention.
+</p> <Strong> Global Accessibility</strong>:<p> By leveraging a network of international data centers, your website loads quickly for users worldwide, minimizing latency and ensuring a seamless experience for visitors in any region.
+</p>
       `,
     },
     {
-      title: 'Security & Disaster Recovery',
+      title: 'Cost & Operational Efficiency',
+            image: pic52,
+
       content: `
-        <p>Robust cloud security protocols, including encryption and multi-factor authentication, protect your web applications from cyber threats.</p>
-        <p>Automated backups and redundancy provide disaster recovery, safeguarding your data and ensuring reliable uptime.</p>
+       <strong>Cost Efficiency</strong>: <p>The pay-as-you-go model eliminates the need for large upfront investments in servers and hardware. You only pay for what you actually use, optimizing your IT budget and freeing resources for other business priorities.</p>
+
+<strong>Faster Deployment</strong>:<p> Pre-configured infrastructure and automated provisioning mean you can launch new websites or roll out updates in a fraction of the time, getting your products and services to market faster.
+</p>
       `,
     },
     {
-      title: 'Collaboration & Flexibility',
+      title: ' Security & Reliability',
+            image: pic53,
+
       content: `
-        <p>Cloud computing supports collaboration among remote development teams with integrated tools, enabling simultaneous work on projects.</p>
-        <p>It also offers flexibility by integrating with various development platforms and tools, speeding up deployment and update cycles.</p>
+      <strong>Enhanced Security</strong>:<p> Advanced firewalls, DDoS protection, regular vulnerability scans, and continuous security patches help protect your website against evolving cyber threats.</p>
+
+<strong>Disaster Recovery</strong>:<p> Built-in data backups, redundancy, and failover systems ensure that even in the event of hardware failure or data corruption, your website can be quickly restored with minimal downtime.</p>
+      `,
+    },
+       {
+      title: '  Collaboration & Flexibility',
+            image: pic53,
+
+      content: `
+    <strong> Collaboration</strong>: <p>Cloud-based hosting allows distributed teams to work on website projects simultaneously, making real-time updates and changes without conflict.</p>
+
+<strong>Flexibility</strong>: <p>Seamlessly integrates with a wide range of development frameworks, content management systems, and deployment tools, allowing your team to work in the environment they know best.</p>
       `,
     },
   ],
@@ -371,7 +421,7 @@ sections: [
   title: 'Risk Analytics and Portfolio Optimization',
   tagline:
     'Anticipate threats and optimize returns with quantitative rigor. GoldenHills crafts risk and portfolio solutions giving you clarity even in unpredictable markets.',
-  image: main5,
+  image: main6,
   whatWeDo: [
     'Real-time dashboards to monitor risk and stress-test allocations.',
     'Sophisticated portfolio optimization engines to balance risk and reward.',
@@ -388,7 +438,7 @@ sections: [
   sections: [
     {
       title: 'Real-Time Risk Monitoring and Reporting',
-      image: pic1,
+      image: pic61,
       content: `
         <p>Continuously monitor and evaluate portfolio exposures, market risks, and compliance constraints through automated, real-time dashboards. This delivers up-to-the-minute visibility into critical risk metrics such as Value at Risk (VaR), sector concentration, and stress scenarios—enabling timely, informed responses.</p>
         <p>Targeted at portfolio managers, risk officers, compliance teams, and asset management firms.</p>
@@ -396,30 +446,35 @@ sections: [
     },
     {
       title: 'Scenario Analysis & Stress Testing',
+      image: pic62,
       content: `
         <p>Simulate market shocks, regulatory shifts, and macroeconomic events to proactively assess portfolio resilience. This tool provides actionable insights for pre-emptive adjustments, targeting institutional investors, risk managers, and investment committees.</p>
       `,
     },
     {
       title: 'Portfolio Optimization Engine',
+      image: pic63,
       content: `
         <p>Optimize asset allocation using advanced quantitative models balancing return objectives, risk tolerances, and regulatory requirements. Tailors portfolio rebalancing strategies to market dynamics, aimed at asset managers, financial advisors, and private wealth offices.</p>
       `,
     },
     {
       title: 'Automated Regulatory Risk & Compliance Checks',
+      image: pic64,
       content: `
         <p>Automatically map portfolios against regulatory standards—including capital adequacy, liquidity, and exposure thresholds—to catch potential breaches and generate audit-ready reports. Targeted at compliance teams, audit professionals, and regulatory reporting departments.</p>
       `,
     },
     {
       title: 'Custom Risk Analytics for Strategy Development',
+      image: pic65,
       content: `
         <p>Leverage customized analytics like factor modeling, risk attribution, and downside quantification to shape differentiated investment strategies aligned with mandates. Designed for quantitative research teams, investment strategists, and senior decision-makers.</p>
       `,
     },
     {
       title: 'Exposure Reporting & Transparency Tools',
+      image: pic66,
       content: `
         <p>Deliver clear, detailed visual reports on exposures, sector weights, counterparty risk, and concentration limits to enhance transparency and trust for investor relations teams, institutional clients, and board members.</p>
       `,
@@ -431,7 +486,7 @@ sections: [
   title: 'Business Intelligence and Visualization',
   tagline:
     'Transform your raw data into stories that drive performance. GOLDENHILLS’s business intelligence solutions make it easy to see where you stand and where you should go next.',
-  image: main,
+  image: main7,
   whatWeDo: [
     'Custom dashboards that provide both real-time overview and drill-down exploration.',
     'Visualizations simplifying complex metrics for quick decision-making.',
@@ -448,7 +503,7 @@ sections: [
   sections: [
     {
       title: 'Visualization Insights and Dashboards',
-      image: pic1,
+      image: pic71,
       content: `
         <p>Unified Dashboards That Drive Real-Time Clarity and Operational Confidence</p>
 
@@ -468,7 +523,7 @@ sections: [
     },
     {
       title: 'Visualization Tools',
-      image: pic1,
+      image: pic72,
       content: `
         <p>Powerful Data Infrastructure and Custom Visuals Built for Scalable Decision Intelligence</p>
 
@@ -491,7 +546,7 @@ sections: [
   title: 'Custom Quantitative Research & Financial Modelling',
   tagline:
     'Power your investment and transaction decisions with rock-solid analysis. GoldenHills designs and delivers models and research suited to your most complex and high-value questions.',
-  image: main,
+  image: main8,
   whatWeDo: [
     'Robust company, deal, and asset valuation models, including cross-border and multi-currency scenarios.',
     'Scenario-based financial forecasts for planning across best- and worst-case situations.',
@@ -508,37 +563,47 @@ sections: [
   sections: [
     {
       title: 'Bespoke Financial Valuation Models',
-      image: pic1,
+      image: pic81,
       content: `
         <p>Develop robust valuation frameworks for companies, assets, or projects using tailored methodologies, including discounted cash flow, market comparables, and precedent transactions. These models enable accurate, defensible decisions for acquisitions, investments, or funding rounds, targeted at investment teams, private equity firms, and corporate finance professionals.</p>
       `,
     },
     {
       title: 'Scenario-Based Financial Forecasting',
+      image: pic82,
+
       content: `
         <p>Build dynamic forecasts that stress-test business plans and evaluate future financial performance under various market, macroeconomic, or regulatory scenarios. This approach helps anticipate risks, assess upside potential, and plan with greater confidence, targeted at CFOs, corporate strategists, and portfolio managers.</p>
       `,
     },
     {
       title: 'Equity Capital Market Deal Tracking & Analytics',
+            image: pic83,
+
       content: `
         <p>Track, analyze, and visualize capital market transactions—such as IPOs, secondary offerings, or private placements—through bespoke deal-tracking tools. This comprehensive view of market activity supports more agile opportunity sourcing and due diligence, targeted at corporate development teams, investment bankers, and institutional investors.</p>
       `,
     },
     {
       title: 'Performance Attribution Modelling',
+            image: pic84,
+
       content: `
         <p>Develop analytical models that break down portfolio or investment performance into its key drivers—such as sector allocation, security selection, timing, and currency effects. This approach helps organizations clearly understand what’s adding value (or detracting from it) at every level, targeted at asset managers, performance analysts, and investment consultants.</p>
       `,
     },
     {
       title: 'Deal Structuring and Waterfall Analysis',
+            image: pic85,
+
       content: `
         <p>Create detailed financial models that map out complex deal structures, funding rounds, and cash flow waterfalls. These models clarify how proceeds and profits are distributed across various classes, investors, and stakeholders under different scenarios, targeted at private equity teams, fund managers, and legal advisors involved in transaction structuring.</p>
       `,
     },
     {
       title: 'Real-Time KPI and Benchmark Tracking Models',
+            image: pic86,
+
       content: `
         <p>Build real-time tracking systems for critical financial and operational KPIs, benchmarking performance against industry standards or peer groups. This enables timely course correction and opportunity spotting, targeted at CFOs, operational teams, and executive leadership.</p>
       `,
