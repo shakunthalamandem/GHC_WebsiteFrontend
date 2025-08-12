@@ -9,6 +9,8 @@ import SuggestedQuestionsBlock from './SuggestedQuestionsBlock';
 import SlidesBlock from './SlidesBlock';
 import TreeChart from './TreeChart';
 import CalendarChart from './CalendarChart';
+import ImageBlock from './ImageBlock';
+import VideoBlock from './VideoBlock';
 
 
 interface Props {
@@ -35,10 +37,14 @@ const renderBlock = (item: DynamicBlock) => {
       return <TreeChart {...item}/>;
     case 'calendar':
     return <CalendarChart {...item} />;
+    case 'image':
+      return <ImageBlock {...item}/>;
+    case 'video':
+    return <VideoBlock {...item}/>;
 
 
     default:
-      return <div className="text-red-500">Unknown type: {item.type}</div>;
+      return <div className="text-red-500">Unknown type: {item}</div>;
   }
 };
 const DynamicRenderer: React.FC<Props> = ({ response }) => {

@@ -19,6 +19,7 @@ const AIPromptSection = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+const [isPopupFocused, setIsPopupFocused] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -166,19 +167,44 @@ const AIPromptSection = () => {
               </button>
 
               {/* Popup Prompt Bar */}
-              <form onSubmit={handlePopupSubmit} className="mb-4">
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={popupPrompt}
-                    onChange={(e) => setPopupPrompt(e.target.value)}
-                    className="flex-1 px-4 py-2 border rounded-full"
-                  />
-                  <button type="submit" className="bg-primary text-white px-4 py-2 rounded-full">
-                    <Send size={18} />
-                  </button>
-                </div>
-              </form>
+<form onSubmit={handlePopupSubmit} className="mb-4 flex justify-center">
+<div
+  className={`relative transition-all duration-500 w-[700px] ${
+    isPopupFocused ? 'scale-105 shadow-glow' : 'shadow-elegant'
+  }`}
+>
+
+
+    <div className="relative w-full">
+      <input
+        type="text"
+        value={popupPrompt}
+        onChange={(e) => setPopupPrompt(e.target.value)}
+        onFocus={() => setIsPopupFocused(true)}
+        onBlur={() => setIsPopupFocused(false)}
+        className={`w-full px-5 py-3 rounded-full border-2 text-base focus:outline-none transition-all duration-300 ${
+          isPopupFocused
+            ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
+            : 'border-border bg-card'
+        }`}
+      />
+      {!popupPrompt && !isPopupFocused && (
+        <span
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground text-base whitespace-nowrap border-r-2 border-muted-foreground animate-typing max-w-[calc(100%-48px)] truncate cursor-text"
+          onClick={() => setIsPopupFocused(true)}
+        >
+          Search company policies, culture, benefits, careers...
+        </span>
+      )}
+    </div>
+    <button
+      type="submit"
+      className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary hover:bg-primary-glow text-primary-foreground p-2 rounded-full transition-all duration-300 disabled:opacity-50"
+    >
+      <Send className="w-5 h-5" />
+    </button>
+  </div>
+</form>
 
               {/* AI Response */}
               {isLoading ? (

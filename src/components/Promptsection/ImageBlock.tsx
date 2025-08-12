@@ -8,16 +8,20 @@ interface Props {
   alt: string;
 }
 
+const BASE_URL = "http://192.168.1.40:1000"; // Your base URL
+
 const ImageBlock: React.FC<Props> = ({ title, description, url, alt }) => {
+  const fullUrl = url.startsWith("http") ? url : `${BASE_URL}${url}`;
+
   return (
     <Card
       sx={{
-        borderRadius: 3, // Adjust the curve here (e.g., 2 = medium, 3 = more curved)
-        overflow: "hidden", // Important to make the image follow the card's border radius
-        boxShadow: 3, // Optional: adds elevation to enhance visual appeal
+        borderRadius: 3,
+        overflow: "hidden",
+        boxShadow: 3,
       }}
     >
-      <CardMedia component="img" height="200" image={url} alt={alt} />
+      <CardMedia component="img" height="200" image={fullUrl} alt={alt} />
       <CardContent>
         <Typography variant="subtitle1" fontWeight={600}>
           {title}

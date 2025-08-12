@@ -8,7 +8,21 @@ interface TextBlockProps {
 
 const TextBlock: React.FC<TextBlockProps> = ({ content }) => {
   return (
-    <div className="p-4 text-base leading-relaxed text-gray-800 bg-gray-50 rounded-xl border border-gray-200 shadow-sm prose max-w-none">
+    <div
+      className="
+        p-4 
+        text-base 
+        leading-relaxed 
+        text-[#0f0e0e] 
+        rounded-xl 
+        shadow-md 
+        border 
+        border-white/10 
+        bg-[rgba(217,235,235,1)] 
+        prose 
+        max-w-none
+      "
+    >
       <ReactMarkdown remarkPlugins={[remarkGfm]}>
         {content}
       </ReactMarkdown>
