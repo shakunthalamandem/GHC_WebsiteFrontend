@@ -13,7 +13,8 @@ const faqs = [
 ];
 
 const AIPromptSection = () => {
-  const [prompt, setPrompt] = useState('');
+  const [mainPrompt, setMainPrompt] = useState('');
+  const [popupPrompt, setPopupPrompt] = useState('');
   const [responseBlocks, setResponseBlocks] = useState<DynamicBlock[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -23,6 +24,7 @@ const AIPromptSection = () => {
 
   const fetchAIResponse = async (question: string) => {
     setIsModalOpen(true);
+    setPopupPrompt(question); // fill popup bar with the question
     setIsLoading(true);
     setResponseBlocks(null);
 
@@ -33,27 +35,51 @@ const AIPromptSection = () => {
         body: JSON.stringify({ question }),
       });
 
-      if (!res.ok) throw new Error('API error');
+      const text = await res.text();
+      if (!res.ok) throw new Error(text);
 
-      const data = await res.json();
+      const data = JSON.parse(text);
       setResponseBlocks(data.response);
     } catch (error) {
       console.error('Fetch error:', error);
-      setResponseBlocks([]);
+
+      if (error.message.includes('Rate limit exceeded')) {
+        setIsModalOpen(false);
+        alert(error.message);
+      } else {
+        setResponseBlocks([
+          {
+            type: 'text',
+            row: 0,
+            column: 1,
+            total_columns: 1,
+            content: 'Something went wrong. Please try again later.',
+          },
+        ]);
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleMainSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!prompt.trim()) return;
-    fetchAIResponse(prompt);
+    const question = mainPrompt.trim();
+    if (!question) return;
+    setMainPrompt(''); // clear main bar
+    fetchAIResponse(question); // popup will be pre-filled
+  };
+
+  const handlePopupSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const question = popupPrompt.trim();
+    if (!question) return;
+    fetchAIResponse(question); // stays in popup
   };
 
   const handleFAQClick = (question: string) => {
-    setPrompt(question);
-    fetchAIResponse(question);
+    setMainPrompt(''); // clear main prompt
+    fetchAIResponse(question); // popup pre-filled
   };
 
   return (
@@ -70,8 +96,8 @@ const AIPromptSection = () => {
           </p>
         </div>
 
-        {/* Search Bar */}
-        <form onSubmit={handleSubmit} className="relative mb-6">
+        {/* Main Prompt Bar */}
+        <form onSubmit={handleMainSubmit} className="relative mb-6">
           <div
             className={`relative transition-all duration-500 ${
               isFocused ? 'scale-105 shadow-glow' : 'shadow-elegant'
@@ -82,18 +108,17 @@ const AIPromptSection = () => {
               <input
                 ref={inputRef}
                 type="text"
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
+                value={mainPrompt}
+                onChange={(e) => setMainPrompt(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                className={`w-full px-8 py-6 rounded-full border-2 text-lg focus:outline-none transition-all duration-300 
-                  ${
-                    isFocused
-                      ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)] '
-                      : 'border-border bg-card'
-                  }`}
+                className={`w-full px-8 py-6 rounded-full border-2 text-lg focus:outline-none transition-all duration-300 ${
+                  isFocused
+                    ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
+                    : 'border-border bg-card'
+                }`}
               />
-              {!prompt && !isFocused && (
+              {!mainPrompt && !isFocused && (
                 <span
                   className="absolute left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground text-lg whitespace-nowrap border-r-2 border-muted-foreground animate-typing max-w-[calc(100%-48px)] truncate cursor-text"
                   onClick={() => inputRef.current?.focus()}
@@ -102,10 +127,9 @@ const AIPromptSection = () => {
                 </span>
               )}
             </div>
-
             <button
               type="submit"
-              disabled={!prompt.trim() || isLoading}
+              disabled={!mainPrompt.trim() || isLoading}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-primary hover:bg-primary-glow text-primary-foreground p-3 rounded-full transition-all duration-300 disabled:opacity-50"
             >
               {isLoading ? (
@@ -117,7 +141,7 @@ const AIPromptSection = () => {
           </div>
         </form>
 
-        {/* FAQ List */}
+        {/* FAQs */}
         <div className="flex flex-wrap justify-center gap-3">
           {faqs.map((q, idx) => (
             <button
@@ -130,7 +154,7 @@ const AIPromptSection = () => {
           ))}
         </div>
 
-        {/* Modal */}
+        {/* Popup Modal */}
         {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
             <div className="bg-white dark:bg-background rounded-lg shadow-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
@@ -141,27 +165,24 @@ const AIPromptSection = () => {
                 <X className="w-6 h-6" />
               </button>
 
-              {/* Search bar in popup (same state as main) */}
-              <form onSubmit={handleSubmit} className="mb-4">
+              {/* Popup Prompt Bar */}
+              <form onSubmit={handlePopupSubmit} className="mb-4">
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    value={prompt}
-                    onChange={(e) => setPrompt(e.target.value)}
+                    value={popupPrompt}
+                    onChange={(e) => setPopupPrompt(e.target.value)}
                     className="flex-1 px-4 py-2 border rounded-full"
                   />
-                  <button
-                    type="submit"
-                    className="bg-primary text-white px-4 py-2 rounded-full"
-                  >
+                  <button type="submit" className="bg-primary text-white px-4 py-2 rounded-full">
                     <Send size={18} />
                   </button>
                 </div>
               </form>
 
-              {/* Show AIThinking until response arrives */}
+              {/* AI Response */}
               {isLoading ? (
-                <AIThinking query={prompt} />
+                <AIThinking query={popupPrompt} />
               ) : (
                 responseBlocks && <DynamicRenderer response={responseBlocks} />
               )}

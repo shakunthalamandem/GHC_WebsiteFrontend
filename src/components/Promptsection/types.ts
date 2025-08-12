@@ -1,6 +1,6 @@
 import LinkBlock from "./LinkBlock";
 
-export type BlockType = 'text' | 'card' | 'table' | 'tree' | 'chart' | 'slides' | 'suggested_questions'| 'calendar'|'link';
+export type BlockType = 'text' | 'card' | 'table' | 'tree' | 'chart' | 'slides' | 'suggested_questions'| 'calendar'|'link'|'image'|'video';
 
 export type ChartType =
   | 'bar'
@@ -153,6 +153,24 @@ export interface CalendarChartBlock extends BaseBlock {
   }[];
 }
 
+// Image block
+export interface ImageBlock extends BaseBlock {
+  type: "image";
+  title: string;
+  description: string;
+  url: string;
+  alt: string;
+}
+
+// Video block
+export interface VideoBlock extends BaseBlock {
+  type: "video";
+  title: string;
+  description: string;
+  url: string;
+  thumbnail: string;
+}
+
 // ------------------ Slides Block ------------------
 
 export interface Slide {
@@ -188,4 +206,6 @@ export type DynamicBlock =
   | SuggestedQuestionsBlock
   | ChartBlock
   |LinkBlock
+  |ImageBlock
+  |VideoBlock
   | CalendarChartBlock;

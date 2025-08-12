@@ -38,7 +38,7 @@ const renderBlock = (item: DynamicBlock) => {
 
 
     default:
-      return <div className="text-red-500">Unknown type: {item}</div>;
+      return <div className="text-red-500">Unknown type: {item.type}</div>;
   }
 };
 const DynamicRenderer: React.FC<Props> = ({ response }) => {
