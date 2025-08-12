@@ -32,8 +32,8 @@ const AIPromptSection = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Fetch history from GET API
-  const fetchHistory = async () => {
+  // Fetch history and return it
+  const fetchHistory = async (): Promise<HistoryItem[]> => {
     try {
       const res = await fetch('http://192.168.1.40:1000/api/assistant_query/', {
         method: 'GET',
@@ -47,25 +47,40 @@ const AIPromptSection = () => {
 
       const data = await res.json();
 
-      // Map server response to HistoryItem[]
       const parsedHistory: HistoryItem[] = data.history.map((item) => ({
         question: item.question,
         answer: item.response,
       }));
 
       setHistory(parsedHistory);
+
+      return parsedHistory;
     } catch (error) {
       console.error('Failed to fetch history:', error);
       setHistory([]);
+      return [];
     }
   };
 
-  // Show history sidebar and fetch if empty
-  const handleShowHistory = () => {
-    if (!showHistory && history.length === 0) {
-      fetchHistory();
+  // Handle clicking the "View History" button
+  const handleViewHistoryClick = async () => {
+    let fetchedHistory = history;
+
+    if (history.length === 0) {
+      fetchedHistory = await fetchHistory();
     }
-    setShowHistory(!showHistory);
+
+    setIsModalOpen(true);
+    setShowHistory(true);
+
+    if (fetchedHistory.length > 0) {
+      const lastItem = fetchedHistory[0];
+      setPopupPrompt(lastItem.question);
+      setResponseBlocks(lastItem.answer);
+    } else {
+      setPopupPrompt('');
+      setResponseBlocks(null);
+    }
   };
 
   const fetchAIResponse = async (question: string) => {
@@ -87,7 +102,6 @@ const AIPromptSection = () => {
       const data = JSON.parse(text);
       setResponseBlocks(data.response);
 
-      // Save to local history (optional)
       setHistory((prev) => [{ question, answer: data.response }, ...prev]);
     } catch (error) {
       console.error('Fetch error:', error);
@@ -154,16 +168,6 @@ const AIPromptSection = () => {
           </p>
         </div>
 
-        {/* View History Button */}
-        <div className="mb-6 flex justify-center">
-          <button
-            onClick={handleShowHistory}
-            className="bg-primary text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:bg-primary-glow transition duration-300"
-          >
-            View History
-          </button>
-        </div>
-
         {/* Main Prompt Bar */}
         <form onSubmit={handleMainSubmit} className="relative mb-6">
           <div
@@ -210,7 +214,7 @@ const AIPromptSection = () => {
         </form>
 
         {/* FAQs */}
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="flex flex-wrap justify-center gap-3 mb-4">
           {faqs.map((q, idx) => (
             <button
               key={idx}
@@ -222,11 +226,21 @@ const AIPromptSection = () => {
           ))}
         </div>
 
+        {/* Small View History Button below FAQs */}
+        <div className="flex justify-center">
+          <button
+            onClick={handleViewHistoryClick}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-gray-700 transition duration-300 text-sm"
+          >
+            View History
+          </button>
+        </div>
+
         {/* Popup Modal */}
         {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
             <div className="bg-white dark:bg-background rounded-lg shadow-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
-              {/* Top bar: search, history, close - all inline */}
+              {/* Top bar: search, history, close */}
               <div className="flex items-center gap-4 mb-4">
                 {/* Popup Prompt Bar */}
                 <form onSubmit={handlePopupSubmit} className="flex-grow">
@@ -268,8 +282,8 @@ const AIPromptSection = () => {
 
                 {/* History button */}
                 <button
-                  onClick={handleShowHistory}
-                  className="bg-[#dfffff] text-black px-3 py-1 rounded flex items-center gap-2 hover:bg-primary-glow transition whitespace-nowrap"
+                  onClick={() => setShowHistory(!showHistory)}
+                  className="bg-[#dfffff] text-black px-3 py-1 rounded flex items-center gap-2  transition whitespace-nowrap"
                   aria-label="Toggle history sidebar"
                 >
                   <HistoryIcon className="w-4 h-4" /> History
