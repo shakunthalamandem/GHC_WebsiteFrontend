@@ -154,6 +154,16 @@ const AIPromptSection = () => {
           </p>
         </div>
 
+        {/* View History Button */}
+        <div className="mb-6 flex justify-center">
+          <button
+            onClick={handleShowHistory}
+            className="bg-primary text-white px-6 py-3 rounded-full shadow-md hover:shadow-lg hover:bg-primary-glow transition duration-300"
+          >
+            View History
+          </button>
+        </div>
+
         {/* Main Prompt Bar */}
         <form onSubmit={handleMainSubmit} className="relative mb-6">
           <div
@@ -216,59 +226,64 @@ const AIPromptSection = () => {
         {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
             <div className="bg-white dark:bg-background rounded-lg shadow-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
-              {/* Close button */}
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition"
-              >
-                <X className="w-6 h-6" />
-              </button>
-
-              {/* History button */}
-              <button
-                onClick={handleShowHistory}
-                className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded flex items-center gap-2 hover:bg-primary-glow transition"
-              >
-                <HistoryIcon className="w-4 h-4" /> History
-              </button>
-
-              {/* Popup Prompt Bar */}
-              <form onSubmit={handlePopupSubmit} className="mb-4 flex justify-center">
-                <div
-                  className={`relative transition-all duration-500 w-[700px] ${
-                    isPopupFocused ? 'scale-105 shadow-glow' : 'shadow-elegant'
-                  }`}
-                >
-                  <div className="relative w-full">
-                    <input
-                      type="text"
-                      value={popupPrompt}
-                      onChange={(e) => setPopupPrompt(e.target.value)}
-                      onFocus={() => setIsPopupFocused(true)}
-                      onBlur={() => setIsPopupFocused(false)}
-                      className={`w-full px-5 py-3 rounded-full border-2 text-base focus:outline-none transition-all duration-300 ${
-                        isPopupFocused
-                          ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
-                          : 'border-border bg-card'
-                      }`}
-                    />
-                    {!popupPrompt && !isPopupFocused && (
-                      <span
-                        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground text-base whitespace-nowrap border-r-2 border-muted-foreground animate-typing max-w-[calc(100%-48px)] truncate cursor-text"
-                        onClick={() => setIsPopupFocused(true)}
-                      >
-                        Search company policies, culture, benefits, careers...
-                      </span>
-                    )}
-                  </div>
-                  <button
-                    type="submit"
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary hover:bg-primary-glow text-primary-foreground p-2 rounded-full transition-all duration-300 disabled:opacity-50"
+              {/* Top bar: search, history, close - all inline */}
+              <div className="flex items-center gap-4 mb-4">
+                {/* Popup Prompt Bar */}
+                <form onSubmit={handlePopupSubmit} className="flex-grow">
+                  <div
+                    className={`relative transition-all duration-500 w-full ${
+                      isPopupFocused ? 'scale-105 shadow-glow' : 'shadow-elegant'
+                    }`}
                   >
-                    <Send className="w-5 h-5" />
-                  </button>
-                </div>
-              </form>
+                    <div className="relative w-full">
+                      <input
+                        type="text"
+                        value={popupPrompt}
+                        onChange={(e) => setPopupPrompt(e.target.value)}
+                        onFocus={() => setIsPopupFocused(true)}
+                        onBlur={() => setIsPopupFocused(false)}
+                        className={`w-full px-5 py-3 rounded-full border-2 text-base focus:outline-none transition-all duration-300 ${
+                          isPopupFocused
+                            ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
+                            : 'border-border bg-card'
+                        }`}
+                      />
+                      {!popupPrompt && !isPopupFocused && (
+                        <span
+                          className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground text-base whitespace-nowrap border-r-2 border-muted-foreground animate-typing max-w-[calc(100%-48px)] truncate cursor-text"
+                          onClick={() => setIsPopupFocused(true)}
+                        >
+                          Search company policies, culture, benefits, careers...
+                        </span>
+                      )}
+                    </div>
+                    <button
+                      type="submit"
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary hover:bg-primary-glow text-primary-foreground p-2 rounded-full transition-all duration-300 disabled:opacity-50"
+                    >
+                      <Send className="w-5 h-5" />
+                    </button>
+                  </div>
+                </form>
+
+                {/* History button */}
+                <button
+                  onClick={handleShowHistory}
+                  className="bg-[#dfffff] text-black px-3 py-1 rounded flex items-center gap-2 hover:bg-primary-glow transition whitespace-nowrap"
+                  aria-label="Toggle history sidebar"
+                >
+                  <HistoryIcon className="w-4 h-4" /> History
+                </button>
+
+                {/* Close button */}
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="text-muted-foreground hover:text-foreground transition p-2 rounded-full"
+                  aria-label="Close modal"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
 
               {/* AI Response */}
               {isLoading ? (
@@ -282,25 +297,30 @@ const AIPromptSection = () => {
                 initial={{ x: '100%' }}
                 animate={{ x: showHistory ? 0 : '100%' }}
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                className="fixed top-0 right-0 w-80 h-full bg-white shadow-lg border-l border-gray-200 p-4 z-50 overflow-y-auto"
+                className="fixed top-0 right-0 w-80 h-full bg-[#dfffff] shadow-xl border-l border-indigo-800 p-6 z-50 overflow-y-auto text-black"
               >
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-lg font-bold">History</h2>
-                  <button onClick={() => setShowHistory(false)}>
-                    <X className="w-5 h-5" />
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-lg font-bold tracking-wide">History</h2>
+                  <button
+                    onClick={() => setShowHistory(false)}
+                    className="text-black hover:text-black-300 transition"
+                    aria-label="Close History"
+                  >
+                    <X className="w-6 h-6 " />
                   </button>
                 </div>
                 {history.length === 0 ? (
-                  <p className="text-gray-500">No history yet</p>
+                  <p className="text-indigo-200 italic">No history yet</p>
                 ) : (
-                  <ul className="space-y-3">
+                  <ul className="space-y-4">
                     {history.map((item, idx) => (
                       <li
                         key={idx}
-                        className="p-3 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 cursor-pointer"
                         onClick={() => handleHistoryClick(item)}
+                        className="cursor-pointer rounded-lg bg-indigo-500 bg-opacity-30 p-3 shadow hover:bg-indigo-400 hover:bg-opacity-50 transition-colors duration-300"
+                        title={item.question}
                       >
-                        <p className="text-sm font-medium truncate">{item.question}</p>
+                        <p className="truncate font-semibold">{item.question}</p>
                       </li>
                     ))}
                   </ul>
