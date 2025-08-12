@@ -41,7 +41,6 @@ const renderBlock = (item: DynamicBlock) => {
       return <div className="text-red-500">Unknown type: {item}</div>;
   }
 };
-
 const DynamicRenderer: React.FC<Props> = ({ response }) => {
   const groupedByRow = response.reduce((acc: Record<number, DynamicBlock[]>, item) => {
     acc[item.row] = acc[item.row] || [];
@@ -53,12 +52,34 @@ const DynamicRenderer: React.FC<Props> = ({ response }) => {
     <div className="space-y-8">
       {Object.entries(groupedByRow).map(([row, items]) => {
         const totalCols = items[0]?.total_columns || 1;
-        const columnClass = `grid-cols-${Math.min(Math.max(totalCols, 1), 6)}`; // cap between 1-6
+        const columnClass = `grid grid-cols-${Math.min(Math.max(totalCols, 1), 6)} gap-4`;
+
+        // Split suggested_questions from others
+        const normalItems = items.filter((b) => b.type !== "suggested_questions");
+        const suggestionItems = items.filter((b) => b.type === "suggested_questions");
+
+        // Sort normal items by column
+        const sortedNormal = [...normalItems].sort((a, b) => a.column - b.column);
 
         return (
-<div key={row} className={`grid ${columnClass} gap-4`}>
-            {items.map((item, i) => (
-              <div key={i} className="col-span-1">
+          <div key={row} className={columnClass}>
+            {/* Render normal blocks */}
+            {sortedNormal.map((item, i) => (
+              <div
+                key={i}
+                className="col-span-1"
+                style={{ gridColumn: `${item.column} / span 1` }}
+              >
+                {renderBlock(item)}
+              </div>
+            ))}
+
+            {/* Render suggested questions last */}
+            {suggestionItems.map((item, i) => (
+              <div
+                key={`suggestion-${i}`}
+                className="col-span-full" // Make it span the entire row
+              >
                 {renderBlock(item)}
               </div>
             ))}

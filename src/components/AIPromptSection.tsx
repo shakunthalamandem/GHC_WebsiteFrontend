@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { Send, Sparkles, X } from 'lucide-react';
 import DynamicRenderer from './Promptsection/DynamicRenderer';
 import { DynamicBlock } from './Promptsection/types';
-import { AIThinking } from './Promptsection/AiThinking';
+import { AIThinking } from './Promptsection/AIThinking';
 
 const AIPromptSection = () => {
   const [prompt, setPrompt] = useState('');
@@ -13,11 +13,18 @@ const AIPromptSection = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const faqs = [
+    'What does Golden Hills India do?',
+    'What industries does Golden Hills India serve?',
+    'Which analytics services are offered?',
+    'Does Golden Hills India provide mobile app development?',
+    'What technologies does Golden Hills India use?'
+  ];
+
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (!prompt.trim()) return;
 
-    // Open modal immediately
     setIsModalOpen(true);
     setIsLoading(true);
     setResponseBlocks(null);
@@ -25,9 +32,7 @@ const AIPromptSection = () => {
     try {
       const res = await fetch('http://192.168.1.40:1000/api/assistant_query/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: prompt }),
       });
 
@@ -35,12 +40,20 @@ const AIPromptSection = () => {
 
       const data = await res.json();
       setResponseBlocks(data.response);
+      setPrompt('');
     } catch (error) {
       console.error('Fetch error:', error);
       setResponseBlocks([]);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleFAQClick = (question: string) => {
+    setPrompt(question);
+    setTimeout(() => {
+      handleSubmit(); // directly submit without requiring Enter
+    }, 0);
   };
 
   return (
@@ -57,7 +70,7 @@ const AIPromptSection = () => {
         </div>
 
         {/* Search Bar */}
-        <form onSubmit={handleSubmit} className="relative">
+        <form onSubmit={handleSubmit} className="relative mb-6">
           <div
             className={`relative transition-all duration-500 ${
               isFocused ? 'scale-105 shadow-glow' : 'shadow-elegant'
@@ -75,7 +88,7 @@ const AIPromptSection = () => {
                 className={`w-full px-8 py-6 rounded-full border-2 text-lg focus:outline-none transition-all duration-300 
                   ${
                     isFocused
-                      ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)] '
+                      ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
                       : 'border-border bg-card'
                   }`}
               />
@@ -103,6 +116,19 @@ const AIPromptSection = () => {
           </div>
         </form>
 
+        {/* FAQ Section */}
+        <div className="flex flex-wrap justify-center gap-3">
+          {faqs.map((q, idx) => (
+            <button
+              key={idx}
+              onClick={() => handleFAQClick(q)}
+              className="px-4 py-2 bg-secondary hover:bg-secondary-hover text-secondary-foreground rounded-full text-sm transition"
+            >
+              {q}
+            </button>
+          ))}
+        </div>
+
         {/* Modal */}
         {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
@@ -114,7 +140,6 @@ const AIPromptSection = () => {
                 <X className="w-6 h-6" />
               </button>
 
-              {/* Show AIThinking until response arrives */}
               {isLoading ? (
                 <AIThinking query={prompt} />
               ) : (

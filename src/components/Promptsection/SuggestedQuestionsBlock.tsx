@@ -7,7 +7,7 @@ interface SuggestedQuestionsBlockProps {
 
 const SuggestedQuestionsBlock: React.FC<SuggestedQuestionsBlockProps> = ({ questions }) => {
   return (
-    <div className="p-5 rounded-xl border border-white/10 shadow bg-gradient-to-br from-[#efefef] via-[#efefef] to-[#efefef] text-white">
+    <div className="p-5 rounded-xl items-center border border-white/10 shadow bg-gradient-to-br from-[#efefef] via-[#efefef] to-[#efefef] text-white">
       <h3 className="text-lg font-semibold mb-4 text-black">Suggested Questions</h3>
       <ul className="space-y-3">
         {questions.map((q, index) => (
