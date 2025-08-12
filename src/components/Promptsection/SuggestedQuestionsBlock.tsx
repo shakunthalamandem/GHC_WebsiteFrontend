@@ -7,8 +7,8 @@ interface SuggestedQuestionsBlockProps {
 
 const SuggestedQuestionsBlock: React.FC<SuggestedQuestionsBlockProps> = ({ questions }) => {
   return (
-    <div className="p-5 rounded-xl border border-white/10 shadow bg-gradient-to-br from-[#0f172a] via-[#1e3a8a] to-[#0f172a] text-white">
-      <h3 className="text-lg font-semibold mb-4 text-sky-300">Suggested Questions</h3>
+    <div className="p-5 rounded-xl border border-white/10 shadow bg-gradient-to-br from-[#efefef] via-[#efefef] to-[#efefef] text-white">
+      <h3 className="text-lg font-semibold mb-4 text-black">Suggested Questions</h3>
       <ul className="space-y-3">
         {questions.map((q, index) => (
           <motion.li
@@ -17,7 +17,7 @@ const SuggestedQuestionsBlock: React.FC<SuggestedQuestionsBlockProps> = ({ quest
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05, duration: 0.4 }}
             whileHover={{ scale: 1.05 }}
-            className="cursor-pointer px-3 py-2 rounded-lg bg-sky-900/30 hover:bg-sky-700/40 text-sky-200 hover:text-white transition-colors duration-200"
+            className="cursor-pointer px-3 py-2 rounded-lg bg-[#adb2b44d] hover:bg-sky-300/40 text-black hover:text-black transition-colors duration-200"
           >
             {q}
           </motion.li>

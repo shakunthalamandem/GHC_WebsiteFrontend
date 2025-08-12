@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { Send, Sparkles, X } from 'lucide-react';
 import DynamicRenderer from './Promptsection/DynamicRenderer';
 import { DynamicBlock } from './Promptsection/types';
+import { AIThinking } from './Promptsection/AiThinking';
 
 const AIPromptSection = () => {
   const [prompt, setPrompt] = useState('');
@@ -10,17 +11,19 @@ const AIPromptSection = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const inputRef = useRef<HTMLInputElement>(null); // for focusing
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!prompt.trim()) return;
 
+    // Open modal immediately
+    setIsModalOpen(true);
     setIsLoading(true);
     setResponseBlocks(null);
 
     try {
-      const res = await fetch('http://192.168.1.40:1000/api/dummy_assistant/', {
+      const res = await fetch('http://192.168.1.40:1000/api/assistant_query/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,7 +35,6 @@ const AIPromptSection = () => {
 
       const data = await res.json();
       setResponseBlocks(data.response);
-      setIsModalOpen(true);
     } catch (error) {
       console.error('Fetch error:', error);
       setResponseBlocks([]);
@@ -50,7 +52,7 @@ const AIPromptSection = () => {
             <h2 className="text-4xl font-bold text-foreground">Ask Our AI Assistant</h2>
           </div>
           <p className="text-xl text-muted-foreground">
-      Learn About Golden Hills in Seconds with AI
+            Learn About Golden Hills in Seconds with AI
           </p>
         </div>
 
@@ -60,7 +62,7 @@ const AIPromptSection = () => {
             className={`relative transition-all duration-500 ${
               isFocused ? 'scale-105 shadow-glow' : 'shadow-elegant'
             }`}
-            onClick={() => inputRef.current?.focus()} // click anywhere focuses input
+            onClick={() => inputRef.current?.focus()}
           >
             <div className="relative">
               <input
@@ -80,7 +82,7 @@ const AIPromptSection = () => {
               {!prompt && !isFocused && (
                 <span
                   className="absolute left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground text-lg whitespace-nowrap border-r-2 border-muted-foreground animate-typing max-w-[calc(100%-48px)] truncate cursor-text"
-                  onClick={() => inputRef.current?.focus()} // placeholder also clickable
+                  onClick={() => inputRef.current?.focus()}
                 >
                   Search company policies, culture, benefits, careers...
                 </span>
@@ -101,15 +103,8 @@ const AIPromptSection = () => {
           </div>
         </form>
 
-        {/* Loading indicator */}
-        {isLoading && (
-          <div className="mt-8 text-center text-muted-foreground animate-pulse">
-            Processing your request...
-          </div>
-        )}
-
         {/* Modal */}
-        {isModalOpen && responseBlocks && !isLoading && (
+        {isModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
             <div className="bg-white dark:bg-background rounded-lg shadow-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
               <button
@@ -118,7 +113,13 @@ const AIPromptSection = () => {
               >
                 <X className="w-6 h-6" />
               </button>
-              <DynamicRenderer response={responseBlocks} />
+
+              {/* Show AIThinking until response arrives */}
+              {isLoading ? (
+                <AIThinking query={prompt} />
+              ) : (
+                responseBlocks && <DynamicRenderer response={responseBlocks} />
+              )}
             </div>
           </div>
         )}
