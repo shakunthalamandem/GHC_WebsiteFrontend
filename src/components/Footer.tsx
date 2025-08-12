@@ -4,33 +4,33 @@ import { MapPin, Shield, FileText, Users, X, Linkedin, Instagram, Youtube } from
 const Footer = () => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
-  const footerLinks = [
-    {
-      id: 'privacy',
-      icon: Shield,
-      label: 'Privacy Policy',
-      content: {
-        title: 'Privacy Policy',
-        body: `At Golden Hills India, we are committed to protecting your privacy and ensuring the security of your personal information. This policy outlines how we collect, use, and safeguard your data.
+const footerLinks = [
+  {
+    id: 'privacy',
+    icon: Shield,
+    label: 'Privacy Policy',
+    content: {
+      title: 'Privacy Policy',
+      body: `<p>At Golden Hills India, we are committed to protecting your privacy and ensuring the security of your personal information. This policy outlines how we collect, use, and safeguard your data.</p>
 
-Data Collection: We collect information you provide directly to us, such as when you contact us or request our services.
+<p><strong>Data Collection:</strong> We collect information you provide directly to us, such as when you contact us or request our services.</p>
 
-Data Usage: Your information is used solely to provide and improve our services, communicate with you, and comply with legal obligations.
+<p><strong>Data Usage:</strong> Your information is used solely to provide and improve our services, communicate with you, and comply with legal obligations.</p>
 
-Data Protection: We implement industry-standard security measures to protect your personal information from unauthorized access, disclosure, or misuse.
+<p><strong>Data Protection:</strong> We implement industry-standard security measures to protect your personal information from unauthorized access, disclosure, or misuse.</p>
 
-Third Parties: We do not sell, trade, or rent your personal information to third parties without your explicit consent.
+<p><strong>Third Parties:</strong> We do not sell, trade, or rent your personal information to third parties without your explicit consent.</p>
 
-Contact us at privacy@goldenhillsindia.com for any privacy-related questions.`,
-      },
+<p>Contact us at <strong>admin@goldenhillsindia.com</strong> for any privacy-related questions.</p>`
     },
-    {
-      id: 'terms',
-      icon: FileText,
-      label: 'Terms of Use',
-      content: {
-        title: 'Terms of Use',
-        body: `<p>Welcome to Golden Hills India. By accessing our website and services, you agree to comply with these terms and conditions.</p>
+  },
+  {
+    id: 'terms',
+    icon: FileText,
+    label: 'Terms of Use',
+    content: {
+      title: 'Terms of Use',
+      body: `<p>Welcome to Golden Hills India. By accessing our website and services, you agree to comply with these terms and conditions.</p>
 
 <p><strong>Service Usage:</strong> Our services are provided for business purposes only. You agree to use them in accordance with applicable laws and regulations.</p>
 
@@ -41,49 +41,52 @@ Contact us at privacy@goldenhillsindia.com for any privacy-related questions.`,
 <p><strong>Modifications:</strong> We reserve the right to modify these terms at any time. Continued use of our services constitutes acceptance of any changes.</p>
 
 <p>For questions regarding these terms, contact <strong>admin@goldenhillsindia.com</strong>.</p>`
-      },
     },
-    {
-      id: 'about',
-      icon: Users,
-      label: 'About Us',
-      content: {
-        title: 'About Golden Hills India',
-        body: `Golden Hills India is a pioneering technology and analytics firm dedicated to empowering industries with fluid intelligence and precision.
+  },
+  {
+    id: 'about',
+    icon: Users,
+    label: 'About Us',
+    content: {
+      title: 'About Golden Hills India',
+      body: `<p>Golden Hills India is a pioneering technology and analytics firm dedicated to empowering industries with fluid intelligence and precision.</p>
 
-Our Mission: To transform complex data challenges into strategic opportunities through innovative AI solutions and advanced analytics.
+<p><strong>Our Mission:</strong> To transform complex data challenges into strategic opportunities through innovative AI solutions and advanced analytics.</p>
 
-Our Vision: To be the global leader in intelligent business transformation, helping organizations unlock their full potential through data-driven insights.
+<p><strong>Our Vision:</strong> To be the global leader in intelligent business transformation, helping organizations unlock their full potential through data-driven insights.</p>
 
-Our Values:
-• Innovation: Continuously pushing the boundaries of what's possible with AI and analytics
-• Excellence: Delivering exceptional quality in every project and solution
-• Integrity: Building trust through transparent and ethical business practices
-• Collaboration: Working closely with clients to achieve shared success
+<p><strong>Our Values:</strong></p>
+<ul>
+  <li><strong>Innovation:</strong> Continuously pushing the boundaries of what's possible with AI and analytics</li>
+  <li><strong>Excellence:</strong> Delivering exceptional quality in every project and solution</li>
+  <li><strong>Integrity:</strong> Building trust through transparent and ethical business practices</li>
+  <li><strong>Collaboration:</strong> Working closely with clients to achieve shared success</li>
+</ul>
 
-Founded by visionary leaders with decades of experience in financial technology and data architecture, we bring together cutting-edge technology with deep industry expertise.`,
-      },
+<p>Founded by visionary leaders with decades of experience in financial technology and data architecture, we bring together cutting-edge technology with deep industry expertise.</p>`
     },
-    {
-      id: 'address',
-      icon: MapPin,
-      label: 'Address',
-      content: {
-        title: 'Our Location',
-        body: `Golden Hills Capital India Pvt Ltd.<br/>
+  },
+  {
+    id: 'address',
+    icon: MapPin,
+    label: 'Address',
+    content: {
+      title: 'Our Location',
+      body: `Golden Hills Capital India Pvt Ltd.<br/>
 Unit A, 26th Floor, Eastern Block,<br/>
 Vamsiram Suvarna Durga Tech Park,<br/>
 Survey No 142, Nanakramguda, Financial District,<br/>
 Hyderabad, Telangana 500032<br/><br/>
 
-Phone: +91 7207011234<br/>
-Email: ghcadmin@goldenhillsindia.com<br/><br/>
+<strong>Phone:</strong> +91 7207011234<br/>
+<strong>Email:</strong> ghcadmin@goldenhillsindia.com<br/><br/>
 
 For urgent inquiries outside business hours, please email us and we'll respond within 24 hours.`,
-        isAddress: true,
-      },
+      isAddress: true
     },
-  ];
+  },
+];
+
 
   const openModal = (linkId: string) => {
     setActiveModal(linkId);
