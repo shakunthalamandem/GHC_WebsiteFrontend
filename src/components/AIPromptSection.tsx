@@ -4,6 +4,14 @@ import DynamicRenderer from './Promptsection/DynamicRenderer';
 import { DynamicBlock } from './Promptsection/types';
 import { AIThinking } from './Promptsection/AIThinking';
 
+const faqs = [
+  'What does Golden Hills India do?',
+  'What industries does Golden Hills India serve?',
+  'Which analytics services are offered?',
+  'Does Golden Hills India provide mobile app development?',
+  'What technologies does Golden Hills India use?'
+];
+
 const AIPromptSection = () => {
   const [prompt, setPrompt] = useState('');
   const [responseBlocks, setResponseBlocks] = useState<DynamicBlock[] | null>(null);
@@ -13,18 +21,7 @@ const AIPromptSection = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const faqs = [
-    'What does Golden Hills India do?',
-    'What industries does Golden Hills India serve?',
-    'Which analytics services are offered?',
-    'Does Golden Hills India provide mobile app development?',
-    'What technologies does Golden Hills India use?'
-  ];
-
-  const handleSubmit = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (!prompt.trim()) return;
-
+  const fetchAIResponse = async (question: string) => {
     setIsModalOpen(true);
     setIsLoading(true);
     setResponseBlocks(null);
@@ -33,14 +30,13 @@ const AIPromptSection = () => {
       const res = await fetch('http://192.168.1.40:1000/api/assistant_query/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: prompt }),
+        body: JSON.stringify({ question }),
       });
 
       if (!res.ok) throw new Error('API error');
 
       const data = await res.json();
       setResponseBlocks(data.response);
-      setPrompt('');
     } catch (error) {
       console.error('Fetch error:', error);
       setResponseBlocks([]);
@@ -49,16 +45,21 @@ const AIPromptSection = () => {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!prompt.trim()) return;
+    fetchAIResponse(prompt);
+  };
+
   const handleFAQClick = (question: string) => {
     setPrompt(question);
-    setTimeout(() => {
-      handleSubmit(); // directly submit without requiring Enter
-    }, 0);
+    fetchAIResponse(question);
   };
 
   return (
     <section id="ask-ai" className="py-24 px-6">
       <div className="container mx-auto max-w-4xl">
+        {/* Heading */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-6">
             <Sparkles className="w-8 h-8 text-primary mr-3" />
@@ -88,7 +89,7 @@ const AIPromptSection = () => {
                 className={`w-full px-8 py-6 rounded-full border-2 text-lg focus:outline-none transition-all duration-300 
                   ${
                     isFocused
-                      ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
+                      ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)] '
                       : 'border-border bg-card'
                   }`}
               />
@@ -116,13 +117,13 @@ const AIPromptSection = () => {
           </div>
         </form>
 
-        {/* FAQ Section */}
+        {/* FAQ List */}
         <div className="flex flex-wrap justify-center gap-3">
           {faqs.map((q, idx) => (
             <button
               key={idx}
               onClick={() => handleFAQClick(q)}
-              className="px-4 py-2 bg-secondary hover:bg-secondary-hover text-secondary-foreground rounded-full text-sm transition"
+              className="px-4 py-2 bg-muted hover:bg-primary hover:text-white rounded-full transition text-sm"
             >
               {q}
             </button>
@@ -140,6 +141,25 @@ const AIPromptSection = () => {
                 <X className="w-6 h-6" />
               </button>
 
+              {/* Search bar in popup (same state as main) */}
+              <form onSubmit={handleSubmit} className="mb-4">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    className="flex-1 px-4 py-2 border rounded-full"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-primary text-white px-4 py-2 rounded-full"
+                  >
+                    <Send size={18} />
+                  </button>
+                </div>
+              </form>
+
+              {/* Show AIThinking until response arrives */}
               {isLoading ? (
                 <AIThinking query={prompt} />
               ) : (
