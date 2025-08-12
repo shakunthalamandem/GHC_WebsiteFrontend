@@ -663,7 +663,7 @@ const Section1 = () => {
       </section>
 
       {/* WHAT WE DO SECTION */}
-      <section className="h-screen snap-start px-10 py-10 flex flex-col items-center justify-center text-center bg-[#a0c1bd] text-white shadow-lg">
+      <section className="h-screen snap-start px-10 py-10 flex flex-col items-center justify-center text-center bg-[#d7e8f2] opacity-1 text-white shadow-lg">
         <div className="max-w-4xl space-y-8 overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-white/10 pr-4">
           <h2 className="text-4xl font-bold text-[#030943]">
     What We Deliver

@@ -20,7 +20,7 @@ const AIPromptSection = () => {
     setResponseBlocks(null);
 
     try {
-      const res = await fetch('http://192.168.1.36:8000/api/dummy_assistant/', {
+      const res = await fetch('http://192.168.1.40:1000/api/dummy_assistant/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
