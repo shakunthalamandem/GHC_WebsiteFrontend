@@ -6,11 +6,11 @@ type CareersProps = {
 
 export default function Careers({ onClose }: CareersProps) {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     phone: "",
-    additionalInfo: "",
+    message: "",
     agree: false,
   });
 
@@ -26,11 +26,7 @@ export default function Careers({ onClose }: CareersProps) {
 
     if (type === "file") {
       const files = (target as HTMLInputElement).files;
-      if (files && files.length > 0) {
-        setResume(files[0]);
-      } else {
-        setResume(null);
-      }
+      setResume(files && files.length > 0 ? files[0] : null);
       return;
     }
 
@@ -55,31 +51,38 @@ export default function Careers({ onClose }: CareersProps) {
 
     setSubmitting(true);
 
-    // Google Forms can't accept files, so we only send text fields to Google Forms.
-    // You need a backend or external service to upload the resume file separately.
-
-    const googleFormData = new FormData();
-    googleFormData.append("entry.1232135039", formData.firstName);
-    googleFormData.append("entry.1432621120", formData.lastName);
-    googleFormData.append("entry.1900684760", formData.email);
-    googleFormData.append("entry.1044166971", formData.phone);
-    googleFormData.append("entry.30360097", formData.additionalInfo);
-
     try {
-      const googleFormURL =
-        "https://docs.google.com/forms/u/0/d/e/1FAIpQLSd0oZrdG2rPR2gq2AArZKCOfg3ZWzUby7J809bYDSILM_UoAQ/formResponse";
+      const data = new FormData();
+      data.append("first_name", formData.first_name);
+      data.append("last_name", formData.last_name);
+      data.append("email", formData.email);
+      data.append("phone", formData.phone);
 
-      await fetch(googleFormURL, {
-        method: "POST",
-        mode: "no-cors",
-        body: googleFormData,
-      });
+      // Send `message` if filled, else `additional_info`
+      if (formData.message.trim()) {
+        data.append("message", formData.message);
+      } else {
+        data.append("additional_info", "");
+      }
 
-      // TODO: handle resume upload here (backend or third-party service)
+      data.append("resume", resume);
+
+      const response = await fetch(
+        "http://192.168.1.40:1000/api/submit-career-form/",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.statusText}`);
+      }
 
       alert("Application submitted successfully!");
       onClose();
     } catch (error) {
+      console.error("Submission error:", error);
       alert("Error submitting application. Please try again later.");
     } finally {
       setSubmitting(false);
@@ -101,22 +104,26 @@ export default function Careers({ onClose }: CareersProps) {
         Join Our Team
       </h1>
 
-      <form onSubmit={handleSubmit} className="space-y-5" encType="multipart/form-data">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-5"
+        encType="multipart/form-data"
+      >
         <div className="grid md:grid-cols-2 gap-5">
           <input
             type="text"
-            name="firstName"
+            name="first_name"
             placeholder="First Name"
-            value={formData.firstName}
+            value={formData.first_name}
             onChange={handleChange}
             required
             className="p-4 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-black focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 text-gray-900 transition"
           />
           <input
             type="text"
-            name="lastName"
+            name="last_name"
             placeholder="Last Name"
-            value={formData.lastName}
+            value={formData.last_name}
             onChange={handleChange}
             required
             className="p-4 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-black focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 text-gray-900 transition"
@@ -144,9 +151,9 @@ export default function Careers({ onClose }: CareersProps) {
         />
 
         <textarea
-          name="additionalInfo"
+          name="message"
           placeholder="Additional Information"
-          value={formData.additionalInfo}
+          value={formData.message}
           onChange={handleChange}
           rows={4}
           className="p-4 rounded-lg w-full bg-gray-100 border border-gray-300 placeholder-black focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 text-gray-900 resize-y transition"
