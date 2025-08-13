@@ -120,7 +120,7 @@ const ISO27001Section = () => {
                     <CheckCircle className="w-6 h-6 text-green-600" />
                   </div>
                   <h3 className="font-semibold text-gray-900 mb-1">Annual Audits</h3>
-                  <p className="text-sm text-gray-600">Rigorous third-party assessments ensure ongoing compliance</p>
+                  <p className="text-sm text-gray-600">Rigorous assessments ensure ongoing compliance</p>
                 </div>
 
                 <div className="flex flex-col items-center">
