@@ -15,7 +15,7 @@ const faqs = [
 
 interface HistoryItem {
   question: string;
-  answer: DynamicBlock[]; 
+  answer: DynamicBlock[];
 }
 
 const AIPromptSection = () => {
@@ -32,58 +32,58 @@ const AIPromptSection = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Fetch full questions + answers from backend
-const fetchHistory = async (): Promise<HistoryItem[]> => {
-  try {
-    const apiUrl = import.meta.env.VITE_API_URL;
-    if (!apiUrl) throw new Error("API URL not set");
+  const fetchHistory = async (): Promise<HistoryItem[]> => {
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      if (!apiUrl) throw new Error("API URL not set");
 
-    const res = await fetch(`${apiUrl}/api/assistant_query/`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    });
+      const res = await fetch(`${apiUrl}/api/assistant_query/`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-    if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) throw new Error(await res.text());
 
-    const data = await res.json();
+      const data = await res.json();
 
-    // Store both question & answer directly
-    const items: HistoryItem[] = data.history.map((item) => ({
-      question: item.question,
-      answer: item.response // Assuming backend sends same structure as POST
-    }));
+      // Store both question & answer directly
+      const items: HistoryItem[] = data.history.map((item) => ({
+        question: item.question,
+        answer: item.response // Assuming backend sends same structure as POST
+      }));
 
-    setHistory(items);
-    return items;
-  } catch (error) {
-    console.error('Failed to fetch history:', error);
-    setHistory([]);
-    return [];
-  }
-};
+      setHistory(items);
+      return items;
+    } catch (error) {
+      console.error('Failed to fetch history:', error);
+      setHistory([]);
+      return [];
+    }
+  };
 
   // Main page View History click
-const handleViewHistoryClick = async () => {
-  const items = await fetchHistory();
-  setIsModalOpen(true);
-  setShowHistory(true);
+  const handleViewHistoryClick = async () => {
+    const items = await fetchHistory();
+    setIsModalOpen(true);
+    setShowHistory(true);
 
-  if (items.length > 0) {
-    const latest = items[0];
-    setPopupPrompt(latest.question);
-    setResponseBlocks(latest.answer); // Directly set answer from GET
-  } else {
-    setPopupPrompt('');
-    setResponseBlocks(null);
-  }
-};
+    if (items.length > 0) {
+      const latest = items[0];
+      setPopupPrompt(latest.question);
+      setResponseBlocks(latest.answer); // Directly set answer from GET
+    } else {
+      setPopupPrompt('');
+      setResponseBlocks(null);
+    }
+  };
   // Modal History button click → only open sidebar
-const handleModalHistoryClick = async () => {
-  // Just open the sidebar with latest fetched data
-  if (history.length === 0) {
-    await fetchHistory();
-  }
-  setShowHistory(true);
-};
+  const handleModalHistoryClick = async () => {
+    // Just open the sidebar with latest fetched data
+    if (history.length === 0) {
+      await fetchHistory();
+    }
+    setShowHistory(true);
+  };
   const handleHistoryClick = (item: HistoryItem) => {
     setPopupPrompt(item.question);
     setResponseBlocks(item.answer);
@@ -175,11 +175,10 @@ const handleModalHistoryClick = async () => {
               onChange={(e) => setMainPrompt(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
-              className={`w-full px-8 py-6 rounded-full border-2 text-lg focus:outline-none transition-all duration-300 ${
-                isFocused
+              className={`w-full px-8 py-6 rounded-full border-2 text-lg focus:outline-none transition-all duration-300 ${isFocused
                   ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
                   : 'border-border bg-card'
-              }`}
+                }`}
             />
             {!mainPrompt && !isFocused && (
               <span className="absolute left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground text-lg whitespace-nowrap cursor-text">
@@ -226,11 +225,10 @@ const handleModalHistoryClick = async () => {
                       onChange={(e) => setPopupPrompt(e.target.value)}
                       onFocus={() => setIsPopupFocused(true)}
                       onBlur={() => setIsPopupFocused(false)}
-                      className={`w-full px-5 py-3 rounded-full border-2 text-base focus:outline-none transition-all duration-300 ${
-                        isPopupFocused
+                      className={`w-full px-5 py-3 rounded-full border-2 text-base focus:outline-none transition-all duration-300 ${isPopupFocused
                           ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
                           : 'border-border bg-card'
-                      }`}
+                        }`}
                     />
                     <button type="submit" className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-primary-foreground p-2 rounded-full">
                       <Send className="w-5 h-5" />
@@ -239,9 +237,13 @@ const handleModalHistoryClick = async () => {
                 </form>
 
                 {/* History button */}
-                <button onClick={handleModalHistoryClick} className="bg-[#dfffff] text-black px-3 py-1 rounded flex items-center gap-2">
+                <button
+                  onClick={handleModalHistoryClick}
+                  className="bg-[#dfffff] hover:bg-[#bffefe] transition-colors duration-200 text-black px-3 py-1 rounded flex items-center gap-2"
+                >
                   <HistoryIcon className="w-4 h-4" /> History
                 </button>
+
 
                 {/* Close */}
                 <button onClick={() => setIsModalOpen(false)} className="p-2 rounded-full">
