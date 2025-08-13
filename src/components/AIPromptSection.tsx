@@ -31,35 +31,43 @@ const AIPromptSection = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+
+
+
   // Fetch history and return it
-  const fetchHistory = async (): Promise<HistoryItem[]> => {
-    try {
-      const res = await fetch('http://192.168.1.40:1000/api/assistant_query/', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      });
+// Fetch history and return it
+const fetchHistory = async (): Promise<HistoryItem[]> => {
+  try {
+    const apiUrl = import.meta.env.VITE_API_URL; // ✅ Vite way
+    if (!apiUrl) throw new Error("API URL not set");
 
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(errorText);
-      }
+    const res = await fetch(`${apiUrl}/api/assistant_query/`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
 
-      const data = await res.json();
-
-      const parsedHistory: HistoryItem[] = data.history.map((item) => ({
-        question: item.question,
-        answer: item.response,
-      }));
-
-      setHistory(parsedHistory);
-
-      return parsedHistory;
-    } catch (error) {
-      console.error('Failed to fetch history:', error);
-      setHistory([]);
-      return [];
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(errorText);
     }
-  };
+
+    const data = await res.json();
+
+    const parsedHistory: HistoryItem[] = data.history.map((item) => ({
+      question: item.question,
+      answer: item.response,
+    }));
+
+    setHistory(parsedHistory);
+
+    return parsedHistory;
+  } catch (error) {
+    console.error('Failed to fetch history:', error);
+    setHistory([]);
+    return [];
+  }
+};
+
 
   // Handle clicking the "View History" button
   const handleViewHistoryClick = async () => {
@@ -89,7 +97,9 @@ const AIPromptSection = () => {
     setResponseBlocks(null);
 
     try {
-      const res = await fetch('http://192.168.1.40:1000/api/assistant_query/', {
+      const apiUrl = import.meta.env.VITE_API_URL; 
+      if (!apiUrl) throw new Error("API URL not set")
+      const res = await fetch(`${apiUrl}/api/assistant_query/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question }),
