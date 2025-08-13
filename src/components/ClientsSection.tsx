@@ -39,11 +39,13 @@ function ClientSection() {
                 <div
                   key={index}
                   className="group relative bg-white rounded-xl p-5 shadow-sm border border-slate-200/50 
-                             hover:shadow-xl hover:shadow-blue-500/20 hover:border-blue-300/30 
+                             hover:shadow-xl hover:shadow-blue-500/30 hover:border-blue-300/30 
                              transition-all duration-500 hover:-translate-y-1 overflow-hidden"
                 >
-                  {/* Shine effect */}
-                  <div className="absolute inset-0 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent before:-translate-x-full group-hover:before:translate-x-full before:transition-transform before:duration-700" />
+                  {/* Full background shine overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 to-purple-50/0 opacity-0 
+                                  group-hover:from-blue-100/40 group-hover:to-purple-100/40 
+                                  group-hover:opacity-100 transition-all duration-700" />
 
                   <div className="flex flex-col items-center text-center space-y-3 relative z-10">
                     <div className="p-2 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg 
@@ -58,7 +60,8 @@ function ClientSection() {
                       </h3>
                       <div className="text-xs text-slate-500 space-y-1 transition-colors duration-300 group-hover:text-slate-700">
                         <p className="font-medium">{client.location}</p>
-                        <p className="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full inline-block group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors duration-300">
+                        <p className="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full inline-block 
+                                       group-hover:bg-blue-100 group-hover:text-blue-700 transition-colors duration-300">
                           {client.industry}
                         </p>
                       </div>

@@ -7,7 +7,7 @@ import { AIThinking } from './Promptsection/AIThinking';
 
 const faqs = [
   "What are your expertise areas?",
-  "Who are you?",
+  "Tell me about the founders?",
   "How can I contact you?",
   "What services do you offer?",
   "Where are you located?"
