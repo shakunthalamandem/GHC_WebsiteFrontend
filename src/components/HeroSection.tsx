@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { MessageCircle, Briefcase, Mail, Users } from 'lucide-react';
-import heroVideo from '@/assets/GHC.mp4';
+import heroVideo from '@/assets/videos/GHC.mp4';
+
+
 import Careers from '@/components/Careers';
 import ContactUs from "@/components/ContactUs";
 
