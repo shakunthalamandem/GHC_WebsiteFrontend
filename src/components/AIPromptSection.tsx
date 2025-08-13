@@ -4,13 +4,12 @@ import { motion } from 'framer-motion';
 import DynamicRenderer from './Promptsection/DynamicRenderer';
 import { DynamicBlock } from './Promptsection/types';
 import { AIThinking } from './Promptsection/AIThinking';
-
 const faqs = [
-  'What does Golden Hills India do?',
-  'What industries does Golden Hills India serve?',
-  'Which analytics services are offered?',
-  'Does Golden Hills India provide mobile app development?',
-  'What technologies does Golden Hills India use?'
+    "What are your expertise areas?",
+  "Who are you?",
+  "How can I contact you?",
+  "What services do you offer?",
+  "Where are you located?"
 ];
 
 interface HistoryItem {
