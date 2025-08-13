@@ -53,7 +53,7 @@ const HeroSection = () => {
           onClick={() => scrollToSection('ask-ai')}
           className="flex flex-col items-center text-gray-800 hover:text-blue-900 transition-colors"
         >
-          <MessageCircle className="w-10 h-10 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
+          <MessageCircle className="w-12 h-12 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
                hover:bg-blue-500 hover:text-white hover:shadow-[0_0_12px_rgba(59,130,246,0.8)]
                transition-all duration-300" />
           <span className="text-xs font-medium">Ask our AI</span>
@@ -63,7 +63,7 @@ const HeroSection = () => {
           onClick={() => scrollToSection('expertise')}
           className="flex flex-col items-center text-gray-800 hover:text-blue-900 transition-colors"
         >
-          <Briefcase className="w-10 h-10 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
+          <Briefcase className="w-12 h-12 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
                hover:bg-blue-500 hover:text-white hover:shadow-[0_0_12px_rgba(59,130,246,0.8)]
                transition-all duration-300" />
           <span className="text-xs font-medium">Expertise</span>
@@ -73,7 +73,7 @@ const HeroSection = () => {
           onClick={() => setShowContact(true)}
           className="flex flex-col items-center text-gray-800 hover:text-blue-900 transition-colors"
         >
-          <Mail className="w-10 h-10 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
+          <Mail className="w-12 h-12 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
                hover:bg-blue-500 hover:text-white hover:shadow-[0_0_12px_rgba(59,130,246,0.8)]
                transition-all duration-300" />
           <span className="text-xs font-medium">Contact Us</span>
@@ -83,7 +83,7 @@ const HeroSection = () => {
           onClick={() => setShowCareers(true)}
           className="flex flex-col items-center text-gray-800 hover:text-blue-900 transition-colors"
         >
-          <Users className="w-10 h-10 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
+          <Users className="w-12 h-12 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
                hover:bg-blue-500 hover:text-white hover:shadow-[0_0_12px_rgba(59,130,246,0.8)]
                transition-all duration-300" />
           <span className="text-xs font-medium">Careers</span>

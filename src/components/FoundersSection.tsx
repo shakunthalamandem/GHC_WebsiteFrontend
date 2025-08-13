@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { Linkedin, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Linkedin } from 'lucide-react';
 import suresh from '@/assets/suresh.jfif';
 import teamPhoto1 from '@/assets/IMG-20250808-WA0035.jpg';
 import teamPhoto2 from '@/assets/IMG-20250213-WA0155.jpg';
-import teamPhoto3 from '@/assets/IMG-20250808-WA0035.jpg';
+import teamPhoto3 from '@/assets/IMG-20250812-WA0060.jpg';
+import teamphoto4 from '@/assets/IMG-20250812-WA0072.jpg';
+import teamphoto5 from '@/assets/IMG-20250812-WA0073.jpg';
+import teamphoto6 from '@/assets/IMG-20250812-WA0081.jpg';
+import teamphoto7 from '@/assets/IMG-20250812-WA0082.jpg';
 
 const founders = [
   {
@@ -17,20 +21,23 @@ const founders = [
   },
 ];
 
-const teamPhotos = [teamPhoto1, teamPhoto2, teamPhoto3, teamPhoto1, teamPhoto2];
+const teamPhotos = [
+  teamPhoto1,
+  teamPhoto2,
+  teamPhoto3,
+  teamphoto4,
+  teamphoto5,
+  teamphoto6,
+  teamphoto7,
+];
 
 export default function FoundersSection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const [carouselIndex, setCarouselIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCarouselIndex((prev) => (prev + 1) % teamPhotos.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, []);
+  // Duplicate photos for seamless looping
+  const extendedPhotos = [...teamPhotos, ...teamPhotos];
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -43,19 +50,35 @@ export default function FoundersSection() {
     return () => observer.disconnect();
   }, []);
 
-  const prevSlide = () => {
-    setCarouselIndex((prev) => (prev === 0 ? teamPhotos.length - 1 : prev - 1));
-  };
-  const nextSlide = () => {
-    setCarouselIndex((prev) => (prev === teamPhotos.length - 1 ? 0 : prev + 1));
-  };
+  // Infinite scrolling effect
+  useEffect(() => {
+    const scrollStep = 1; // pixels per frame
+    const delay = 16; // ~60fps
+
+    const scrollContainer = carouselRef.current;
+    if (!scrollContainer) return;
+
+    let scrollX = 0;
+    const totalScrollWidth = teamPhotos.length * 360; // one full set width
+
+    const tick = () => {
+      scrollX += scrollStep;
+      if (scrollX >= totalScrollWidth) {
+        scrollX = 0; // reset without visible jump
+      }
+      scrollContainer.style.transform = `translateX(-${scrollX}px)`;
+    };
+
+    const interval = setInterval(tick, delay);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section
       ref={sectionRef}
       className="py-24 px-6 relative overflow-hidden bg-gradient-to-br from-background via-card/30 to-background"
     >
-      {/* Light streams background effect */}
+      {/* Light streams */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           className={`absolute left-1/4 top-0 w-2 h-full bg-gradient-to-b from-gold via-gold/50 to-transparent transition-all duration-2000 ${
@@ -72,25 +95,28 @@ export default function FoundersSection() {
       </div>
 
       <div className="container mx-auto max-w-6xl relative z-10">
+        {/* Title */}
         <div className="text-center mb-20">
           <h2 className="text-5xl font-bold text-foreground mb-6">
             Meet Our <span className="text-blue-900">Team</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            The pioneering minds behind Golden Hills India's revolutionary approach to intelligent business solutions
+            The pioneering minds behind Golden Hills India's revolutionary
+            approach to intelligent business solutions
           </p>
         </div>
 
-        {/* Founder horizontal card */}
+        {/* Founder Card */}
         {founders.map((founder) => (
           <div
             key={founder.name}
             className={`flex flex-col md:flex-row bg-white bg-opacity-70 backdrop-blur-md rounded-3xl shadow-lg overflow-hidden mb-16 transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              isVisible
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-8'
             }`}
             style={{ minHeight: '280px' }}
           >
-            {/* Left: photo + title */}
             <div
               className={`md:w-1/3 flex flex-col items-center justify-center p-8 text-white bg-gradient-to-br ${founder.gradient}`}
             >
@@ -107,80 +133,66 @@ export default function FoundersSection() {
                 href={founder.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${founder.name} LinkedIn`}
                 className="mt-4 inline-flex items-center space-x-2 text-white hover:text-gray-200 transition"
               >
                 <Linkedin className="w-6 h-6" />
                 <span className="underline">LinkedIn</span>
               </a>
             </div>
-
-            {/* Right: description */}
             <div className="md:w-2/3 p-8 flex items-center text-gray-900 leading-relaxed text-lg">
               <p>{founder.description}</p>
             </div>
           </div>
         ))}
 
-        {/* Team Members with auto sliding horizontal carousel */}
+        {/* Team Carousel */}
         <div
           className={`space-y-6 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            isVisible
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="text-2xl font-bold text-center text-gray-900">Team Members</h2>
-
-          <div className="relative max-w-[1000px] mx-auto">
-            {/* Carousel viewport */}
-            <div className="overflow-hidden rounded-2xl shadow-lg">
-              <div
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{
-                  width: `${teamPhotos.length * 360}px`,
-                  transform: `translateX(-${carouselIndex * 360}px)`,
-                }}
-              >
-                {teamPhotos.map((photo, i) => (
-                  <div
-                    key={i}
-                    className="flex-shrink-0 w-[360px] p-3 cursor-pointer"
-                    title={`Team member ${i + 1}`}
-                  >
-                    <img
-                      src={photo}
-                      alt={`Team member ${i + 1}`}
-                      className="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                ))}
-              </div>
+          <h2 className="text-2xl font-bold text-center text-gray-900">
+            Team Members
+          </h2>
+          <div className="relative max-w-[1000px] mx-auto overflow-hidden rounded-2xl shadow-lg">
+            <div
+              ref={carouselRef}
+              className="flex transition-none"
+              style={{
+                width: `${extendedPhotos.length * 360}px`,
+                transform: 'translateX(0)',
+              }}
+            >
+              {extendedPhotos.map((photo, i) => (
+                <div
+                  key={i}
+                  className="flex-shrink-0 w-[360px] p-3 cursor-pointer"
+                  title={`Team member ${(i % teamPhotos.length) + 1}`}
+                >
+                  <img
+                    src={photo}
+                    alt={`Team member ${(i % teamPhotos.length) + 1}`}
+                    className="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              ))}
             </div>
-
-            {/* Navigation buttons */}
-            <button
-              onClick={() => setCarouselIndex(carouselIndex === 0 ? teamPhotos.length - 1 : carouselIndex - 1)}
-              aria-label="Previous team member"
-              className="absolute top-1/2 left-2 -translate-y-1/2 bg-primary/80 hover:bg-primary rounded-full p-2 shadow-lg transition"
-            >
-              <ChevronLeft className="w-6 h-6 text-white" />
-            </button>
-            <button
-              onClick={() => setCarouselIndex(carouselIndex === teamPhotos.length - 1 ? 0 : carouselIndex + 1)}
-              aria-label="Next team member"
-              className="absolute top-1/2 right-2 -translate-y-1/2 bg-primary/80 hover:bg-primary rounded-full p-2 shadow-lg transition"
-            >
-              <ChevronRight className="w-6 h-6 text-white" />
-            </button>
           </div>
         </div>
 
-        {/* Quote Section */}
+        {/* Quote */}
         <div className="text-center mt-20">
           <blockquote className="text-2xl italic text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            "Golden Hills India harnesses the power of data to deliver strategic insights that drive innovation and
-            impact. We are committed to partnering with clients to unlock new opportunities for growth and success."
+            "Golden Hills India harnesses the power of data to deliver
+            strategic insights that drive innovation and impact. We are
+            committed to partnering with clients to unlock new opportunities
+            for growth and success."
           </blockquote>
-          <div className="mt-6 text-lg font-semibold text-primary">— Golden Hills India Leadership Team</div>
+          <div className="mt-6 text-lg font-semibold text-primary">
+            — Golden Hills India Leadership Team
+          </div>
         </div>
       </div>
     </section>
