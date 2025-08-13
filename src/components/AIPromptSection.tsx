@@ -252,7 +252,14 @@ const AIPromptSection = () => {
               </div>
 
               {/* AI Response */}
-              {isLoading ? <AIThinking query={popupPrompt} /> : (responseBlocks && <DynamicRenderer response={responseBlocks} />)}
+              {isLoading ? <AIThinking query={popupPrompt} /> : (responseBlocks &&<DynamicRenderer
+  response={responseBlocks}
+  onSuggestedQuestionClick={(question) => {
+    setPopupPrompt(question);
+    fetchAIResponse(question);
+  }}
+/>
+)}
 
               {/* History Sidebar */}
               <motion.div

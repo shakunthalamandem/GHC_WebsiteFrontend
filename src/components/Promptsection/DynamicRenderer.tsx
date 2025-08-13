@@ -12,12 +12,13 @@ import CalendarChart from './CalendarChart';
 import ImageBlock from './ImageBlock';
 import VideoBlock from './VideoBlock';
 
-
 interface Props {
   response: DynamicBlock[];
+  onSuggestedQuestionClick?: (question: string) => void;
 }
 
-const renderBlock = (item: DynamicBlock) => {
+
+const renderBlock = (item: DynamicBlock, onSuggestedQuestionClick?: (q: string) => void) => {
   switch (item.type) {
     case 'text':
       return <TextBlock {...item} />;
@@ -30,7 +31,7 @@ const renderBlock = (item: DynamicBlock) => {
     case 'link':
       return <LinkBlock {...item} />;
     case 'suggested_questions':
-      return <SuggestedQuestionsBlock {...item} />;
+      return <SuggestedQuestionsBlock {...item} onQuestionClick={onSuggestedQuestionClick} />;
     case 'slides':
       return <SlidesBlock {...item} />;
     case 'tree':
@@ -47,7 +48,7 @@ const renderBlock = (item: DynamicBlock) => {
       return <div className="text-red-500">Unknown type: {item}</div>;
   }
 };
-const DynamicRenderer: React.FC<Props> = ({ response }) => {
+const DynamicRenderer: React.FC<Props> = ({ response, onSuggestedQuestionClick }) => {
   const groupedByRow = response.reduce((acc: Record<number, DynamicBlock[]>, item) => {
     acc[item.row] = acc[item.row] || [];
     acc[item.row].push(item);
@@ -76,7 +77,7 @@ const DynamicRenderer: React.FC<Props> = ({ response }) => {
                 className="col-span-1"
                 style={{ gridColumn: `${item.column} / span 1` }}
               >
-                {renderBlock(item)}
+                {renderBlock(item, onSuggestedQuestionClick)}
               </div>
             ))}
 
@@ -86,7 +87,7 @@ const DynamicRenderer: React.FC<Props> = ({ response }) => {
                 key={`suggestion-${i}`}
                 className="col-span-full" // Make it span the entire row
               >
-                {renderBlock(item)}
+                {renderBlock(item, onSuggestedQuestionClick)}
               </div>
             ))}
           </div>
