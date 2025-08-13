@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Play, Pause } from 'lucide-react';
+import aiVideo from '@/assets/videos/ai-video.mp4';
 
 const VideoShowcase = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -51,18 +52,17 @@ const VideoShowcase = () => {
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-foreground mb-6">
             See Our
-             <span className="text-blue-900">    Intelligence</span>
-         {' '}
+            <span className="text-blue-900">    Intelligence</span>
+            {' '}
             in Action
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-Experience the Power of Our Next-Gen AI Assistant in Action          </p>
+            Experience the Power of Our Next-Gen AI Assistant in Action          </p>
         </div>
 
         <div
-          className={`relative group transition-all duration-1000 ${
-            isVisible ? 'animate-scale-in opacity-100' : 'opacity-0 scale-95'
-          }`}
+          className={`relative group transition-all duration-1000 ${isVisible ? 'animate-scale-in opacity-100' : 'opacity-0 scale-95'
+            }`}
         >
           {/* Video Container */}
           <div className="relative rounded-3xl overflow-hidden shadow-elegant hover:shadow-glow transition-all duration-500 bg-gradient-glass">
@@ -75,39 +75,32 @@ Experience the Power of Our Next-Gen AI Assistant in Action          </p>
                 playsInline
                 onEnded={() => setIsPlaying(false)}
               >
-                <source src="/video.mp4" type="video/mp4" />
+<source src={aiVideo} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
 
               {/* Play/Pause Overlay */}
               {!isPlaying && (
-  <div className="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/30 transition-colors duration-100">
-    <button
-      onClick={togglePlay}
-      className="w-20 h-20 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all duration-300 btn-glow"
-    >
-      {isPlaying ? (
-        <Pause className="w-8 h-8 text-primary ml-1" />
-      ) : (
-        <Play className="w-8 h-8 text-primary ml-1" />
-      )}
-    </button>
-  </div>
-)}
+                <div className="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/30 transition-colors duration-100">
+                  <button
+                    onClick={togglePlay}
+                    className="w-20 h-20 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all duration-300 btn-glow"
+                  >
+                    {isPlaying ? (
+                      <Pause className="w-8 h-8 text-primary ml-1" />
+                    ) : (
+                      <Play className="w-8 h-8 text-primary ml-1" />
+                    )}
+                  </button>
+                </div>
+              )}
 
 
               {/* Demo Text Overlay */}
-              <div className="absolute bottom-6 left-6 bg-white/90 rounded-lg px-4 py-2">
-                <p className="text-sm font-medium text-primary">
-                  Interactive Demo: AI Assistant 
-                </p>
-              </div>
+
             </div>
 
-            {/* Floating Elements */}
-            <div className="absolute top-4 right-4 bg-gradient-sky-gold rounded-full p-3 float-animation">
-              <div className="w-4 h-4 bg-white rounded-full" />
-            </div>
+        
           </div>
 
           {/* Caption */}
