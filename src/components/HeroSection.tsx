@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { MessageCircle, Briefcase, Mail, Users } from 'lucide-react';
+import { MessageCircle, Briefcase, Mail, Users, Menu, X } from 'lucide-react';
 import heroVideo from '@/assets/videos/GHC.mp4';
-
-
 import Careers from '@/components/Careers';
 import ContactUs from "@/components/ContactUs";
 
@@ -10,7 +8,10 @@ const HeroSection = () => {
   const parallaxRef = useRef<HTMLVideoElement>(null);
   const [showCareers, setShowCareers] = useState(false);
   const [showContact, setShowContact] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
 
+  // Parallax + scroll detection
   useEffect(() => {
     const handleScroll = () => {
       if (parallaxRef.current) {
@@ -18,6 +19,7 @@ const HeroSection = () => {
         const rate = scrolled * -0.3;
         parallaxRef.current.style.transform = `translateY(${rate}px) scale(1.1)`;
       }
+      setIsScrolled(window.scrollY > 100); // threshold
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -26,10 +28,15 @@ const HeroSection = () => {
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const navItems = [
+    { icon: MessageCircle, label: "Ask our AI", action: () => scrollToSection('ask-ai') },
+    { icon: Briefcase, label: "Expertise", action: () => scrollToSection('expertise') },
+    { icon: Mail, label: "Contact Us", action: () => setShowContact(true) },
+    { icon: Users, label: "Careers", action: () => setShowCareers(true) }
+  ];
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden particle-bg">
@@ -47,45 +54,75 @@ const HeroSection = () => {
       {/* Overlay */}
       <div className="absolute inset-0 bg-background/20" />
 
-      {/* Sidebar Navigation */}
-      <nav className="absolute top-1/3 left-3 sm:left-6 flex flex-col gap-4 sm:gap-6 z-20">
-        {[
-          { icon: MessageCircle, label: "Ask our AI", action: () => scrollToSection('ask-ai') },
-          { icon: Briefcase, label: "Expertise", action: () => scrollToSection('expertise') },
-          { icon: Mail, label: "Contact Us", action: () => setShowContact(true) },
-          { icon: Users, label: "Careers", action: () => setShowCareers(true) }
-        ].map(({ icon: Icon, label, action }) => (
-          <button
-            key={label}
-            onClick={action}
-            className="flex flex-col items-center text-gray-800 hover:text-blue-900 transition-colors"
-          >
-            <Icon className="w-10 h-10 sm:w-12 sm:h-12 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
-                 hover:bg-blue-500 hover:text-white hover:shadow-[0_0_12px_rgba(59,130,246,0.8)]
-                 transition-all duration-300" />
-            <span className="text-[10px] sm:text-xs font-medium">{label}</span>
-          </button>
-        ))}
-      </nav>
+      {/* Sidebar Navigation / Toggle */}
+      {!isScrolled ? (
+        // Initial position in middle left
+        <nav className="absolute top-1/3 left-3 sm:left-6 flex flex-col gap-4 sm:gap-6 z-20">
+          {navItems.map(({ icon: Icon, label, action }) => (
+            <button
+              key={label}
+              onClick={action}
+              className="flex flex-col items-center text-gray-800 hover:text-blue-900 transition-colors"
+            >
+              <Icon className="w-10 h-10 sm:w-12 sm:h-12 mb-1 p-2 rounded-full bg-blue-100 text-blue-700
+                   hover:bg-blue-500 hover:text-white hover:shadow-[0_0_12px_rgba(59,130,246,0.8)]
+                   transition-all duration-300" />
+              <span className="text-[10px] sm:text-xs font-medium">{label}</span>
+            </button>
+          ))}
+        </nav>
+      ) : (
+        // Sticky hamburger in top-left after scroll
+        <div className="fixed top-4 left-4 z-50">
+          {!navOpen ? (
+            <button
+              onClick={() => setNavOpen(true)}
+              className="p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-800"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          ) : (
+            <div className="flex flex-col gap-4 p-3 bg-white rounded-xl shadow-lg border border-gray-200">
+              <button
+                onClick={() => setNavOpen(false)}
+                className="self-end text-gray-500 hover:text-red-500"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              {navItems.map(({ icon: Icon, label, action }) => (
+                <button
+                  key={label}
+                  onClick={() => {
+                    action();
+                    setNavOpen(false);
+                  }}
+                  className="flex flex-col items-center text-gray-800 hover:text-blue-900 transition-colors"
+                >
+                  <Icon className="w-10 h-10 p-2 rounded-full bg-blue-100 text-blue-700
+                       hover:bg-blue-500 hover:text-white hover:shadow-[0_0_12px_rgba(59,130,246,0.8)]
+                       transition-all duration-300" />
+                  <span className="text-[10px] font-medium">{label}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Hero Content */}
       <div className="flex items-center justify-center h-screen px-4 sm:px-12">
         <div className="relative z-10 text-center max-w-lg sm:max-w-2xl">
-<h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-foreground mb-4 sm:mb-8 leading-tight whitespace-nowrap">
-  UNLEASH YOUR BUSINESS POTENTIAL
-  <span className="text-black">
-    <span className="text-blue-900">
-    <br/>  DATA | TECHNOLOGY | EXPERTISE
-    </span>
-  </span>
-</h1>
-
+          <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-foreground mb-4 sm:mb-8 leading-tight whitespace-nowrap">
+            UNLEASH YOUR BUSINESS POTENTIAL
+            <span className="text-blue-900">
+              <br /> DATA | TECHNOLOGY | EXPERTISE
+            </span>
+          </h1>
           <p
             className="text-base sm:text-xl md:text-2xl mb-6 sm:mb-12 leading-relaxed"
             style={{ color: 'hsl(215, 47%, 24%)' }}
           >
-            Crafting Tomorrow&apos;s Solutions in Analytics,<br className="hidden sm:block" /> Research and
-            Visualization
+            Crafting Tomorrow&apos;s Solutions in Analytics,<br className="hidden sm:block" /> Research and Visualization
           </p>
         </div>
       </div>
