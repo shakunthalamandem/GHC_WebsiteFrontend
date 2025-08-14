@@ -175,16 +175,22 @@ const AIPromptSection = () => {
               onChange={(e) => setMainPrompt(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
-              className={`w-full px-8 py-6 rounded-full border-2 text-lg focus:outline-none transition-all duration-300 ${isFocused
+              placeholder="Search company policies, culture, benefits, careers..."
+              className={`w-full px-8 py-6 rounded-full border-2 
+              text-base sm:text-lg focus:outline-none 
+              transition-all duration-300 
+              placeholder:text-sm sm:placeholder:text-base 
+              ${isFocused
                   ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
                   : 'border-border bg-card'
                 }`}
             />
+{/* 
             {!mainPrompt && !isFocused && (
               <span className="absolute left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground text-lg whitespace-nowrap cursor-text">
                 Search company policies, culture, benefits, careers...
               </span>
-            )}
+            )} */}
             <button
               type="submit"
               disabled={!mainPrompt.trim() || isLoading}
@@ -226,8 +232,8 @@ const AIPromptSection = () => {
                       onFocus={() => setIsPopupFocused(true)}
                       onBlur={() => setIsPopupFocused(false)}
                       className={`w-full px-5 py-3 rounded-full border-2 text-base focus:outline-none transition-all duration-300 ${isPopupFocused
-                          ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
-                          : 'border-border bg-card'
+                        ? 'border-primary bg-white shadow-[0_0_12px_rgba(59,130,246,0.6)]'
+                        : 'border-border bg-card'
                         }`}
                     />
                     <button type="submit" className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-primary-foreground p-2 rounded-full">
@@ -252,14 +258,14 @@ const AIPromptSection = () => {
               </div>
 
               {/* AI Response */}
-              {isLoading ? <AIThinking query={popupPrompt} /> : (responseBlocks &&<DynamicRenderer
-  response={responseBlocks}
-  onSuggestedQuestionClick={(question) => {
-    setPopupPrompt(question);
-    fetchAIResponse(question);
-  }}
-/>
-)}
+              {isLoading ? <AIThinking query={popupPrompt} /> : (responseBlocks && <DynamicRenderer
+                response={responseBlocks}
+                onSuggestedQuestionClick={(question) => {
+                  setPopupPrompt(question);
+                  fetchAIResponse(question);
+                }}
+              />
+              )}
 
               {/* History Sidebar */}
               <motion.div
