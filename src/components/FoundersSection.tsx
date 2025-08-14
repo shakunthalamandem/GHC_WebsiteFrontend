@@ -100,10 +100,6 @@ export default function FoundersSection() {
           <h2 className="text-5xl font-bold text-foreground mb-6">
             Meet Our <span className="text-blue-900">Team</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            The pioneering minds behind Golden Hills India's revolutionary
-            approach to intelligent business solutions
-          </p>
         </div>
 
         {/* Founder Card */}

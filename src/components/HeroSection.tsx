@@ -71,19 +71,20 @@ const HeroSection = () => {
       {/* Hero Content */}
       <div className="flex items-center justify-center h-screen px-4 sm:px-12">
         <div className="relative z-10 text-center max-w-lg sm:max-w-2xl">
-          <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-foreground mb-4 sm:mb-8 leading-tight">
-            UNLEASH YOUR BUSINESS POTENTIAL{' '}
-            <span className="text-black block">
-              <span className="text-blue-900">
-                DATA | TECHNOLOGY | EXPERTISE
-              </span>
-            </span>
-          </h1>
+<h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-foreground mb-4 sm:mb-8 leading-tight whitespace-nowrap">
+  UNLEASH YOUR BUSINESS POTENTIAL
+  <span className="text-black">
+    <span className="text-blue-900">
+    <br/>  DATA | TECHNOLOGY | EXPERTISE
+    </span>
+  </span>
+</h1>
+
           <p
             className="text-base sm:text-xl md:text-2xl mb-6 sm:mb-12 leading-relaxed"
             style={{ color: 'hsl(215, 47%, 24%)' }}
           >
-            Crafting Tomorrow&apos;s Solutions in Analytics, Research, <br className="hidden sm:block" /> and
+            Crafting Tomorrow&apos;s Solutions in Analytics,<br className="hidden sm:block" /> Research and
             Visualization
           </p>
         </div>

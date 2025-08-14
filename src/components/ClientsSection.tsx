@@ -28,7 +28,7 @@ function ClientSection() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-6">
             <h2 className="text-3xl font-bold text-slate-800 mb-2">
-              Our Esteemed Clients
+              Our Trusted<span className="text-blue-900"> Clients</span>
             </h2>
           </div>
 

@@ -4,14 +4,14 @@ import { MapPin, Shield, FileText, Users, X, Linkedin, Instagram, Youtube } from
 const Footer = () => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
-const footerLinks = [
-  {
-    id: 'privacy',
-    icon: Shield,
-    label: 'Privacy Policy',
-    content: {
-      title: 'Privacy Policy',
-      body: `<p>At Golden Hills India, we are committed to protecting your privacy and ensuring the security of your personal information. This policy outlines how we collect, use, and safeguard your data.</p>
+  const footerLinks = [
+    {
+      id: 'privacy',
+      icon: Shield,
+      label: 'Privacy Policy',
+      content: {
+        title: 'Privacy Policy',
+        body: `<p>At Golden Hills India, we are committed to protecting your privacy and ensuring the security of your personal information. This policy outlines how we collect, use, and safeguard your data.</p>
 
 <p><strong>Data Collection:</strong> We collect information you provide directly to us, such as when you contact us or request our services.</p>
 
@@ -22,15 +22,15 @@ const footerLinks = [
 <p><strong>Third Parties:</strong> We do not sell, trade, or rent your personal information to third parties without your explicit consent.</p>
 
 <p>Contact us at <strong>admin@goldenhillsindia.com</strong> for any privacy-related questions.</p>`
+      },
     },
-  },
-  {
-    id: 'terms',
-    icon: FileText,
-    label: 'Terms of Use',
-    content: {
-      title: 'Terms of Use',
-      body: `<p>Welcome to Golden Hills India. By accessing our website and services, you agree to comply with these terms and conditions.</p>
+    {
+      id: 'terms',
+      icon: FileText,
+      label: 'Terms of Use',
+      content: {
+        title: 'Terms of Use',
+        body: `<p>Welcome to Golden Hills India. By accessing our website and services, you agree to comply with these terms and conditions.</p>
 
 <p><strong>Service Usage:</strong> Our services are provided for business purposes only. You agree to use them in accordance with applicable laws and regulations.</p>
 
@@ -41,15 +41,15 @@ const footerLinks = [
 <p><strong>Modifications:</strong> We reserve the right to modify these terms at any time. Continued use of our services constitutes acceptance of any changes.</p>
 
 <p>For questions regarding these terms, contact <strong>admin@goldenhillsindia.com</strong>.</p>`
+      },
     },
-  },
-  {
-    id: 'about',
-    icon: Users,
-    label: 'About Us',
-    content: {
-      title: 'About Golden Hills India',
-      body: `<p>Golden Hills India is a pioneering technology and analytics firm dedicated to empowering industries with fluid intelligence and precision.</p>
+    {
+      id: 'about',
+      icon: Users,
+      label: 'About Us',
+      content: {
+        title: 'About Golden Hills India',
+        body: `<p>Golden Hills India is a pioneering technology and analytics firm dedicated to empowering industries with fluid intelligence and precision.</p>
 
 <p><strong>Our Mission:</strong> To transform complex data challenges into strategic opportunities through innovative AI solutions and advanced analytics.</p>
 
@@ -64,15 +64,15 @@ const footerLinks = [
 </ul>
 
 <p>Founded by visionary leaders with decades of experience in financial technology and data architecture, we bring together cutting-edge technology with deep industry expertise.</p>`
+      },
     },
-  },
-  {
-    id: 'address',
-    icon: MapPin,
-    label: 'Address',
-    content: {
-      title: 'Our Location',
-      body: `Golden Hills Capital India Pvt Ltd.<br/>
+    {
+      id: 'address',
+      icon: MapPin,
+      label: 'Address',
+      content: {
+        title: 'Our Location',
+        body: `Golden Hills Capital India Pvt Ltd.<br/>
 Unit A, 26th Floor, Eastern Block,<br/>
 Vamsiram Suvarna Durga Tech Park,<br/>
 Survey No 142, Nanakramguda, Financial District,<br/>
@@ -82,11 +82,10 @@ Hyderabad, Telangana 500032<br/><br/>
 <strong>Email:</strong> ghcadmin@goldenhillsindia.com<br/><br/>
 
 For urgent inquiries outside business hours, please email us and we'll respond within 24 hours.`,
-      isAddress: true
+        isAddress: true
+      },
     },
-  },
-];
-
+  ];
 
   const openModal = (linkId: string) => {
     setActiveModal(linkId);
@@ -103,20 +102,10 @@ For urgent inquiries outside business hours, please email us and we'll respond w
   return (
     <>
       <footer className="relative py-3 px-3 overflow-hidden">
-        {/* Liquid Gold Background */}
-        <div className="absolute inset-0 bg-[#ffe656db] opacity-15" />
-        {/* <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" /> */}
+        {/* Background */}
+        <div className="absolute inset-0 bg-[#1e3a8a]" />
 
         <div className="container mx-auto max-w-6xl relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-blue-900 mb-4">
-              Empowering Smarter Business Decisions Through Innovation
-            </h2>
-            <p className="text-s text-muted-foreground max-w-2xl mx-auto">
-              Golden Hills Capital provides advanced tech solutions that turn data into insights, empowering businesses to make smart decisions and grow sustainably.
-            </p>
-          </div>
-
           {/* Floating Orbs Navigation */}
           <div className="flex justify-center items-center space-x-8 mb-10">
             {footerLinks.map((link, index) => (
@@ -126,12 +115,13 @@ For urgent inquiries outside business hours, please email us and we'll respond w
                 className="group relative"
               >
                 <div
-                  className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-blue hover:shadow-glow transition-all duration-500 hover:scale-110 float-animation"
+                  className="w-14 h-14 border border-white rounded-full flex items-center justify-center shadow-lg hover:border-yellow-400 hover:scale-110 transition-all duration-500"
                   style={{ animationDelay: `${index * 0.3}s` }}
                 >
-                  <link.icon className="w-6 h-6 text-white" />
+                  <link.icon className="w-6 h-6 text-white group-hover:text-yellow-400 transition-colors" />
                 </div>
 
+                {/* Tooltip */}
                 <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
                   <div className="bg-white/90 backdrop-blur-md rounded-lg px-2 py-1 shadow-elegant whitespace-nowrap">
                     <span className="text-xs font-medium text-foreground">
@@ -145,47 +135,41 @@ For urgent inquiries outside business hours, please email us and we'll respond w
           </div>
 
           {/* Company Info */}
-          <div className="text-center">
-            <div className="text-s text-muted-foreground">
-              © 2025 Golden Hills India. All rights reserved.
-            </div>
+          <div className="text-center text-s text-white">
+            © 2025 Golden Hills India. All rights reserved.
+          </div>
+
+          {/* Social Icons */}
+          <div className="flex justify-center space-x-6 mt-6">
+            <a
+              href="https://www.linkedin.com/company/golden-hills-india"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-full border border-white hover:border-yellow-400 transition-colors"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-6 h-6 text-white hover:text-yellow-400 transition-colors" />
+            </a>
+            <a
+              href="https://www.instagram.com/goldenhillsindia"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-full border border-white hover:border-yellow-400 transition-colors"
+              aria-label="Instagram"
+            >
+              <Instagram className="w-6 h-6 text-white hover:text-yellow-400 transition-colors" />
+            </a>
+            <a
+              href="https://www.youtube.com/@goldenhillsindia"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-full border border-white hover:border-yellow-400 transition-colors"
+              aria-label="YouTube"
+            >
+              <Youtube className="w-6 h-6 text-white hover:text-yellow-400 transition-colors" />
+            </a>
           </div>
         </div>
-
-        {/* Social Icons Fixed Bottom Right */}
-  {/* Social Icons Fixed Bottom Right */}
-{/* Social Icons Inline inside Footer */}
-<div className="flex justify-center space-x-6 ">
-  <a
-    href="https://www.linkedin.com/company/golden-hills-india"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="p-3 rounded-full bg-blue-700 hover:bg-blue-800 text-white shadow-lg transition-colors"
-    aria-label="LinkedIn"
-  >
-    <Linkedin className="w-6 h-6" />
-  </a>
-  <a
-    href="https://www.instagram.com/goldenhillsindia"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="p-3 rounded-full bg-pink-600 hover:bg-pink-700 text-white shadow-lg transition-colors"
-    aria-label="Instagram"
-  >
-    <Instagram className="w-6 h-6" />
-  </a>
-  <a
-    href="https://www.youtube.com/@goldenhillsindia"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="p-3 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-lg transition-colors"
-    aria-label="YouTube"
-  >
-    <Youtube className="w-6 h-6" />
-  </a>
-</div>
-
-
       </footer>
 
       {/* Modal */}
@@ -214,12 +198,10 @@ For urgent inquiries outside business hours, please email us and we'll respond w
 
             {/* Body */}
             <div className="p-8 overflow-y-auto max-h-[60vh] space-y-6">
-              <div className="prose prose-lg max-w-none">
-                <div
-                  className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: activeContent.body }}
-                />
-              </div>
+              <div
+                className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: activeContent.body }}
+              />
 
               {activeContent.isAddress && (
                 <div className="w-full h-64 rounded-2xl overflow-hidden">

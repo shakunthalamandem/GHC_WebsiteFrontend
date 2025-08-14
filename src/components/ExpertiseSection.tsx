@@ -22,11 +22,11 @@ const expertiseData = [
   { icon: Bot, title: 'AI-Driven Decision Intelligence', path: '/expertise/ai-decision-intelligence', gradient: gradients[0] },
   { icon: BarChart3, title: 'Data Analytics and Engineering', path: '/expertise/data-analytics', gradient: gradients[1] },
   { icon: Globe, title: 'Financial Technology & Digital Transformation', path: '/expertise/fintech-digital', gradient: gradients[2] },
-  { icon: Code, title: 'Custom Software & Web App Development', path: '/expertise/software-web', gradient: gradients[0] },
+  { icon: Code, title: 'Custom Software & Web App Development', path: '/expertise/software-web', gradient: gradients[1] },
   { icon: Cloud, title: 'Cloud Computing and Deployment', path: '/expertise/cloud-deployment', gradient: gradients[1] },
   { icon: LineChart, title: 'Risk Analytics & Portfolio Optimization', path: '/expertise/risk-analytics', gradient: gradients[2] },
-  { icon: LayoutDashboard, title: 'Business Intelligence & Visualization', path: '/expertise/business-intel', gradient: gradients[0] },
-  { icon: Brain, title: 'Quantitative Research & Financial Modeling', path: '/expertise/quant-research', gradient: gradients[1] },
+  { icon: LayoutDashboard, title: 'Business Intelligence & Visualization', path: '/expertise/business-intel', gradient: gradients[1] },
+  { icon: Brain, title: 'Quantitative Research & Financial Modeling', path: '/expertise/quant-research', gradient: gradients[0] },
 ];
 
 
