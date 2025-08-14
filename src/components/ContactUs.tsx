@@ -36,6 +36,9 @@ const ContactUs: React.FC<ContactUsProps> = ({ onClose }) => {
                             Survey No 142, Nanakramguda, Financial District,<br />
                             Hyderabad, Telangana 500032
                         </p>
+
+
+
                         <div className="mt-4 flex items-center gap-3 text-gray-700">
                             <Phone className="text-green-500 w-5 h-5" />
                             <span>
@@ -46,6 +49,17 @@ const ContactUs: React.FC<ContactUsProps> = ({ onClose }) => {
                         <div className="mt-2 flex items-center gap-3 text-gray-700">
                             <Mail className="text-blue-500 w-5 h-5" />
                             <span>ghcadmin@goldenhillsindia.com</span>
+                        </div>
+                                                {/* Map Link */}
+                        <div className="mt-4">
+                            <a
+                                href="https://maps.app.goo.gl/ufnvnv5QYkd43zwJ7?g_st=ipc"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow transition-colors cursor-pointer hover:underline"
+                            >
+                                📍 View Location on Google Maps
+                            </a>
                         </div>
                     </div>
 
@@ -59,6 +73,19 @@ const ContactUs: React.FC<ContactUsProps> = ({ onClose }) => {
                             Flowermound,<br />
                             Texas, USA
                         </p>
+
+                        {/* Map Link */}
+                        {/* <div className="mt-4">
+                            <a
+                                href="https://maps.app.goo.gl/XXXXUSAADDRESS" // Replace with actual Google Maps link
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow transition-colors cursor-pointer hover:underline"
+                            >
+                                📍 View Location on Google Maps
+                            </a>
+                        </div> */}
+
                         <div className="mt-4 flex items-center gap-3 text-gray-700">
                             <Phone className="text-green-500 w-5 h-5" />
                             <span>+1 917-546-9180</span>

@@ -202,8 +202,20 @@ For urgent inquiries outside business hours, please email us and we'll respond w
                 className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: activeContent.body }}
               />
+{activeContent.isAddress && (
+  <div className="mt-6">
+    <a
+      href="https://maps.app.goo.gl/ufnvnv5QYkd43zwJ7?g_st=ipc"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block-center bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow transition-colors cursor-pointer hover:underline"
+    >
+      📍 View Location on Google Maps
+    </a>
+  </div>
+)}
 
-              {activeContent.isAddress && (
+              {/* {activeContent.isAddress && (
                 <div className="w-full h-64 rounded-2xl overflow-hidden">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.1327984030914!2d78.39875!3d17.443676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb916718d39ae7%3A0x67d87622ad1cb355!2sGolden%20Hills%20Capital%20India%20Private%20Limited.!5e0!3m2!1sen!2sin!4v1691497295681!5m2!1sen!2sin"
@@ -214,7 +226,7 @@ For urgent inquiries outside business hours, please email us and we'll respond w
                     referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
