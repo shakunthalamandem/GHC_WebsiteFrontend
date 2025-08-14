@@ -106,6 +106,7 @@ For urgent inquiries outside business hours, please email us and we'll respond w
         <div className="absolute inset-0 bg-[#1e3a8a]" />
 
         <div className="container mx-auto max-w-6xl relative z-10">
+          <div className='mb-9'></div>
           {/* Floating Orbs Navigation */}
           <div className="flex justify-center items-center space-x-8 mb-10">
             {footerLinks.map((link, index) => (
@@ -202,18 +203,18 @@ For urgent inquiries outside business hours, please email us and we'll respond w
                 className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: activeContent.body }}
               />
-{activeContent.isAddress && (
-  <div className="mt-6">
-    <a
-      href="https://maps.app.goo.gl/ufnvnv5QYkd43zwJ7?g_st=ipc"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block-center bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow transition-colors cursor-pointer hover:underline"
-    >
-      📍 View Location on Google Maps
-    </a>
-  </div>
-)}
+              {activeContent.isAddress && (
+                <div className="mt-6">
+                  <a
+                    href="https://maps.app.goo.gl/ufnvnv5QYkd43zwJ7?g_st=ipc"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block-center bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow transition-colors cursor-pointer hover:underline"
+                  >
+                    📍 View Location on Google Maps
+                  </a>
+                </div>
+              )}
 
               {/* {activeContent.isAddress && (
                 <div className="w-full h-64 rounded-2xl overflow-hidden">

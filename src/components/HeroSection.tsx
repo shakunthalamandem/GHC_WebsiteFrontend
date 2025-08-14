@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import { MessageCircle, Briefcase, Mail, Users, Menu, X } from 'lucide-react';
-import heroVideo from '@/assets/videos/GHC.mp4';
-import Careers from '@/components/Careers';
+import { useEffect, useRef, useState } from "react";
+import { MessageCircle, Briefcase, Mail, Users, Menu, X } from "lucide-react";
+import heroVideo from "@/assets/videos/GHC.mp4";
+import logo from "@/assets/Color logo - no background.png";
+import Careers from "@/components/Careers";
 import ContactUs from "@/components/ContactUs";
+import { motion, AnimatePresence } from "framer-motion";
 
 const HeroSection = () => {
   const parallaxRef = useRef<HTMLVideoElement>(null);
@@ -19,21 +21,21 @@ const HeroSection = () => {
         const rate = scrolled * -0.3;
         parallaxRef.current.style.transform = `translateY(${rate}px) scale(1.1)`;
       }
-      setIsScrolled(window.scrollY > 100); // threshold
+      setIsScrolled(window.scrollY > 100);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   const navItems = [
-    { icon: MessageCircle, label: "Ask our AI", action: () => scrollToSection('ask-ai') },
-    { icon: Briefcase, label: "Expertise", action: () => scrollToSection('expertise') },
+    { icon: MessageCircle, label: "Ask our AI", action: () => scrollToSection("ask-ai") },
+    { icon: Briefcase, label: "Expertise", action: () => scrollToSection("expertise") },
     { icon: Mail, label: "Contact Us", action: () => setShowContact(true) },
     { icon: Users, label: "Careers", action: () => setShowCareers(true) }
   ];
@@ -54,10 +56,27 @@ const HeroSection = () => {
       {/* Overlay */}
       <div className="absolute inset-0 bg-background/20" />
 
+      {/* Navbar */}
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+          isScrolled ? "glass-morphism" : "bg-transparent"
+        }`}
+      >
+        <div className="container mx-auto px-6 flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <img
+              src={logo}
+              alt="Golden Hills India Logo"
+              className="w-50 h-20 object-contain"
+            />
+          </div>
+        </div>
+      </nav>
+
       {/* Sidebar Navigation / Toggle */}
       {!isScrolled ? (
         // Initial position in middle left
-        <nav className="absolute top-1/3 left-3 sm:left-6 flex flex-col gap-4 sm:gap-6 z-20">
+        <nav className="absolute top-1/3 left-3 sm:left-6 flex flex-col gap-4 sm:gap-6 z-40">
           {navItems.map(({ icon: Icon, label, action }) => (
             <button
               key={label}
@@ -73,7 +92,7 @@ const HeroSection = () => {
         </nav>
       ) : (
         // Sticky hamburger in top-left after scroll
-        <div className="fixed top-4 left-4 z-50">
+        <div className="fixed top-4 left-4 z-[9999]">
           {!navOpen ? (
             <button
               onClick={() => setNavOpen(true)}
@@ -120,9 +139,10 @@ const HeroSection = () => {
           </h1>
           <p
             className="text-base sm:text-xl md:text-2xl mb-6 sm:mb-12 leading-relaxed"
-            style={{ color: 'hsl(215, 47%, 24%)' }}
+            style={{ color: "hsl(215, 47%, 24%)" }}
           >
-            Crafting Tomorrow&apos;s Solutions in Analytics,<br className="hidden sm:block" /> Research and Visualization
+            Crafting Tomorrow&apos;s Solutions in Analytics,
+            <br className="hidden sm:block" /> Research and Visualization
           </p>
         </div>
       </div>
@@ -149,13 +169,32 @@ const HeroSection = () => {
       )}
 
       {/* Careers Popup */}
-      {showCareers && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="relative w-full max-w-4xl">
-            <Careers onClose={() => setShowCareers(false)} />
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {showCareers && (
+          <motion.div
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex justify-center items-center overflow-y-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-[#081a2f] max-w-6xl w-full rounded-2xl shadow-lg overflow-hidden relative"
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 100, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <button
+                onClick={() => setShowCareers(false)}
+                className="absolute top-4 right-4 text-white hover:text-red-400 text-2xl"
+              >
+                ✕
+              </button>
+              <Careers onClose={() => setShowCareers(false)} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
